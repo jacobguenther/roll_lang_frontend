@@ -1,11 +1,15 @@
 // File: wasm_interface.rs
 
-use super::interpreter::{
+use roll_lang::interpreter::{
 	Interpreter,
 	InterpreterT,
+	output_traits::*,
 };
 
-use super::macros::{
+use roll_lang::macros::{
+	*
+};
+use super::macro_traits::{
 	*
 };
 
@@ -13,9 +17,22 @@ use wasm_bindgen::prelude::*;
 use lazy_static::lazy_static;
 use std::sync::Mutex;
 
+lazy_static! {
+	static ref ARRAY: Mutex<Macros> = Mutex::new(Macros::init());
+}
+
+fn rand_func() -> f64 {
+	use js_sys::Math::random;
+	random()
+}
 #[wasm_bindgen]
 pub fn run(source: &str) -> String {
-	Interpreter::new(source)
+	let macros = ARRAY.lock().unwrap().clone();
+	roll_lang::InterpreterBuilder::new()
+		.with_source(source)
+		.with_macros(&macros)
+		.with_rng_func(rand_func)
+		.build()
 		.interpret()
 		.as_html()
 }
@@ -25,9 +42,7 @@ pub fn init_panic_hook() {
 	console_error_panic_hook::set_once();
 }
 
-lazy_static! {
-	static ref ARRAY: Mutex<Macros> = Mutex::new(Macros::init());
-}
+
 #[wasm_bindgen]
 pub fn init() {
 	init_panic_hook();

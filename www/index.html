@@ -69,7 +69,7 @@
 				<div id="history-controls">
 					<button id="clear-history" onclick="RollLang.clearHistory()">Clear History</button>
 					<hr />
-					<div id="macros-bar">
+					<div id="macro-shortcuts">
 					</div>
 					<hr />
 				</div>
@@ -105,14 +105,14 @@
 					<h3>Create or Upate a Macro</h3>
 					<label id="create-macro-name-label" for="new macro name">Macro Name</label>
 					<input type=text id="create-macro-name" name="new macro name" />
-					<label id="create-macro-text-label" for="macro text">Macro</label>
-					<textarea id="create-macro-text"
-						name="macro text"
+					<label id="create-macro-source-label" for="create macro source">Macro</label>
+					<textarea id="create-macro-source"
+						name="create macro source"
 						cols="32"
 						rows="4"></textarea>
 					<div id="add-to-macros-check">
-						<label for="add to macros bar">Add to macros bar</label>
-						<input type="checkbox" id="create-macro-add-to-macros-bar" name="add to macros bar" checked />
+						<label for="create macro add to shortcuts">Add to shortcuts</label>
+						<input type="checkbox" id="create-macro-add-to-shortcuts" name="create macro add to shortcuts" checked />
 					</div>
 					<div id="create-macro-submits">
 						<input type="button" id="create-macro-submit" value="Create/Update" onclick="RollLang.handleMacroUpdateCreate()" />
