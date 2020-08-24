@@ -1,51 +1,58 @@
-// File: wasm_interface.rs
+// File: src/wasm_interface.rs
 
-use roll_lang::interpreter::{
-	Interpreter,
-	InterpreterT,
-	output_traits::*,
+
+// Copyright (C) 2020  Jacob Guenther
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+use roll_lang::{
+	macros::{*},
+	interpreter::{
+		InterpreterT,
+	},
 };
 
-use roll_lang::macros::{
-	*
-};
-use super::macro_traits::{
-	*
+use super::{
+	*,
+	output_traits::{*},
+	macro_traits::{*},
 };
 
-use wasm_bindgen::prelude::*;
-use lazy_static::lazy_static;
 use std::sync::Mutex;
+use lazy_static::lazy_static;
+use wasm_bindgen::prelude::*;
 
 lazy_static! {
 	static ref ARRAY: Mutex<Macros> = Mutex::new(Macros::init());
 }
 
-fn rand_func() -> f64 {
-	use js_sys::Math::random;
-	random()
-}
 #[wasm_bindgen]
 pub fn run(source: &str) -> String {
-	let macros = ARRAY.lock().unwrap().clone();
+	let macros = ARRAY.lock().unwrap();
 	roll_lang::InterpreterBuilder::new()
 		.with_source(source)
 		.with_macros(&macros)
 		.with_rng_func(rand_func)
+		.with_query_prompter(prompt)
 		.build()
 		.interpret()
 		.as_html()
 }
 
 #[wasm_bindgen]
-pub fn init_panic_hook() {
+pub fn init_wasm() {
 	console_error_panic_hook::set_once();
-}
-
-
-#[wasm_bindgen]
-pub fn init() {
-	init_panic_hook();
 	let _dummy = ARRAY.lock().unwrap();
 }
 #[wasm_bindgen]

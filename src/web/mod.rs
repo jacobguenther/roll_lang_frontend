@@ -1,4 +1,20 @@
-// File web/mod.rs
+// File src/web/mod.rs
+
+
+// Copyright (C) 2020  Jacob Guenther
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use roll_lang::macros::Macros;
 use roll_lang::macros::MacroData;
@@ -219,7 +235,7 @@ pub fn add_macro_to_bar(name: &str) {
 	let _result = button.set_attribute("id", &id::macros::shortcuts_bar_mod::shortcut(name));
 	let _result = button.set_attribute(
 		"onclick",
-		&format!("RollLang.runMacro(\"{}\");", name)
+		&format!("runMacro(\"{}\");", name)
 	);
 	button.set_inner_html(name);
 	let _result = element::macros::shortcuts_bar().append_child(&button);
@@ -232,7 +248,7 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	name_cell.set_inner_html(name);
 	let _result = name_cell.set_attribute(
 		"onclick",
-		&format!("RollLang.handleMacroSelect(\"{}\");", name)
+		&format!("wasm_bindgen.handle_macro_select(\"{}\");", name)
 	);
 
 	let place_in_bar_cell = element::create_element("td");
@@ -240,7 +256,7 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	let _result = place_in_bar.set_attribute("id", &id::macros::table_mod::checkbox(name));
 	let _result = place_in_bar.set_attribute(
 		"onchange",
-		&format!("RollLang.handleMacroChangeInBar(\"{}\");", name)
+		&format!("wasm_bindgen.handle_macro_change_in_bar(\"{}\");", name)
 	);
 	let _result = place_in_bar.set_attribute("type", "checkbox");
 	if in_bar {
@@ -254,7 +270,7 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	let _result = delete_cell.set_attribute("id", &format!("delete-macro-{}", id::macros::id(name)));
 	let _result = delete_cell.set_attribute(
 		"onclick",
-		&format!("RollLang.handleMacroDelete(\"{}\");", name)
+		&format!("wasm_bindgen.handle_macro_delete(\"{}\");", name)
 	);
 
 	let _result = row.append_child(&name_cell);

@@ -1,5 +1,20 @@
 // File: js/this.js
 
+// Copyright (C) 2020  Jacob Guenther
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 class Tab {
 	constructor(name) {
 		this.name = name;
@@ -26,7 +41,7 @@ class Tab {
 	}
 };
 
-export class Tabs {
+class Tabs {
 	constructor() {
 		this.history = new Tab('history');
 		this.characterSheet = new Tab('character-sheets');
@@ -34,6 +49,7 @@ export class Tabs {
 		this.tables = new Tab('tables');
 		this.currentSelected = this.history;
 		this.history.setActive(true);
+		console.log("tabs");
 	}
 	selectTab(tabName) {
 		this.currentSelected.setActive(false);
@@ -52,3 +68,5 @@ export class Tabs {
 		}
 	}
 };
+
+let tabs = new Tabs();

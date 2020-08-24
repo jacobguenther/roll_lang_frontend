@@ -20,9 +20,19 @@
 
 	<link rel="canonical" href="https://jacobguenther.github.io/roll_lang_demo" />
 
-	<link rel="preload" as="style" href="css/styles.css" />
-	<link rel="preload" as="style" href="css/tabs.css" />
-	<link rel="preload" as="style" href="css/history.css" />
+	<link rel="preload" as="script" href="scripts/main.js" />
+	<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
+	<link rel="preload" as="script" href="scripts/tabs.js" />
+	<link rel="preload" as="script" href="scripts/slider.js" />
+
+	<link rel="preload" as="style"  href="css/styles.css" />
+	<link rel="preload" as="style"  href="css/tabs.css" />
+	<link rel="preload" as="style"  href="css/history.css" />
+	<link rel="prefetch" as="style" href="css/result.css" />
+	<link rel="prefetch" as="style" href="css/character-sheet.css" />
+	<link rel="prefetch" as="style" href="css/macros.css" />
+	<link rel="prefetch" as="style" href="css/tables.css" />
+
 	<link rel="preload" as="image" href="assets/favicon.png" />
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -35,7 +45,7 @@
 
 	<link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
-<body id="page-container" onload="RollLang.init();">
+<body id="page-container" onload="start();">
 	<header id="header-bar">
 		<nav>
 			<ul id="main-nav-list">
@@ -58,16 +68,16 @@
 
 	<div id="side-bar">
 		<ul id="tabs-bar">
-			<li id="tab-name-history" class="tab-bar-item" onclick="RollLang.selectTab('history');">History</li>
-			<li id="tab-name-character-sheets" class="tab-bar-item" onclick="RollLang.selectTab('character-sheets');">Character Sheets</li>
-			<li id="tab-name-macros" class="tab-bar-item" onclick="RollLang.selectTab('macros');">Macros(NEW)</li>
-			<li id="tab-name-tables" class="tab-bar-item" onclick="RollLang.selectTab('tables');">Tables</li>
+			<li id="tab-name-history" class="tab-bar-item" onclick="tabs.selectTab('history');">History</li>
+			<li id="tab-name-character-sheets" class="tab-bar-item" onclick="tabs.selectTab('character-sheets');">Character Sheets</li>
+			<li id="tab-name-macros" class="tab-bar-item" onclick="tabs.selectTab('macros');">Macros(NEW)</li>
+			<li id="tab-name-tables" class="tab-bar-item" onclick="tabs.selectTab('tables');">Tables</li>
 		</ul>
 
 		<div id=tab-content-wrapper>
 			<section id="history-section" class="tab-contents">
 				<div id="history-controls">
-					<button id="clear-history" onclick="RollLang.clearHistory()">Clear History</button>
+					<button id="clear-history" onclick="clearHistory();">Clear History</button>
 					<hr />
 					<div id="macro-shortcuts">
 					</div>
@@ -81,7 +91,7 @@
 
 				<hr id="history-break"/>
 
-				<form id="roll-lang-form" action="javascript:void(0);" onsubmit="RollLang.run()">
+				<form id="roll-lang-form" action="javascript:void(0);" onsubmit="run();">
 					<div id="input-container">
 						<label id="input-label" for="input-textarea">Input</label>
 						<textarea id="input-textarea"
@@ -89,8 +99,8 @@
 							placeholder="Attack roll is /roll 1d20 + [BAB]3 + [STR]3 \."
 							cols="40"
 							rows="4"
-							onfocusin="RollLang.inputFocusIn()",
-							onfocusout="RollLang.inputFocusOut()"></textarea>
+							onfocusin="inputFocusIn()",
+							onfocusout="inputFocusOut()"></textarea>
 						<input id="input-submit" type="submit" value="Run"></input>
 					</div>
 				</form>
@@ -115,8 +125,8 @@
 						<input type="checkbox" id="create-macro-add-to-shortcuts" name="create macro add to shortcuts" checked />
 					</div>
 					<div id="create-macro-submits">
-						<input type="button" id="create-macro-submit" value="Create/Update" onclick="RollLang.handleMacroUpdateCreate()" />
-						<input type="button" id="test-macro-submit" value="Test Macro" onclick="RollLang.handleMacroTest()"/>
+						<input type="button" id="create-macro-submit" value="Create/Update" onclick="wasm_bindgen.handle_macro_update_create()" />
+						<input type="button" id="test-macro-submit" value="Test Macro" onclick="wasm_bindgen.handle_macro_test()"/>
 					</div>
 				</div>
 				<div id="macros-table-section">
@@ -142,5 +152,10 @@
 		<span>Footer</span>
 		<span id="mouse-position"></span>
 	</footer>
+
+	<script src="scripts/roll_lang_frontend.js"></script>
+	<script src="scripts/slider.js"></script>
+	<script src="scripts/tabs.js"></script>
+	<script src="scripts/main.js"></script>
 </body>
 </html>

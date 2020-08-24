@@ -3,28 +3,34 @@ name = "roll_lang_frontend"
 version = "0.1.0"
 authors = ["jacob <jacobrwguenther@protonmail.com>"]
 edition = "2018"
-repository = "https://github.com/jacobguenther/roll_lang"
+description = ""
+readme = "README.md"
+repository = "https://github.com/jacobguenther/roll_lang_frontend"
+license = "GPL-3.0"
+license-file = "LICENSE.md"
+keywords = []
+catagories = []
 
 [lib]
 crate-type = ["cdylib"]
 
-[dependencies.roll_lang]
-version = "0.1.0"
-git = "https://github.com/jacobguenther/RollLang"
-branch = "master"
+[profile.dev]
+opt-level = 3
 
-[dependencies.lazy_static]
-version = "1.4.0"
+[profile.release]
+opt-level = 3
 
-[dependencies.wasm-bindgen]
-version = "0.2.67"
 
-[dependencies.console_error_panic_hook]
-version = "0.1.6"
+[dependencies]
+lazy_static = "1.4.0"
+wasm-bindgen = "0.2.67"
+console_error_panic_hook = "0.1.6"
+js-sys = "0.3.44"
 
 [dependencies.web-sys]
 version = "0.3"
 features = [ "Window", "console", "Document", "HtmlDocument", "Element", "HtmlTextAreaElement", "HtmlInputElement"]
 
-[dependencies.js-sys]
-version = "0.3.44"
+[dependencies.roll_lang]
+version = "0.1.0"
+git = "https://github.com/jacobguenther/RollLang"

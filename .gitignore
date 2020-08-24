@@ -1,6 +1,7 @@
 /dist
 /node_modules
 /pkg
+/temp
 
 /target
 
