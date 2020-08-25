@@ -1,5 +1,7 @@
-#tabs-bar {
-	grid-area: tab-bar;
+/* File: css/side_bar/tabs.css */
+
+#tabs-header {
+	grid-area: tabs-header;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
@@ -7,7 +9,7 @@
 	padding: 5px 5px 0px 5px;
 	background-color: lightblue;
 }
-.tab-bar-item {
+#tabs-header li {
 	display: inline;
 	background-color: lightgreen;
 	margin: 5px 5px 0 5px;
@@ -15,7 +17,7 @@
 	border: 1px black solid;
 	border-bottom-style: none;
 }
-.tab-bar-item:hover {
+#tabs-header li:hover {
 	background-color: grey !important;
 }
 .active-tab {
@@ -29,7 +31,7 @@
 	height: 100%;
 	background-color: lightblue;
 }
-.tab-contents {
+.tab-content {
 	overflow-y: hidden;
 	overflow-wrap: normal;
 	display: none;

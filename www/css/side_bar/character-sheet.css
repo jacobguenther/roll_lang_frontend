@@ -1,4 +1,4 @@
-#tables-section {
+#character-sheets-tab-content {
 	justify-items: center;
 	align-items: center;
 
@@ -7,9 +7,9 @@
 
 	grid-template-areas:
 		"."
-		"tables-under-construction"
+		"character-sheet-under-construction"
 		".";
 }
-#tables-section p {
-	grid-area: tables-under-construction;
+#character-sheets-tab-content p {
+	grid-area: character-sheet-under-construction;
 }

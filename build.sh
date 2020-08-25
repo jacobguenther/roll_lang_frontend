@@ -26,5 +26,6 @@ cp -r www/css/*     dist/css/
 cp -r www/html/*    dist/pages/
 cp -r www/js/* dist/scripts/
 
+cp www/javascript.html dist/about/javascript.html
 cp www/index.html   dist/index.html
 

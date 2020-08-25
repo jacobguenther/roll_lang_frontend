@@ -94,6 +94,26 @@ pub mod element {
 	pub mod macros {
 		use web_sys::Element;
 		use super::super::id;
+
+		pub mod create_mod {
+			use wasm_bindgen::JsCast;
+
+			static INIT_CREATE: std::sync::Once = std::sync::Once::new();
+			static mut NAME: Option<web_sys::HtmlInputElement> = None;
+			pub fn name() -> web_sys::HtmlInputElement {
+				unsafe {
+					INIT_CREATE.call_once(|| {
+						NAME = Some(
+							super::super::get_element(&crate::web::id::macros::create_mod::name())
+								.dyn_ref::<web_sys::HtmlInputElement>().unwrap()
+								.clone()
+						);
+					});
+					NAME.as_ref().unwrap().clone()
+				}
+			}
+		}
+
 		pub fn table() -> Element {
 			super::get_element(&id::macros::table())
 		}
@@ -112,6 +132,7 @@ pub mod element {
 				get_element(&id::macros::table_mod::delete(name))
 			}
 		}
+
 		pub fn shortcuts_bar() -> Element {
 			super::get_element(&id::macros::shortcuts_bar())
 		}
@@ -127,8 +148,7 @@ pub mod get_value {
 			use web_sys::HtmlTextAreaElement;
 			
 			pub fn name() -> String {
-				element::get_element(&id::macros::create_mod::name())
-					.dyn_ref::<HtmlInputElement>().unwrap()
+				crate::web::element::macros::create_mod::name()
 					.value()
 			}
 			pub fn source() -> String {

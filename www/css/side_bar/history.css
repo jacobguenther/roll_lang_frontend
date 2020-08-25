@@ -1,4 +1,4 @@
-#history-section {
+#history-tab-content {
 	overflow: hidden;
 	width: 100%;
 	justify-content: center;
@@ -19,6 +19,7 @@
 	justify-self: left;
 }
 #macros-bar {
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -38,8 +39,8 @@
 	grid-template-rows: auto;
 	grid-template-areas: "history";
 }
-#history {
-	grid-area: history;
+#history-list {
+	grid-area: history-list;
 	width: 100%;
 
 	overflow-y: scroll;
@@ -60,8 +61,8 @@
 }
 
 
-#input-container {
-	grid-area: input;
+#roll-lang-input-container {
+	grid-area: roll-lang-input-container;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;

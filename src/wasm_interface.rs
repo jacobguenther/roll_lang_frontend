@@ -73,6 +73,11 @@ pub fn handle_macro_change_in_bar(name: &str) {
 	ARRAY.lock().unwrap().handle_macro_change_in_bar(name);
 }
 #[wasm_bindgen]
+pub fn run_macro(name: &str) -> String {
+	let source = ARRAY.lock().unwrap().source(name).unwrap();
+	run(&source)
+}
+#[wasm_bindgen]
 pub fn macro_source(name: &str) -> Option<String> {
 	ARRAY.lock().unwrap().source(name)
 }

@@ -20,28 +20,32 @@
 
 	<link rel="canonical" href="https://jacobguenther.github.io/roll_lang_demo" />
 
+	<link rel="preload" as="script" href="scripts/config_ids.js" />
 	<link rel="preload" as="script" href="scripts/main.js" />
 	<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
 	<link rel="preload" as="script" href="scripts/tabs.js" />
-	<link rel="preload" as="script" href="scripts/slider.js" />
+	<link rel="prefetch" as="script" href="scripts/slider.js" />
+	<link rel="prefetch" as="script" href="scripts/macro_table_sort.js" />
 
 	<link rel="preload" as="style"  href="css/styles.css" />
-	<link rel="preload" as="style"  href="css/tabs.css" />
-	<link rel="preload" as="style"  href="css/history.css" />
-	<link rel="prefetch" as="style" href="css/result.css" />
-	<link rel="prefetch" as="style" href="css/character-sheet.css" />
-	<link rel="prefetch" as="style" href="css/macros.css" />
-	<link rel="prefetch" as="style" href="css/tables.css" />
+	<link rel="preload" as="style"  href="css/play_area.css" />
+	<link rel="preload" as="style"  href="css/side_bar/tabs.css" />
+	<link rel="preload" as="style"  href="css/side_bar/history.css" />
+	<link rel="prefetch" as="style" href="css/side_bar/result.css" />
+	<link rel="prefetch" as="style" href="css/side_bar/character-sheet.css" />
+	<link rel="prefetch" as="style" href="css/side_bar/macros.css" />
+	<link rel="prefetch" as="style" href="css/side_bar/tables.css" />
 
 	<link rel="preload" as="image" href="assets/favicon.png" />
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link rel="stylesheet" type="text/css" href="css/tabs.css">
-	<link rel="stylesheet" type="text/css" href="css/history.css">
-	<link rel="stylesheet" type="text/css" href="css/result.css">
-	<link rel="stylesheet" type="text/css" href="css/character-sheet.css">
-	<link rel="stylesheet" type="text/css" href="css/macros.css">
-	<link rel="stylesheet" type="text/css" href="css/tables.css">
+	<link rel="stylesheet" type="text/css" href="css/play_area.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/tabs.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/history.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/result.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/character-sheet.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/macros.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/tables.css">
 
 	<link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
@@ -67,15 +71,16 @@
 	</div>
 
 	<div id="side-bar">
-		<ul id="tabs-bar">
-			<li id="tab-name-history" class="tab-bar-item" onclick="tabs.selectTab('history');">History</li>
-			<li id="tab-name-character-sheets" class="tab-bar-item" onclick="tabs.selectTab('character-sheets');">Character Sheets</li>
-			<li id="tab-name-macros" class="tab-bar-item" onclick="tabs.selectTab('macros');">Macros(NEW)</li>
-			<li id="tab-name-tables" class="tab-bar-item" onclick="tabs.selectTab('tables');">Tables</li>
+		<ul id="tabs-header">
+			<li id="tab-header-item-history" onclick="tabs.selectHistory();">History</li>
+			<li id="tab-header-item-character-sheets" onclick="tabs.selectCharacterSheets();">Character Sheets</li>
+			<li id="tab-header-item-macros" onclick="tabs.selectMacros();">Macros(NEW)</li>
+			<li id="tab-header-item-tables" onclick="tabs.selectTables();">Tables</li>
 		</ul>
 
-		<div id=tab-content-wrapper>
-			<section id="history-section" class="tab-contents">
+		<div id="tab-content-wrapper">
+			<section id="history-tab-content" class="tab-content">
+				
 				<div id="history-controls">
 					<button id="clear-history" onclick="clearHistory();">Clear History</button>
 					<hr />
@@ -85,33 +90,33 @@
 				</div>
 
 				<div id="history-wrapper">
-					<ul id="history">
+					<ul id="history-list">
 					</ul>
 				</div>
 
 				<hr id="history-break"/>
 
 				<form id="roll-lang-form" action="javascript:void(0);" onsubmit="run();">
-					<div id="input-container">
-						<label id="input-label" for="input-textarea">Input</label>
-						<textarea id="input-textarea"
-							name="input-textarea"
+					<div id="roll-lang-input-container">
+						<label id="roll-lang-input-label" for="roll lang input">Input</label>
+						<textarea id="roll-lang-input"
+							name="roll lang input"
 							placeholder="Attack roll is /roll 1d20 + [BAB]3 + [STR]3 \."
 							cols="40"
 							rows="4"
 							onfocusin="inputFocusIn()",
 							onfocusout="inputFocusOut()"></textarea>
-						<input id="input-submit" type="submit" value="Run"></input>
+						<input id="roll-lang-submit" type="submit" value="Run"></input>
 					</div>
 				</form>
 			</section>
 
-			<section id="character-sheets-section" class="tab-contents">
+			<section id="character-sheets-tab-content" class="tab-content">
 				<p>Character Sheets are Under Construction</p>
 			</section>
 
-			<section id="macros-section" class="tab-contents">
-				<div id="create-new-macro-section">
+			<section id="macros-tab-content" class="tab-content">
+				<div id="create-macro-container">
 					<h3>Create or Upate a Macro</h3>
 					<label id="create-macro-name-label" for="new macro name">Macro Name</label>
 					<input type=text id="create-macro-name" name="new macro name" />
@@ -120,42 +125,48 @@
 						name="create macro source"
 						cols="32"
 						rows="4"></textarea>
-					<div id="add-to-macros-check">
-						<label for="create macro add to shortcuts">Add to shortcuts</label>
-						<input type="checkbox" id="create-macro-add-to-shortcuts" name="create macro add to shortcuts" checked />
+					<div id="create-macro-shortcut-container">
+						<label for="create macro add shortcut">Add to shortcuts</label>
+						<input type="checkbox" id="create-macro-add-shortcut" name="create macro add shortcut" checked />
 					</div>
 					<div id="create-macro-submits">
-						<input type="button" id="create-macro-submit" value="Create/Update" onclick="wasm_bindgen.handle_macro_update_create()" />
+						<input type="button" id="create-macro-submit" value="Create/Update" onclick="wasm_bindgen.handle_macro_update_create(); handleMacroSort();" />
 						<input type="button" id="test-macro-submit" value="Test Macro" onclick="wasm_bindgen.handle_macro_test()"/>
 					</div>
 				</div>
-				<div id="macros-table-section">
+				<div id="macros-table-container">
 					<h3>Macros</h3>
 					<p>Macros are saved as cookies. Make sure your browser doesn't deletes cookies after it closes or these will not be saved.</p>
 					<table id="macros-table">
 						<tr>
-							<th>Name</th>
-							<th>Place in Macro Bar</th>
+							<th><span onclick="handleSortMacrosByName();">Name</span></th>
+							<th><span onclick="handleSortMacrosByShortcut();">Place in Macro Bar</span></th>
 							<th>Delete</th>
 						</tr>
 					</table>
 				</div>
 			</section>
 
-			<section id="tables-section" class="tab-contents">
+			<section id="tables-tab-content" class="tab-content">
 				<p>Tables are Under Construction</p>
 			</section>
 		</div>
 	</div>
 
 	<footer id="footer-bar" class="grid-item">
-		<span>Footer</span>
-		<span id="mouse-position"></span>
+		<!--
+			<span>Footer</span>
+			<span id="mouse-position"></span>
+		-->
+		<a id="jslicense" href="/about/javascript.html" rel="jslicense">JavaScript license information</a>
 	</footer>
 
+	<script src="scripts/config_ids.js"></script>
 	<script src="scripts/roll_lang_frontend.js"></script>
-	<script src="scripts/slider.js"></script>
 	<script src="scripts/tabs.js"></script>
 	<script src="scripts/main.js"></script>
+
+	<script src="scripts/slider.js" defer></script>
+	<script src="scripts/macro_table_sort.js" defer></script>
 </body>
 </html>

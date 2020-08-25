@@ -1,22 +1,28 @@
-// File: index.js
+// File: www/scripts/main.js
 
-// Copyright (C) 2020  Jacob Guenther
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
-const {  } = wasm_bindgen;
+/**
+ * @licstart The following is the entire license notice for the 
+ *  JavaScript code in this page.
+ *
+ * Copyright (C) 2020  Jacob Guenther
+ *
+ * The JavaScript code in this page is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ * 
+ * @licend The above is the entire license notice
+ * for the JavaScript code in this page.
+ */
 
 const sourceInputField = document.getElementById('input-textarea');
 const history = document.getElementById('history');
@@ -27,9 +33,9 @@ const macroSourceElement = document.getElementById('create-macro-source');
 async function start() {
 	await wasm_bindgen('./scripts/roll_lang_frontend_bg.wasm');
 	wasm_bindgen.init_wasm();
+	handleMacroSort();
 }
 function readSource() {
-	console.log(sourceInputField.value);
 	return sourceInputField.value;
 }
 function run() {
@@ -40,7 +46,7 @@ function run() {
 }
 function runMacro(name) {
 	const source = wasm_bindgen.macro_source(name);
-	const result = wasm_bindgen.run(source);
+	const result = wasm_bindgen.run_macro(name);
 	appendHistory(source, result);
 }
 
@@ -86,14 +92,13 @@ function deleteHistoryEntry(id) {
 }
 
 
+
 function inputFocusIn() {
 	sourceInputField.addEventListener('keydown', handleKeyDown);
 }
 function inputFocusOut() {
 	sourceInputField.removeEventListener('keydown', handleKeyDown);
 }
-
-
 function handleKeyDown(event) {
 	if (event.keyCode === 13) { // enter
 		event.preventDefault();

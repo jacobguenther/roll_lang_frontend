@@ -1,3 +1,4 @@
+/* File: css/play_area.css */
 
 body, nav,
 article, header, footer, section,
@@ -22,6 +23,7 @@ ul {
 
 #page-container {
 	display: grid;
+
 	height: 100vh;
 	width: 100vw;
 
@@ -29,6 +31,7 @@ ul {
 	justify-items: center;
 	align-items: stretch;
 }
+
 #header-bar {
 	grid-area: header-bar;
 	width: 100%;
@@ -43,29 +46,6 @@ ul {
 }
 #main-nav-list li h1 {
     display: inline;
-}
-
-#play-area {
-	grid-area: play-area;
-
-	display: grid;
-	width: 100%;
-
-	justify-content: center;
-	justify-items: center;
-	align-items: center;
-
-	grid-template-columns: auto auto auto;
-	grid-template-rows: auto auto auto;
-	grid-template-areas:
-		". . ."
-		". play-area-under-construction ."
-		". . .";
-
-	background-color: grey;
-}
-#play-area p {
-	grid-area: play-area-under-construction;
 }
 
 #slider-bar {
@@ -91,7 +71,7 @@ ul {
 	grid-template-columns: 1fr;
 	grid-template-rows: auto 1fr;
 	grid-template-areas:
-		"tab-bar"
+		"tabs-header"
 		"tab-content-wrapper";
 }
 
@@ -120,16 +100,8 @@ ul {
 }
 
 /* smartphones, Android phones, landscape iPhone */
-@media (min-width:480px)  { 
-	/*
-	#input-container {
-		grid-template-columns: auto auto;
-		grid-template-areas:
-			"input-label input-textarea"
-			"input-submit input-submit";
-	}
-	*/
-}
+@media (min-width:480px)  {}
+
 /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
 @media (min-width:600px)  {
 	#page-container {
@@ -148,14 +120,10 @@ ul {
 	}
 }
 /* tablet, landscape iPad, lo-res laptops ands desktops */
-@media (min-width:801px)  {
+@media (min-width:801px)  {}
 
-}
 /* big landscape tablets, laptops, and desktops */
-@media (min-width:1025px) {
+@media (min-width:1025px) {}
 
-}
 /* hi-res laptops and desktops */
-@media (min-width:1281px) {
-
-}
+@media (min-width:1281px) {}
