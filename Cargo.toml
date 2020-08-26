@@ -22,15 +22,22 @@ opt-level = 3
 
 
 [dependencies]
-lazy_static = "1.4.0"
-wasm-bindgen = "0.2.67"
 console_error_panic_hook = "0.1.6"
 js-sys = "0.3.44"
 
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
+
+[dependencies.wasm-bindgen]
+version = "0.2.67"
+features = ["serde-serialize"]
+
 [dependencies.web-sys]
 version = "0.3"
-features = [ "Window", "console", "Document", "HtmlDocument", "Element", "HtmlTextAreaElement", "HtmlInputElement"]
+features = [ "Window", "Document", "HtmlDocument", "Element", "HtmlTextAreaElement", "HtmlInputElement"]
 
 [dependencies.roll_lang]
 version = "0.1.0"
 git = "https://github.com/jacobguenther/RollLang"
+default-features = false
