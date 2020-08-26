@@ -29,20 +29,32 @@ use super::{
 	macro_traits::{*},
 };
 
-use std::sync::Mutex;
-use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
 
-lazy_static! {
-	static ref ARRAY: Mutex<Macros> = Mutex::new(Macros::init());
+static INIT_MACROS: std::sync::Once = std::sync::Once::new();
+static mut MACROS: Option<Macros> = None;
+pub fn macros() -> &'static mut Macros {
+	unsafe {
+		INIT_MACROS.call_once(|| {
+			MACROS = Some(Macros::init());
+		});
+		MACROS.as_mut().unwrap()
+	}
+}
+
+use crate::web;
+#[wasm_bindgen]
+pub fn init_wasm(ids: &JsValue) {
+	console_error_panic_hook::set_once();
+	crate::web::init_ids(ids);
+	let _dummy = macros();
 }
 
 #[wasm_bindgen]
 pub fn run(source: &str) -> String {
-	let macros = ARRAY.lock().unwrap();
 	roll_lang::InterpreterBuilder::new()
 		.with_source(source)
-		.with_macros(&macros)
+		.with_macros(macros())
 		.with_rng_func(rand_func)
 		.with_query_prompter(prompt)
 		.build()
@@ -51,33 +63,33 @@ pub fn run(source: &str) -> String {
 }
 
 #[wasm_bindgen]
-pub fn init_wasm() {
-	console_error_panic_hook::set_once();
-	let _dummy = ARRAY.lock().unwrap();
-}
-#[wasm_bindgen]
 pub fn handle_macro_update_create() {
-	ARRAY.lock().unwrap().handle_macro_update_create();
+	macros().handle_macro_update_create();
 }
 #[wasm_bindgen]
 pub fn handle_macro_delete(name: &str) {
-	ARRAY.lock().unwrap().handle_macro_delete(name);
+	macros().handle_macro_delete(name);
 }
 
 #[wasm_bindgen]
 pub fn handle_macro_select(name: &str) {
-	ARRAY.lock().unwrap().handle_macro_select(name);
+	macros().handle_macro_select(name);
 }
 #[wasm_bindgen]
 pub fn handle_macro_change_in_bar(name: &str) {
-	ARRAY.lock().unwrap().handle_macro_change_in_bar(name);
+	macros().handle_macro_change_in_bar(name);
 }
 #[wasm_bindgen]
 pub fn run_macro(name: &str) -> String {
-	let source = ARRAY.lock().unwrap().source(name).unwrap();
+	let source = macros().source(name).unwrap();
+	run(&source)
+}
+#[wasm_bindgen]
+pub fn handle_macro_test() -> String {
+	let source = web::Elements::get_value_create_macro_source();
 	run(&source)
 }
 #[wasm_bindgen]
 pub fn macro_source(name: &str) -> Option<String> {
-	ARRAY.lock().unwrap().source(name)
+	macros().source(name)
 }

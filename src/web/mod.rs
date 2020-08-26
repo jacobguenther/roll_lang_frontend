@@ -16,167 +16,202 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+// pub mod ids;
+
 use roll_lang::macros::Macros;
 use roll_lang::macros::MacroData;
+
+use serde::{Serialize, Deserialize};
+use wasm_bindgen::prelude::*;
+
+static INIT_IDS: std::sync::Once = std::sync::Once::new();
+static mut IDS: Option<ElementIds> = None;
+
+pub fn init_ids(ids: &JsValue) {
+	unsafe {
+		INIT_IDS.call_once(|| {
+			IDS = Some(ids.into_serde().unwrap());
+		});
+	}
+}
+pub fn ids() -> &'static mut ElementIds {
+	unsafe {
+		IDS.as_mut().unwrap()
+	}
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ElementIds {
+	pub main_header: String,
+	pub main_nav_list: String,
+
+	pub play_area: String,
+	pub slider_bar: String,
+
+	pub side_bar: String, 
+		
+	pub tabs_header: String,
+	pub header_item_history: String,
+	pub header_item_character_sheets: String,
+	pub header_item_macros: String,
+	pub header_item_tables: String,
+
+	pub tab_content_wrapper: String,
+	pub history_tab_content: String,
+	pub character_sheets_tab_content: String,
+	pub macros_tab_content: String,
+	pub tables_tab_content: String,
+
+	pub history_controls: String,
+	pub clear_history: String,
+	pub macro_shortcuts: String,
+	pub history_wrapper: String,
+	pub history_list: String,
+	pub history_break: String,
+	pub roll_lang_form: String,
+	pub roll_lang_input_container: String,
+	pub roll_lang_input_label: String,
+	pub roll_lang_input: String,
+	pub roll_lang_submit: String,
+
+	pub create_macro_container: String,
+	pub create_macro_name_label: String,
+	pub create_macro_name: String,
+	pub create_macro_source_label: String,
+	pub create_macro_source: String,
+	pub create_macro_shortcut_container: String,
+	pub create_macro_add_shortcut: String,
+	pub create_macro_submits: String,
+	pub create_macro_create_or_update: String,
+	pub create_macro_test_macro: String,
+
+	pub macro_table_container: String,
+	pub macro_table: String,
+	pub macro_table_header_name: String,
+	pub macro_table_header_shortcut: String,
+	pub macro_table_header_delete: String,
+}
+impl ElementIds {
+	pub fn macros(name: &str) -> String {
+		name.replace(" ","-")
+	}
+
+	pub fn macro_table_row(name: &str) -> String {
+		format!("macro-table-row-{}", ElementIds::macros(name))
+	}
+	pub fn macro_table_shortcut_tongle(name: &str) -> String {
+		format!("place-in-bar-{}", ElementIds::macros(name))
+	}
+	pub fn macro_table_row_delete(name: &str) -> String {
+		format!("delete-{}", ElementIds::macros(name))
+	}
+
+	pub fn macro_shortcut(name: &str) -> String {
+		format!("macro-shortcut-{}", ElementIds::macros(name))
+	}
+}
 
 use wasm_bindgen::JsCast;
 use web_sys::Window;
 use web_sys::Document;
 use web_sys::HtmlDocument;
+use web_sys::Element;
+use web_sys::HtmlInputElement;
+use web_sys::HtmlTextAreaElement;
 
-pub fn window() -> Window {
-	web_sys::window().expect("web_sys::failed to get the window")
-}
-pub fn document() -> Document {
-	window()
-		.document().expect("web_sys::failed to get the document")
-}
-pub fn html_document() -> HtmlDocument {
-	document()
-		.dyn_into::<HtmlDocument>().expect("web_sys::failed to cast document to HtmlDocument")
-}
-
-pub mod id {
-	pub mod macros {
-		pub fn id(name: &str) -> String {
-			name.replace(" ","-")
-		}
-
-		pub mod create_mod {
-			pub fn name() -> String {
-				String::from("create-macro-name")
-			}
-			pub fn source() -> String {
-				String::from("create-macro-source")
-			}
-			pub fn shortcut_checkbox() -> String {
-				String::from("create-macro-add-to-shortcuts")
-			}
-		}
-
-		pub fn table() -> String {
-			String::from("macros-table")
-		}
-		pub mod table_mod {
-			pub fn row(name: &str) -> String {
-				format!("macro-table-row-{}", super::id(name))
-			}
-			pub fn checkbox(name: &str) -> String {
-				format!("place-in-bar-{}", super::id(name))
-			}
-			pub fn delete(name: &str) -> String {
-				format!("delete-{}", super::id(name))
-			}
-		}
-
-		pub fn shortcuts_bar() -> String {
-			String::from("macro-shortcuts")
-		}
-		pub mod shortcuts_bar_mod {
-			pub fn shortcut(name: &str) -> String {
-				format!("macro-shortcut-{}", super::id(name))
-			}
-		}
+pub struct Elements {}
+impl Elements {
+	pub fn window() -> Window {
+		web_sys::window().expect("web_sys::failed to get the window")
 	}
-}
+	pub fn document() -> Document {
+		Elements::window()
+			.document()
+			.expect("web_sys::failed to get the document")
+	}
+	pub fn html_document() -> HtmlDocument {
+		Elements::document()
+			.dyn_into::<HtmlDocument>()
+			.expect("wasm_bindgen::failed to cast document to HtmlDocument")
+	}
 
-pub mod element {
-	use web_sys::Element;
 	pub fn get_element(id: &str) -> Element {
-		super::document()
-			.get_element_by_id(&id)
+		Elements::document()
+			.get_element_by_id(id)
 			.expect(&format!("web_sys::failed to finde element with id \"{}\"", id))
 	}
 	pub fn create_element(element_type: &str) -> Element {
-		super::document()
-			.create_element(element_type).expect(&format!("web_sys::Failed to create element of type {}", element_type))
+		Elements::document()
+			.create_element(element_type)
+			.expect(&format!("web_sys::Failed to create element of type {}", element_type))
 	}
-	pub mod macros {
-		use web_sys::Element;
-		use super::super::id;
 
-		pub mod create_mod {
-			use wasm_bindgen::JsCast;
 
-			static INIT_CREATE: std::sync::Once = std::sync::Once::new();
-			static mut NAME: Option<web_sys::HtmlInputElement> = None;
-			pub fn name() -> web_sys::HtmlInputElement {
-				unsafe {
-					INIT_CREATE.call_once(|| {
-						NAME = Some(
-							super::super::get_element(&crate::web::id::macros::create_mod::name())
-								.dyn_ref::<web_sys::HtmlInputElement>().unwrap()
-								.clone()
-						);
-					});
-					NAME.as_ref().unwrap().clone()
-				}
-			}
-		}
-
-		pub fn table() -> Element {
-			super::get_element(&id::macros::table())
-		}
-		pub mod table_mod {
-			use web_sys::Element;
-			use crate::web::id;
-			use super::super::get_element;
-
-			pub fn row(name: &str) -> Element {
-				get_element(&id::macros::table_mod::row(name))
-			}
-			pub fn check_box(name: &str) -> Element {
-				get_element(&id::macros::table_mod::checkbox(name))
-			}
-			pub fn delete(name: &str) -> Element {
-				get_element(&id::macros::table_mod::delete(name))
-			}
-		}
-
-		pub fn shortcuts_bar() -> Element {
-			super::get_element(&id::macros::shortcuts_bar())
-		}
+	pub fn set_value_create_macro_name(name: &str) {
+		Elements::get_element(&ids().create_macro_name)
+			.dyn_ref::<HtmlInputElement>().unwrap()
+			.set_value(name);
 	}
-}
+	pub fn set_value_create_macro_source(source: &str) {
+		Elements::get_element(&ids().create_macro_source)
+			.dyn_ref::<HtmlTextAreaElement>().unwrap()
+			.set_value(source);
+	}
+	pub fn set_value_create_macro_add_shortcut(has_shortcut: bool) {
+		Elements::get_element(&ids().create_macro_add_shortcut)
+			.dyn_ref::<HtmlInputElement>().unwrap()
+			.set_checked(has_shortcut);	
+	}
 
-pub mod get_value {
-	pub mod macros {
-		pub mod create {
-			use crate::web::*;
-			use wasm_bindgen::JsCast;
-			use web_sys::HtmlInputElement;
-			use web_sys::HtmlTextAreaElement;
-			
-			pub fn name() -> String {
-				crate::web::element::macros::create_mod::name()
-					.value()
-			}
-			pub fn source() -> String {
-				element::get_element(&id::macros::create_mod::source())
-					.dyn_ref::<HtmlTextAreaElement>().unwrap()
-					.value()	
-			}
-			pub fn checkbox() -> bool {
-				element::get_element(&id::macros::create_mod::shortcut_checkbox())
-					.dyn_ref::<HtmlInputElement>().unwrap()
-					.checked()	
-			}
-		}
-		pub fn row_checkbox(name: &str) -> bool {
-			use crate::web::*;
-			use web_sys::HtmlInputElement;
-			element::get_element(&id::macros::table_mod::checkbox(name))
-				.dyn_ref::<HtmlInputElement>().unwrap()
-				.checked()	
-		}
+	pub fn get_value_create_macro_name() -> String {
+		Elements::get_element(&ids().create_macro_name)
+			.dyn_ref::<HtmlInputElement>().unwrap()
+			.value()
+	}
+	pub fn get_value_create_macro_source() -> String {
+		Elements::get_element(&ids().create_macro_source)
+			.dyn_ref::<HtmlTextAreaElement>().unwrap()
+			.value()
+	}
+	pub fn get_value_create_macro_add_shortcut() -> bool {
+		Elements::get_element(&ids().create_macro_add_shortcut)
+			.dyn_ref::<HtmlInputElement>().unwrap()
+			.checked()
+	}
+
+	pub fn macro_table() -> Element {
+		Elements::get_element(&ids().macro_table)
+	}
+	pub fn macro_table_row(name: &str) -> Element {
+		Elements::get_element(&ElementIds::macro_table_row(name))
+	}
+	pub fn macro_table_shortcut_tongle(name: &str) -> Element {
+		Elements::get_element(
+			&ElementIds::macro_table_shortcut_tongle(name))
+	}
+	pub fn macro_table_row_delete(name: &str) -> Element {
+		Elements::get_element(
+			&ElementIds::macro_table_row_delete(name))
+	}
+
+	pub fn get_value_table_row_shortcut_tongle(name: &str) -> bool {
+		Elements::macro_table_shortcut_tongle(name)
+			.dyn_ref::<HtmlInputElement>().unwrap()
+			.checked()
+	}
+
+	pub fn macro_shortcuts() -> Element {
+		Elements::get_element(&ids().macro_shortcuts)
+	}
+	pub fn macro_shortcut(name: &str) -> Element {
+		Elements::get_element(&ElementIds::macro_shortcut(name))
 	}
 }
-
 pub mod cookies {
 	use crate::web::*;
 	pub fn add_macro(name: &str, data: &MacroData) {
 		let time = "Mon, 01 Jan 2024 00:00:00 GMT";
-		let _result = html_document()
+		let _result = Elements::html_document()
 			.set_cookie(
 				&format!("macro:{}={}:{}; SameSite=Strict; expires={};",
 					name,
@@ -187,7 +222,7 @@ pub mod cookies {
 			);
 	}
 	pub fn remove_macro(name: &str) {
-		let _result = html_document()
+		let _result = Elements::html_document()
 			.set_cookie(
 				&format!("macro:{}=\"\"; SameSite=Strict; expires=Thur, 01 Jan 1970 00:00:00: UTC; path=/;",
 					name
@@ -212,7 +247,7 @@ pub mod cookies {
 pub fn macros_from_cookies() -> Macros {
 	let mut macros = Macros::new();
 
-	let raw_cookies = html_document().cookie().unwrap();
+	let raw_cookies = Elements::html_document().cookie().unwrap();
 	for cookie in raw_cookies.split(";") {
 		let mut key_value = cookie.split("=");
 		let (key, value) = match key_value.next() {
@@ -251,29 +286,29 @@ pub fn macros_from_cookies() -> Macros {
 }
 
 pub fn add_macro_to_bar(name: &str) {
-	let button = element::create_element("button");
-	let _result = button.set_attribute("id", &id::macros::shortcuts_bar_mod::shortcut(name));
+	let button = Elements::create_element("button");
+	let _result = button.set_attribute("id", &ElementIds::macro_shortcut(name));
 	let _result = button.set_attribute(
 		"onclick",
 		&format!("runMacro(\"{}\");", name)
 	);
 	button.set_inner_html(name);
-	let _result = element::macros::shortcuts_bar().append_child(&button);
+	let _result = Elements::macro_shortcuts().append_child(&button);
 }
 pub fn add_macro_to_table(name: &str, in_bar: bool) {
-	let row = element::create_element("tr");
-	let _result = row.set_attribute("id", &id::macros::table_mod::row(name));
+	let row = Elements::create_element("tr");
+	let _result = row.set_attribute("id", &ElementIds::macro_table_row(name));
 
-	let name_cell = element::create_element("td");
+	let name_cell = Elements::create_element("td");
 	name_cell.set_inner_html(name);
 	let _result = name_cell.set_attribute(
 		"onclick",
 		&format!("wasm_bindgen.handle_macro_select(\"{}\");", name)
 	);
 
-	let place_in_bar_cell = element::create_element("td");
-	let place_in_bar = element::create_element("input");
-	let _result = place_in_bar.set_attribute("id", &id::macros::table_mod::checkbox(name));
+	let place_in_bar_cell = Elements::create_element("td");
+	let place_in_bar = Elements::create_element("input");
+	let _result = place_in_bar.set_attribute("id", &ElementIds::macro_table_shortcut_tongle(name));
 	let _result = place_in_bar.set_attribute(
 		"onchange",
 		&format!("wasm_bindgen.handle_macro_change_in_bar(\"{}\");", name)
@@ -285,9 +320,9 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	let _result = place_in_bar_cell.append_child(&place_in_bar);
 
 
-	let delete_cell = element::create_element("td");
+	let delete_cell = Elements::create_element("td");
 	delete_cell.set_inner_html("delete");
-	let _result = delete_cell.set_attribute("id", &format!("delete-macro-{}", id::macros::id(name)));
+	let _result = delete_cell.set_attribute("id", &ElementIds::macro_table_row_delete(name));
 	let _result = delete_cell.set_attribute(
 		"onclick",
 		&format!("wasm_bindgen.handle_macro_delete(\"{}\");", name)
@@ -297,7 +332,7 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	let _result = row.append_child(&place_in_bar_cell);
 	let _result = row.append_child(&delete_cell);
 
-	let table = element::macros::table();
+	let table = Elements::macro_table();
 	let _result = table.append_child(&row);
 }
 // fn update_macro_table_row(name: &str, in_bar: bool) {
@@ -306,16 +341,6 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 // 		.dyn_ref::<HtmlInputElement>().unwrap()
 // 		.set_checked(in_bar);
 // }
-pub fn remove_macro_from_bar(name: &str) {
-	document()
-		.get_element_by_id(&id::macros::shortcuts_bar_mod::shortcut(name)).unwrap()
-		.remove();
-}
-pub fn remove_macro_from_table(name: &str) {
-	document()
-		.get_element_by_id(&id::macros::table_mod::row(name)).unwrap()
-		.remove();
-}
 
 // fn macro_cookie(name: &str) -> Option<MacroData> {
 // 	let raw_cookies = Web::html_document().cookie().unwrap();

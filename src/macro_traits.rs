@@ -18,10 +18,7 @@
 
 use roll_lang::macros::*;
 
-use crate::web;
-
-// #[macro_use]
-// use super::*;
+use crate::web::*;
 
 pub trait MacrosWebT {
 	fn init() -> Macros;
@@ -38,84 +35,74 @@ pub trait MacrosWebT {
 
 impl MacrosWebT for Macros {
 	fn init() -> Macros {
-		let macros = web::macros_from_cookies();
+		let macros = macros_from_cookies();
 		for (name, data) in &macros {
-			web::add_macro_to_table(name, data.in_bar);
+			add_macro_to_table(name, data.in_bar);
 			if data.in_bar {
-				web::add_macro_to_bar(name);
+				add_macro_to_bar(name);
 			}
 		}
 		macros
 	}
 	fn handle_macro_update_create(&mut self) {
-		let name = web::get_value::macros::create::name();
-		let in_bar = web::get_value::macros::create::checkbox();
-		let source = web::get_value::macros::create::source();
+		let name = Elements::get_value_create_macro_name();
+		let source = Elements::get_value_create_macro_source();
+		let in_bar = Elements::get_value_create_macro_add_shortcut();
 
 		if self.contains_key(&name) {
 			// FIX ME replace with update macros row
-			web::remove_macro_from_table(&name);
+			Elements::macro_table_row(&name).remove();
 
 			let currently_in_bar = self.get(&name).unwrap().in_bar;
 			if in_bar && !currently_in_bar {
-				web::add_macro_to_bar(&name);
+				add_macro_to_bar(&name);
 			} else if !in_bar && currently_in_bar {
-				web::remove_macro_from_bar(&name);
+				Elements::macro_shortcut(&name).remove();
 			}
 		} else {
 			if in_bar {
-				web::add_macro_to_bar(&name);
+				add_macro_to_bar(&name);
 			}
 		}
-		web::add_macro_to_table(&name, in_bar);
+		add_macro_to_table(&name, in_bar);
 
 		let data = MacroData::new(in_bar, &source);
-		web::cookies::add_macro(&name, &data);
+		cookies::add_macro(&name, &data);
 		self.insert(name, data);
 	}
 	fn handle_macro_change_in_bar(&mut self, name: &str) {
 		if self.contains_key(name) {
 			let mut data = self.get(name).unwrap().clone();
 			let currently_in_bar = data.in_bar;
-			let in_bar = web::get_value::macros::row_checkbox(name);
+			let in_bar = Elements::get_value_table_row_shortcut_tongle(name);
 			
 			if !currently_in_bar && in_bar {
-				web::add_macro_to_bar(name);
+				add_macro_to_bar(name);
 			} else if currently_in_bar && !in_bar {
-				web::remove_macro_from_bar(name);
+				Elements::macro_shortcut(name).remove();
 			}
 
 			data.in_bar = in_bar;
-			web::cookies::add_macro(name, &data);
+			cookies::add_macro(name, &data);
 			self.insert(name.to_string(), data);
 		}
 	}
 	fn handle_macro_delete(&mut self, name: &str) {
 		if self.contains_key(name) {
-			web::cookies::remove_macro(name);
-			web::remove_macro_from_table(name);
+			cookies::remove_macro(name);
+			Elements::macro_table_row(name).remove();
 			if self.get(name).unwrap().in_bar {
-				web::remove_macro_from_bar(name);
+				Elements::macro_shortcut(name).remove();
 			}
 			self.remove(name);
 		}
 	}
 
 	fn handle_macro_select(&self, name: &str) {
-		use web::id;
-		use wasm_bindgen::JsCast;
-		web::element::get_element(&id::macros::create_mod::name())
-			.dyn_ref::<web_sys::HtmlInputElement>().unwrap()
-			.set_value(name);
-
 		let data = self.get(name).unwrap();
-		web::element::get_element(&id::macros::create_mod::source())
-			.dyn_ref::<web_sys::HtmlTextAreaElement>().unwrap()
-			.set_value(&data.source);
-
-		web::element::get_element(&id::macros::create_mod::shortcut_checkbox())
-			.dyn_ref::<web_sys::HtmlInputElement>().unwrap()
-			.set_checked(data.in_bar);	
+		Elements::set_value_create_macro_name(name);
+		Elements::set_value_create_macro_source(&data.source);
+		Elements::set_value_create_macro_add_shortcut(data.in_bar);
 	}
 	fn source(&self, name: &str) -> Option<String> {
 		let data = self.get(name)?;
