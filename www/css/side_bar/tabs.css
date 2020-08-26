@@ -21,7 +21,7 @@
 	background-color: grey !important;
 }
 .active-tab {
-	background-color: lightblue;
+	background-color: lightblue !important;
 }
 
 #tab-content-wrapper {
