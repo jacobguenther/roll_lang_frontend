@@ -53,20 +53,20 @@ class Tab {
 class Tabs {
 	constructor() {
 		this.history = new Tab(
-			tab_header_item_ids.history,
-			history_tab_ids.content
+			ElementIds.header_item_history,
+			ElementIds.history_tab_content
 		);
 		this.characterSheet = new Tab(
-			tab_header_item_ids.character_sheets,
-			character_sheets_tab_ids.content,
+			ElementIds.header_item_character_sheets,
+			ElementIds.character_sheets_tab_content
 		);
 		this.macros = new Tab(
-			tab_header_item_ids.macros,
-			macros_tab_ids.content,
+			ElementIds.header_item_macros,
+			ElementIds.macros_tab_content
 		);
 		this.tables = new Tab(
-			tab_header_item_ids.tables,
-			tables_tab_ids.content
+			ElementIds.header_item_tables,
+			ElementIds.tables_tab_content
 		);
 		this.currentSelected = this.history;
 		this.history.setActive();

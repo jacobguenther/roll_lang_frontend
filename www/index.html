@@ -21,9 +21,10 @@
 	<link rel="canonical" href="https://jacobguenther.github.io/roll_lang_demo" />
 
 	<link rel="preload" as="script" href="scripts/config_ids.js" />
-	<link rel="preload" as="script" href="scripts/main.js" />
-	<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
 	<link rel="preload" as="script" href="scripts/tabs.js" />
+	<link rel="preload" as="script" href="scripts/history.js" />
+	<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
+	<link rel="preload" as="script" href="scripts/main.js" />
 	<link rel="prefetch" as="script" href="scripts/slider.js" />
 	<link rel="prefetch" as="script" href="scripts/macro_table_sort.js" />
 
@@ -131,7 +132,7 @@
 					</div>
 					<div id="create-macro-submits">
 						<input type="button" id="create-macro-submit" value="Create/Update" onclick="wasm_bindgen.handle_macro_update_create(); handleMacroSort();" />
-						<input type="button" id="test-macro-submit" value="Test Macro" onclick="wasm_bindgen.handle_macro_test()"/>
+						<input type="button" id="test-macro-submit" value="Test Macro" onclick="testMacro()"/>
 					</div>
 				</div>
 				<div id="macros-table-container">
@@ -140,7 +141,7 @@
 					<table id="macros-table">
 						<tr>
 							<th><span onclick="handleSortMacrosByName();">Name</span></th>
-							<th><span onclick="handleSortMacrosByShortcut();">Place in Macro Bar</span></th>
+							<th><span onclick="handleSortMacrosByShortcut();">Shortcut</span></th>
 							<th>Delete</th>
 						</tr>
 					</table>
@@ -162,8 +163,9 @@
 	</footer>
 
 	<script src="scripts/config_ids.js"></script>
-	<script src="scripts/roll_lang_frontend.js"></script>
 	<script src="scripts/tabs.js"></script>
+	<script src="scripts/history.js"></script>
+	<script src="scripts/roll_lang_frontend.js"></script>
 	<script src="scripts/main.js"></script>
 
 	<script src="scripts/slider.js" defer></script>
