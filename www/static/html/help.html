@@ -17,21 +17,25 @@
 	<meta property="og:description" content="The guide for Roll Lang an open source dice roller for tabletop games." />
 	<meta property="og:locale" content="en_US" />
 
-	<link rel="preload" as="style" href="../css/help.css" />
-	<link rel="preload" as="style" href="../css/grammer.css" />
-	<link rel="preload" as="image" href="../assets/favicon.png" />
+	<link rel="preload" as="image" href="/assets/macros_help.png" />
+	<link rel="preload" as="image" href="/assets/macros_tab_help.png" />
 
-	<link rel="stylesheet" type="text/css" href="../css/help.css" />
-	<link rel="stylesheet" type="text/css" href="../css/grammer.css" />
-	<link rel="icon" type="image/png" href="../assets/favicon.png" />
+	<link rel="preload" as="style" href="/css/help.css" />
+	<link rel="preload" as="style" href="/css/grammer.css" />
+	<link rel="preload" as="image" href="/assets/favicon.png" />
+
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/help.css" />
+	<link rel="stylesheet" type="text/css" href="/css/grammer.css" />
+	<link rel="icon" type="image/png" href="/assets/favicon.png" />
 </head>
 <body>
 	<script>0</script>
 	<header id="header-bar" class="grid-item">
 		<nav>
 			<ul id="main-nav-list">
-				<li><h1><a href="/roll_lang_demo/">Roll Lang</a></h1></li>
-				<li><a href="about.html">About</a></li>
+				<li><h1><a href="/">Roll Lang</a></h1></li>
+				<li><a href="about">About</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -94,7 +98,6 @@
 				where N is the number of sides. You can also roll more than one dice and sum the result using
 				<span class="roll-example">XdN</span> where X is the number of dice. X and N must be an integer or *roll query.
 			</p>
-			<p>* Roll queries are not supported yet.</p>
 			<h4 id="computed-dice">Computed Dice</h4>
 			<p>Computed dice come in 4 flavors</p>
 			<ul class="bullet-list">
@@ -104,7 +107,6 @@
 				<li>Computed number of dice with fixed number of sides - <span class="roll-example">(</span> expression <span class="roll-example">)dN</span></li>
 			</ul>
 			<p>Where N and X are an integer or *roll query. You can even have dice rolls in your expressions for computed dice.</p>
-			<p>*roll queries are not supported yet.</p>
 			<h4 id="dice-tooltips">Dice Tooltips</h4>
 			<p>Using the same format as an inline comment you can add a tooltip to a roll. Enter the tooltip directly
 				after the dice roll with no spaces like so <span class="roll-example">/r d12[great sword]</span>. The
@@ -151,7 +153,7 @@
 			<p>Macros are useful when you have actions that you preform regularly. A macro is a shortcut for some input.</P>
 			<p>To use a macro from the input box enter <span class="roll-example">#macro-name</span>. If your macro's name contains spaces enter <span class="roll-example">#{macro name}</span></p>
 			<p>To create a macro go to the macros tab.</p>
-			<img src="/roll_lang_demo/assets/macros_tab_help.png" alt="Red box around the macros tab. The 3rd tab from the right in the sidebar." />
+			<img src="/assets/macros_tab_help.png" alt="Red box around the macros tab. The 3rd tab from the right in the sidebar." />
 			<p>Enter the name for your macro and the text your macro is a shortcut for.</p>
 			<p>The name can be any sequence of characters not containing <span class="roll-example-invalid">}</span>.</p>
 			<p>The text of your macro can be any text that you would put in the input box under the history tab.</p>
@@ -162,7 +164,7 @@
 			<p>The "create/update" button will save the macro. You can see all saved macros in the list below.</p>
 			<p>To edit an existing macro click on its name in the list. You will see the contents of "Macro Name" and "Macro" change to reflect the macro you selected.</p>
 			<p>Currently Macros are saved as cookies. Make sure your browser does not delete cookies each time it is closed if you want to use your macros next time.</p>
-			<img src="/roll_lang_demo/assets/macros_help.png" alt="The macros tab. Three macros are in the list. A macro named both is calling macros named attack and damage." />
+			<img src="/assets/macros_help.png" alt="The macros tab. Three macros are in the list. A macro named both is calling macros named attack and damage." />
 
 			<h4 id="dice-modifiers">Dice Modifiers</h4>
 			<p>Dice modifiers change how the roll is preformed or how it is displayed. Not all dice modifiers can be

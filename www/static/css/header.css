@@ -1,0 +1,22 @@
+/* File: css/header.css */
+
+body, h1, ul {
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+#header-bar {
+	grid-area: header-bar;
+	width: 100%;
+	background-color: whitesmoke;
+}
+
+#main-nav-list {
+	display: inline;
+}
+#main-nav-list li {
+	display: inline;
+}
+#main-nav-list li h1 {
+    display: inline;
+}
