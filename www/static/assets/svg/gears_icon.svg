@@ -1,0 +1,77 @@
+<svg viewBox="0 0 64 64"
+	preserveAspectRatio="none"
+	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	onmouseenter="{
+		document.getElementById('large-animation').beginElement();
+		document.getElementById('small-animation').beginElement();
+	}"
+	onmouseleave="{
+		document.getElementById('large-animation').endElement();
+		document.getElementById('small-animation').endElement();
+	}">
+
+	<title>Settings Tab Icon</title>
+	<desc>Three gears.</desc>
+
+	<defs>
+		<circle id="gear-hole" r="3" cx=" 12" cy="0" />
+
+		<mask id="gear-mask" transform="" >
+			<rect x="-64" y="-64" width="128" height="128" fill="white" />
+			<use xlink:href="#gear-hole" />
+			<use xlink:href="#gear-hole" transform="rotate(72 0,0)" />
+			<use xlink:href="#gear-hole" transform="rotate(144 0,0)" />
+			<use xlink:href="#gear-hole" transform="rotate(216 0,0)" />
+			<use xlink:href="#gear-hole" transform="rotate(288 0,0)" />
+			<circle r="4" />
+		</mask>
+
+		<polygon id="large-spoke" points="-1,-3 4,-2 4,2 -1,3" transform="translate(18 0)" />
+		<g id="large-gear-spokes">
+			<use xlink:href="#large-spoke" />
+			<use xlink:href="#large-spoke" transform="rotate(180 0 0)" />
+		</g>
+
+		<polygon id="small-spoke" points="-1,-3.5 6.5,-3 6.5,3 -1,3.5" transform="translate(18 0)" />
+		<g id="small-gear-spokes">
+			<use xlink:href="#small-spoke" />
+			<use xlink:href="#small-spoke" transform="rotate(180 0 0)" />
+		</g>
+
+		<g id="large-gear" mask="url(#gear-mask)">
+			<circle r="18" />
+			<use xlink:href="#large-gear-spokes" />
+			<use xlink:href="#large-gear-spokes" transform="rotate(72)" />
+			<use xlink:href="#large-gear-spokes" transform="rotate(144)" />
+			<use xlink:href="#large-gear-spokes" transform="rotate(216)" />
+			<use xlink:href="#large-gear-spokes" transform="rotate(288)" />
+		</g>
+		<g id="small-gear" mask="url(#gear-mask)">
+			<circle r="18" />
+			<use xlink:href="#small-gear-spokes" />
+			<use xlink:href="#small-gear-spokes" transform="rotate(72)" />
+			<use xlink:href="#small-gear-spokes" transform="rotate(144)" />
+			<use xlink:href="#small-gear-spokes" transform="rotate(216)" />
+			<use xlink:href="#small-gear-spokes" transform="rotate(288)" />
+		</g>
+	</defs>
+
+
+	<g transform="translate(24 40) rotate(-9)"><g>
+		<use xlink:href="#large-gear" />
+		<animateTransform id="small-animation" attributeName="transform"
+			attributeType="XML" type="rotate"
+			from="0 0 0" to="360 0 0"
+			begin="indefinite"
+			dur="10s" repeatCount="indefinite"/>
+	</g></g>
+
+	<g transform="translate(48 16) rotate(9) scale(0.65 0.65)"><g>
+		<use xlink:href="#small-gear" />
+		<animateTransform id="large-animation" attributeName="transform"
+			attributeType="XML" type="rotate"
+			from="360 0 0" to="0 0 0"
+			begin="indefinite"
+			dur="10s" repeatCount="indefinite"/>
+	</g></g>
+</svg>

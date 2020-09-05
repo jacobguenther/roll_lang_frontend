@@ -1,0 +1,21 @@
+<svg viewBox="0 0 64 64"
+	preserveAspectRatio="none"
+	width="64" height="64"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink= "http://www.w3.org/1999/xlink">
+
+	<title>Settings Menu Tab Icon</title>
+	<desc>Three horizontal lines indicating a menu.</desc>
+
+	<defs>
+		<g id="bar">
+			<circle cx="8" cy="4" r="4" fill="black" />
+			<circle cx="56" cy="4" r="4" fill="black" />
+			<rect x="8" y="0" width="48" height="8" fill="black" />
+		</g>
+	</defs>
+
+	<use xlink:href="#bar" />
+	<use xlink:href="#bar" transform="translate(0 28)" />
+	<use xlink:href="#bar" transform="translate(0 56)" />
+</svg>

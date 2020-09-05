@@ -1,0 +1,28 @@
+<svg viewBox="0 0 64 64" preserveAspectRatio="xMinYMin meet"
+	xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+
+	<title>Chat Tab Icon</title>
+	<desc>Two overlapping chat bubbles.</desc>
+
+	<defs>
+		<mask id="chat-mask">
+			<rect x="12" y="0"
+				width="44" height="20"
+				fill="white" fill-opacity="1.0" />
+			<rect x="48" y="0"
+				width="20" height="36"
+				fill="white" fill-opacity="1.0" />
+		</mask>
+	</defs>
+
+	<rect x="20" y="4" rx="5"
+		width="40" height="28"
+		fill="none" stroke="black" stroke-width="2"
+		mask="url(#chat-mask)" />
+	<polygon transform="translate(8 52)" points="0,0 10,0, -2, 8" fill="black" />
+
+	<rect x="4" y="24" rx="5"
+		width="40" height="28"
+		fill="none" stroke="black" stroke-width="2" />
+	<polygon transform="translate(48 32)" points="0,0 10,0, 12, 8" fill="black" />
+</svg>

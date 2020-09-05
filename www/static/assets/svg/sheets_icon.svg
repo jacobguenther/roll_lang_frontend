@@ -1,0 +1,42 @@
+<svg viewBox="0 0 64 64"
+	preserveAspectRatio="none"
+	width="64" height="64"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink= "http://www.w3.org/1999/xlink">
+
+	<title>Character Sheets Tab Icon</title>
+	<desc>Minimalist representation of a character sheet.</desc>
+
+	<defs>
+		<g id="item">
+			<circle r="2" cx="14" cy="20" />
+			<line x1="20" y1="20" x2="40" y2="20"
+				stroke="black" stroke-width="1" />
+		</g>
+		<mask id="mask">
+			<rect width="64" height="64" fill="white" />
+			<rect width="52" height="57" fill="black" />
+		</mask>
+	</defs>
+	<rect x="7.5" y="2.5"
+		width="45" height="55"
+		fill="none"
+		rx="4"
+		stroke="black" stroke-width="2" />
+
+	<line x1="7.5" y1="14" x2="52.5" y2="14"
+		stroke="black" stroke-width="2" />
+	<use xlink:href="#item" />
+	<use xlink:href="#item" transform="translate(0, 6)" />
+	<use xlink:href="#item" transform="translate(0, 12)" />
+	<use xlink:href="#item" transform="translate(0, 18)" />
+	<use xlink:href="#item" transform="translate(0, 24)" />
+	<use xlink:href="#item" transform="translate(0, 30)" />
+
+	<rect x="11.5" y="6.5"
+		width="45" height="55"
+		fill="none"
+		rx="4"
+		stroke="black" stroke-width="2"
+		mask="url(#mask)" />
+</svg>
