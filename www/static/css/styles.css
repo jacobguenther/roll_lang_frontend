@@ -92,10 +92,10 @@ ul {
 			"footer-bar";
 	}
 	#slider-bar {
-		display: none;
+		display: none !important;
 	}
 	#play-area {
-		display: none;
+		display: none !important;
 	}
 }
 
@@ -113,10 +113,10 @@ ul {
 			"footer-bar footer-bar footer-bar";
 	}
 	#slider-bar {
-		display: block;
+		display: block !important;
 	}
 	#play-area {
-		display: grid;
+		display: grid !important;
 	}
 }
 /* tablet, landscape iPad, lo-res laptops ands desktops */
