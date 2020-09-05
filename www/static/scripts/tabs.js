@@ -1,7 +1,7 @@
 // File: www/scipts/tabs.js
 
 /**
- * @licstart The following is the entire license notice for the 
+ * @licstart The following is the entire license notice for the
  *  JavaScript code in this page.
  *
  * Copyright (C) 2020  Jacob Guenther
@@ -19,7 +19,7 @@
  * that code without the copy of the GNU GPL normally required by
  * section 4, provided you include this license notice and a URL
  * through which recipients can access the Corresponding Source.
- * 
+ *
  * @licend The above is the entire license notice
  * for the JavaScript code in this page.
  */
@@ -54,19 +54,27 @@ class Tabs {
 	constructor() {
 		this.history = new Tab(
 			ElementIds.header_item_history,
-			ElementIds.history_tab_content
+			ElementIds.tab_content_history
 		);
 		this.characterSheet = new Tab(
 			ElementIds.header_item_character_sheets,
-			ElementIds.character_sheets_tab_content
+			ElementIds.tab_content_character_sheets
 		);
 		this.macros = new Tab(
 			ElementIds.header_item_macros,
-			ElementIds.macros_tab_content
+			ElementIds.tab_content_macros
 		);
+		this.notes = new Tab(
+			ElementIds.header_item_notes,
+			ElementIds.tab_content_notes
+		)
 		this.tables = new Tab(
 			ElementIds.header_item_tables,
-			ElementIds.tables_tab_content
+			ElementIds.tab_content_tables
+		);
+		this.settings = new Tab(
+			ElementIds.header_item_settings,
+			ElementIds.tab_content_settings
 		);
 		this.currentSelected = this.history;
 		this.history.setActive();
@@ -85,8 +93,14 @@ class Tabs {
 	selectMacros() {
 		this.selectTab(this.macros);
 	}
+	selectNotes() {
+		this.selectTab(this.notes);
+	}
 	selectTables() {
 		this.selectTab(this.tables);
+	}
+	selectSettings() {
+		this.selectTab(this.settings);
 	}
 }
 
