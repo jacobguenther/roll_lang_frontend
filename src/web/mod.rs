@@ -2,17 +2,17 @@
 
 
 // Copyright (C) 2020  Jacob Guenther
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -48,8 +48,8 @@ pub struct ElementIds {
 	pub play_area: String,
 	pub slider_bar: String,
 
-	pub side_bar: String, 
-		
+	pub side_bar: String,
+
 	pub tabs_header: String,
 	pub header_item_history: String,
 	pub header_item_character_sheets: String,
@@ -57,10 +57,10 @@ pub struct ElementIds {
 	pub header_item_tables: String,
 
 	pub tab_content_wrapper: String,
-	pub history_tab_content: String,
-	pub character_sheets_tab_content: String,
-	pub macros_tab_content: String,
-	pub tables_tab_content: String,
+	pub tab_content_history: String,
+	pub tab_content_character_sheets: String,
+	pub tab_content_macros: String,
+	pub tab_content_tables: String,
 
 	pub history_controls: String,
 	pub clear_history: String,
@@ -160,7 +160,7 @@ impl Elements {
 	pub fn set_value_create_macro_add_shortcut(has_shortcut: bool) {
 		Elements::get_element(&ids().create_macro_add_shortcut)
 			.dyn_ref::<HtmlInputElement>().unwrap()
-			.set_checked(has_shortcut);	
+			.set_checked(has_shortcut);
 	}
 
 	pub fn get_value_create_macro_name() -> String {
