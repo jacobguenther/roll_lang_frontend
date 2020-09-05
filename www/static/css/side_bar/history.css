@@ -1,5 +1,7 @@
-#history-tab-content {
+#tab-content-history {
+	position: relative;
 	overflow: hidden;
+
 	width: 100%;
 	justify-content: center;
 	justify-items: center;
@@ -27,29 +29,43 @@
 #history-controls button {
 	margin: 5px;
 }
+
+
 #history-wrapper {
 	grid-area: history-wrapper;
-	width: 100%;
+	position: relative;
 	overflow: hidden;
 
-	display: grid;
-	align-content: end;
+	width: 100%;
+	height: 1fr;
 
+	padding: 0px;
+
+	display: grid;
 	grid-template-columns: 100%;
-	grid-template-rows: auto;
+	grid-template-rows: 1fr;
 	grid-template-areas: "history-list";
 }
 #history-list {
 	grid-area: history-list;
-	width: 100%;
-
+	position: relative;
 	overflow-y: scroll;
-	display: grid;
-	grid-template-columns: 100%;
+
+	width: 100%;
+	min-height: 1fr;
+
+	padding: 0px 5px 0px 5px;
+
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
 }
 #history-list li {
-	width: 97%;
-	padding: 5px;
+	position: relative;
+	margin-bottom: 5px;
+}
+#history-list :nth-child(1) {
+	margin-top: auto;
 }
 #history-list li:nth-child(even) {
 	background: lightgreen;

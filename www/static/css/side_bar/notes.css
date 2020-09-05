@@ -1,4 +1,4 @@
-#tab-content-tables {
+#tab-content-notes {
 	justify-items: center;
 	align-items: center;
 
@@ -7,9 +7,9 @@
 
 	grid-template-areas:
 		"."
-		"tables-under-construction"
+		"notes-under-construction"
 		".";
 }
-#tab-content-tables p {
-	grid-area: tables-under-construction;
+#tab-content-notes p {
+	grid-area: notes-under-construction;
 }

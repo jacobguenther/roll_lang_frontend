@@ -1,4 +1,4 @@
-#macros-tab-content {
+#tab-content-macros {
 	padding: 5px;
 	grid-template-rows: auto auto minmax(0px, 100%);
 	width: 360px;

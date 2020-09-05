@@ -1,24 +1,34 @@
 
 .tooltipped {
 	position: relative;
-	display: inline-block;
-	border-bottom: 1px dotted black; 
+	display: block;
+	border-bottom: 1px dotted black;
+}
+.tooltiptext {
+	visibility: collapse;
+	display: none;
+	width: auto;
+	background: rgba(0, 0, 0, 0.8);
+	color: white;
+	text-align: center;
+	padding: 15px;
+	border-radius: 6px;
+
+	position: fixed;
+	/*
+	top: 110%;
+	left: 50%;
+	*/
+
+	z-index: 10;
 }
 .tooltipped:hover .tooltiptext {
 	visibility: visible;
-}
-.tooltiptext {
-	visibility: hidden;
-	width: 240px;
-	background-color: black;
-	color: #fff;
-	text-align: center;
-	padding: 5px 5px;
-	border-radius: 6px;
 
-	position: absolute;
-	z-index: 1;
+	display: inline-block;
 }
+
+
 .tooltiptext .formula {
 	background-color: black;
 }
