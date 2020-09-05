@@ -1,7 +1,7 @@
 // File: www/scipts/config_ids.js
 
 /**
- * @licstart The following is the entire license notice for the 
+ * @licstart The following is the entire license notice for the
  *  JavaScript code in this page.
  *
  * Copyright (C) 2020  Jacob Guenther
@@ -19,33 +19,37 @@
  * that code without the copy of the GNU GPL normally required by
  * section 4, provided you include this license notice and a URL
  * through which recipients can access the Corresponding Source.
- * 
+ *
  * @licend The above is the entire license notice
  * for the JavaScript code in this page.
  */
 
 const ElementIds = {
-	main_header: "header-bar",
-	main_nav_list: "main-nav-list",
+	main_header: 'header-bar',
+	main_nav_list: 'main-nav-list',
 
-	play_area: "play-area",
-	slider_bar: "slider-bar",
+	play_area: 'play-area',
+	slider_bar: 'slider-bar',
 
-	footer: "footer-bar",
+	footer: 'footer-bar',
  	javascript_license_information: 'jslicense',
 
-	side_bar: "side-bar",
-	tabs_header: "tabs-header",
-	header_item_history: "tab-header-item-history",
-	header_item_character_sheets: "tab-header-item-character-sheets",
-	header_item_macros: "tab-header-item-macros",
-	header_item_tables: "tab-header-item-tables",
+	side_bar: 'side-bar',
+	tabs_header: 'tabs-header',
+	header_item_history: 'tab-header-item-history',
+	header_item_character_sheets: 'tab-header-item-character-sheets',
+	header_item_macros: 'tab-header-item-macros',
+	header_item_tables: 'tab-header-item-tables',
+	header_item_notes: 'tab-header-item-notes',
+	header_item_settings: 'tab-header-item-settings',
 
-	tab_content_wrapper: "tab-content-wrapper",
-	history_tab_content: 'history-tab-content',
-	character_sheets_tab_content: 'character-sheets-tab-content',
-	macros_tab_content: 'macros-tab-content',
-	tables_tab_content: 'tables-tab-content',
+	tab_content_wrapper: 'tab-content-wrapper',
+	tab_content_history: 'tab-content-history',
+	tab_content_character_sheets: 'tab-content-character-sheets',
+	tab_content_macros: 'tab-content-macros',
+	tab_content_notes: 'tab-content-notes',
+	tab_content_tables: 'tab-content-tables',
+	tab_content_settings: 'tab-content-settings',
 
 	// history tab
 	history_controls: 'history-controls',

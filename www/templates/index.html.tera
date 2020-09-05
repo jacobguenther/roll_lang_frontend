@@ -35,7 +35,14 @@
 	<link rel="prefetch" as="style" href="css/side_bar/result.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/character-sheet.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/macros.css" />
+	<link rel="prefetch" as="style" href="css/side_bar/notes.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/tables.css" />
+	<link rel="prefetch" as="style" href="css/side_bar/settings.css" />
+
+	<link rel="preload" as="image" href="assets/svg/chat_icon.svg" />
+	<link rel="preload" as="image" href="assets/svg/sheets_icon.svg" />
+	<link rel="preload" as="image" href="assets/svg/macros_icon.svg" />
+	<link rel="preload" as="image" href="assets/svg/gears_icon.svg" />
 
 	<link rel="preload" as="image" href="assets/favicon.png" />
 
@@ -46,7 +53,9 @@
 	<link rel="stylesheet" type="text/css" href="css/side_bar/result.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/character-sheet.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/macros.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/notes.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/tables.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/settings.css">
 
 	<link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
@@ -73,14 +82,84 @@
 
 	<div id="side-bar">
 		<ul id="tabs-header">
-			<li id="tab-header-item-history" onclick="tabs.selectHistory();">History</li>
-			<li id="tab-header-item-character-sheets" onclick="tabs.selectCharacterSheets();">Character Sheets</li>
-			<li id="tab-header-item-macros" onclick="tabs.selectMacros();">Macros(NEW)</li>
+			<li id="tab-header-item-history" onclick="tabs.selectHistory();">
+				<img src="assets/svg/chat_icon.svg" title="Chat" type="image/svg+xml" width="32" />
+			</li>
+			<li id="tab-header-item-character-sheets" onclick="tabs.selectCharacterSheets();">
+				<img src="assets/svg/sheets_icon.svg" title="Character Sheets" type="image/svg+xml" width="32" />
+			</li>
+			<li id="tab-header-item-macros" onclick="tabs.selectMacros();">
+				<img src="assets/svg/macros_icon.svg" title="Macros" type="image/svg+xml" width="32" />
+			</li>
+			<li id="tab-header-item-notes" onclick="tabs.selectNotes();">Notes</li>
 			<li id="tab-header-item-tables" onclick="tabs.selectTables();">Tables</li>
+			<li id="tab-header-item-settings" onclick="tabs.selectSettings();">
+				<svg viewBox="0 0 64 64"
+					width="32" height="32"
+					preserveAspectRatio="none"
+					xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+					<title>Settings</title>
+					<desc>Two gears</desc>
+
+					<defs>
+						<circle id="gear-hole" r="3" cx=" 12" cy="0" />
+
+						<mask id="gear-mask" transform="" >
+							<rect x="-64" y="-64" width="128" height="128" fill="white" />
+							<use xlink:href="#gear-hole" />
+							<use xlink:href="#gear-hole" transform="rotate(72 0,0)" />
+							<use xlink:href="#gear-hole" transform="rotate(144 0,0)" />
+							<use xlink:href="#gear-hole" transform="rotate(216 0,0)" />
+							<use xlink:href="#gear-hole" transform="rotate(288 0,0)" />
+							<circle r="4" />
+						</mask>
+
+						<polygon id="large-spoke" points="-1,-3 4,-2 4,2 -1,3" transform="translate(18 0)" />
+						<g id="large-gear-spokes">
+							<use xlink:href="#large-spoke" />
+							<use xlink:href="#large-spoke" transform="rotate(180 0 0)" />
+						</g>
+
+						<polygon id="small-spoke" points="-1,-3.5 6.5,-3 6.5,3 -1,3.5" transform="translate(18 0)" />
+						<g id="small-gear-spokes">
+							<use xlink:href="#small-spoke" />
+							<use xlink:href="#small-spoke" transform="rotate(180 0 0)" />
+						</g>
+
+						<g id="large-gear" mask="url(#gear-mask)">
+							<circle r="18" />
+							<use xlink:href="#large-gear-spokes" />
+							<use xlink:href="#large-gear-spokes" transform="rotate(72)" />
+							<use xlink:href="#large-gear-spokes" transform="rotate(144)" />
+							<use xlink:href="#large-gear-spokes" transform="rotate(216)" />
+							<use xlink:href="#large-gear-spokes" transform="rotate(288)" />
+						</g>
+						<g id="small-gear" mask="url(#gear-mask)">
+							<circle r="18" />
+							<use xlink:href="#small-gear-spokes" />
+							<use xlink:href="#small-gear-spokes" transform="rotate(72)" />
+							<use xlink:href="#small-gear-spokes" transform="rotate(144)" />
+							<use xlink:href="#small-gear-spokes" transform="rotate(216)" />
+							<use xlink:href="#small-gear-spokes" transform="rotate(288)" />
+						</g>
+					</defs>
+
+
+					<g transform="translate(24 40) rotate(-9)"><g>
+						<use xlink:href="#large-gear" class="gear" />
+					</g></g>
+
+					<g transform="translate(48 16) rotate(9) scale(0.65 0.65)"><g>
+						<use xlink:href="#small-gear" class="gear" />
+					</g></g>
+				</svg>
+				<div style="display: none;">Settings</div>
+			</li>
 		</ul>
 
 		<div id="tab-content-wrapper">
-			<section id="history-tab-content" class="tab-content">
+			<section id="tab-content-history" class="tab-content">
 
 				<div id="history-controls">
 					<button id="clear-history" onclick="clearHistory();">Clear History</button>
@@ -112,11 +191,11 @@
 				</form>
 			</section>
 
-			<section id="character-sheets-tab-content" class="tab-content">
+			<section id="tab-content-character-sheets" class="tab-content">
 				<p>Character Sheets are Under Construction</p>
 			</section>
 
-			<section id="macros-tab-content" class="tab-content">
+			<section id="tab-content-macros" class="tab-content">
 				<div id="create-macro-container">
 					<h3>Create or Upate a Macro</h3>
 					<label id="create-macro-name-label" for="new macro name">Macro Name</label>
@@ -148,8 +227,16 @@
 				</div>
 			</section>
 
-			<section id="tables-tab-content" class="tab-content">
+			<section id="tab-content-notes" class="tab-content">
+				<p>Notes are Under Construction</p>
+			</section>
+
+			<section id="tab-content-tables" class="tab-content">
 				<p>Tables are Under Construction</p>
+			</section>
+
+			<section id="tab-content-settings" class="tab-content">
+				<p>Settings are Under Construction</p>
 			</section>
 		</div>
 	</div>
