@@ -2,17 +2,17 @@
 
 
 // Copyright (C) 2020  Jacob Guenther
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -59,10 +59,8 @@ impl MacrosWebT for Macros {
 			} else if !in_bar && currently_in_bar {
 				Elements::macro_shortcut(&name).remove();
 			}
-		} else {
-			if in_bar {
-				add_macro_to_bar(&name);
-			}
+		} else if in_bar {
+			add_macro_to_bar(&name);
 		}
 		add_macro_to_table(&name, in_bar);
 
@@ -75,7 +73,7 @@ impl MacrosWebT for Macros {
 			let mut data = self.get(name).unwrap().clone();
 			let currently_in_bar = data.in_bar;
 			let in_bar = Elements::get_value_table_row_shortcut_tongle(name);
-			
+
 			if !currently_in_bar && in_bar {
 				add_macro_to_bar(name);
 			} else if currently_in_bar && !in_bar {

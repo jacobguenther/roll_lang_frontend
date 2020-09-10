@@ -21,7 +21,7 @@
 use roll_lang::macros::Macros;
 use roll_lang::macros::MacroData;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize};
 use wasm_bindgen::prelude::*;
 
 static INIT_IDS: std::sync::Once = std::sync::Once::new();
@@ -138,12 +138,12 @@ impl Elements {
 	pub fn get_element(id: &str) -> Element {
 		Elements::document()
 			.get_element_by_id(id)
-			.expect(&format!("web_sys::failed to finde element with id \"{}\"", id))
+			.unwrap_or_else(|| panic!("web_sys::failed to finde element with id \"{}\"", id))
 	}
 	pub fn create_element(element_type: &str) -> Element {
 		Elements::document()
 			.create_element(element_type)
-			.expect(&format!("web_sys::Failed to create element of type {}", element_type))
+			.unwrap_or_else(|_| panic!("web_sys::Failed to create element of type {}", element_type))
 	}
 
 
@@ -248,8 +248,8 @@ pub fn macros_from_cookies() -> Macros {
 	let mut macros = Macros::new();
 
 	let raw_cookies = Elements::html_document().cookie().unwrap();
-	for cookie in raw_cookies.split(";") {
-		let mut key_value = cookie.split("=");
+	for cookie in raw_cookies.split(';') {
+		let mut key_value = cookie.split('=');
 		let (key, value) = match key_value.next() {
 			Some(key) => match key_value.next() {
 				Some(value) => (key, value),
@@ -258,7 +258,7 @@ pub fn macros_from_cookies() -> Macros {
 			_ => continue,
 		};
 
-		let mut cookie_types = key.split(":");
+		let mut cookie_types = key.split(':');
 		let name = match cookie_types.next() {
 			Some("macro") | Some(" macro") => match cookie_types.next() {
 				Some(name) => name.to_string(),
@@ -267,7 +267,7 @@ pub fn macros_from_cookies() -> Macros {
 			_ => continue,
 		};
 
-		let mut data = value.split(":");
+		let mut data = value.split(':');
 		let macro_data = match data.next() {
 			Some(bar_str) => match cookies::string_2_in_bar(bar_str) {
 				Some(bar_bool) => match data.next() {
