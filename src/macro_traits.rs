@@ -1,6 +1,5 @@
 // src/macros_traits.rs
 
-
 // Copyright (C) 2020  Jacob Guenther
 //
 // This program is free software: you can redistribute it and/or modify
@@ -30,8 +29,6 @@ pub trait MacrosWebT {
 
 	fn source(&self, name: &str) -> Option<String>;
 }
-
-
 
 impl MacrosWebT for Macros {
 	fn init() -> Macros {

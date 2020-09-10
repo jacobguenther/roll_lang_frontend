@@ -1,18 +1,17 @@
 // File: src/output_traits.rs
 
-
 // Copyright (C) 2020  Jacob Guenther
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -47,22 +46,20 @@ impl AsHtml for OutputFragment {
 impl AsHtml for RollType {
 	fn as_html(&self) -> String {
 		match self {
-			RollType::ExplicitRoll(expression_output) =>
-				format!(
-					"<div class=\"roll\">\
+			RollType::ExplicitRoll(expression_output) => format!(
+				"<div class=\"roll\">\
 						{}\
 					</div>",
-					 expression_output.as_html()
-				),
-			RollType::InlineRoll(expression_output) =>
-				format!(
-					"<div class=\"inline-roll\">\
+				expression_output.as_html()
+			),
+			RollType::InlineRoll(expression_output) => format!(
+				"<div class=\"inline-roll\">\
 						<div class=\"result\">{}</div>\
 						<div class=\"tooltip-text\">{}</div>\
 					</div>",
-					expression_output.result,
-					expression_output.as_html()
-				),
+				expression_output.result,
+				expression_output.as_html()
+			),
 		}
 	}
 }
@@ -95,29 +92,35 @@ impl AsHtml for FormulaFragment {
 					Some(_) => html.push_str("<div><div class=\"tooltipped\">("),
 					None => html.push_str("<div>("),
 				}
-				
+
 				html.push_str(&first_roll.as_html());
 				html.push_str(&rolls.as_html());
 
 				match tooltip {
-					Some(comment) => html.push_str(&format!(")<div class=\"tooltiptext\">{}</div></div></div>", comment)),
+					Some(comment) => html.push_str(&format!(
+						")<div class=\"tooltiptext\">{}</div></div></div>",
+						comment
+					)),
 					None => html.push_str(")</div>"),
 				}
-			},
+			}
 			FormulaFragment::SuccessFailRolls(first_roll, rolls, tooltip) => {
 				match tooltip {
 					Some(_) => html.push_str("<div><div class=\"tooltipped\">"),
 					None => html.push_str("<div>("),
 				}
-				
+
 				html.push_str(&first_roll.as_html());
 				html.push_str(&rolls.as_html());
 
 				match tooltip {
-					Some(comment) => html.push_str(&format!(")<div class=\"tooltiptext\">{}</div></div></div>", comment)),
+					Some(comment) => html.push_str(&format!(
+						")<div class=\"tooltiptext\">{}</div></div></div>",
+						comment
+					)),
 					None => html.push_str(")</div>"),
 				}
-			},
+			}
 		}
 		html
 	}
@@ -135,8 +138,12 @@ impl AsHtml for NumberRolls {
 impl AsHtml for NumberRoll {
 	fn as_html(&self) -> String {
 		match self {
-			NumberRoll::Counted(int) => format!("<div class=\"roll-counted\">{}</div>", int.value()),
-			NumberRoll::NotCounted(int) => format!("<div class=\"roll-not-counted\">{}</div>", int.value()),
+			NumberRoll::Counted(int) => {
+				format!("<div class=\"roll-counted\">{}</div>", int.value())
+			}
+			NumberRoll::NotCounted(int) => {
+				format!("<div class=\"roll-not-counted\">{}</div>", int.value())
+			}
 		}
 	}
 }

@@ -1,6 +1,5 @@
 // File src/web/mod.rs
 
-
 // Copyright (C) 2020  Jacob Guenther
 //
 // This program is free software: you can redistribute it and/or modify
@@ -18,10 +17,10 @@
 
 // pub mod ids;
 
-use roll_lang::macros::Macros;
 use roll_lang::macros::MacroData;
+use roll_lang::macros::Macros;
 
-use serde::{Deserialize};
+use serde::Deserialize;
 use wasm_bindgen::prelude::*;
 
 static INIT_IDS: std::sync::Once = std::sync::Once::new();
@@ -35,9 +34,7 @@ pub fn init_ids(ids: &JsValue) {
 	}
 }
 pub fn ids() -> &'static mut ElementIds {
-	unsafe {
-		IDS.as_mut().unwrap()
-	}
+	unsafe { IDS.as_mut().unwrap() }
 }
 
 #[derive(Debug, Deserialize)]
@@ -93,7 +90,7 @@ pub struct ElementIds {
 }
 impl ElementIds {
 	pub fn macros(name: &str) -> String {
-		name.replace(" ","-")
+		name.replace(" ", "-")
 	}
 
 	pub fn macro_table_row(name: &str) -> String {
@@ -112,12 +109,12 @@ impl ElementIds {
 }
 
 use wasm_bindgen::JsCast;
-use web_sys::Window;
 use web_sys::Document;
-use web_sys::HtmlDocument;
 use web_sys::Element;
+use web_sys::HtmlDocument;
 use web_sys::HtmlInputElement;
 use web_sys::HtmlTextAreaElement;
+use web_sys::Window;
 
 pub struct Elements {}
 impl Elements {
@@ -143,39 +140,46 @@ impl Elements {
 	pub fn create_element(element_type: &str) -> Element {
 		Elements::document()
 			.create_element(element_type)
-			.unwrap_or_else(|_| panic!("web_sys::Failed to create element of type {}", element_type))
+			.unwrap_or_else(|_| {
+				panic!("web_sys::Failed to create element of type {}", element_type)
+			})
 	}
-
 
 	pub fn set_value_create_macro_name(name: &str) {
 		Elements::get_element(&ids().create_macro_name)
-			.dyn_ref::<HtmlInputElement>().unwrap()
+			.dyn_ref::<HtmlInputElement>()
+			.unwrap()
 			.set_value(name);
 	}
 	pub fn set_value_create_macro_source(source: &str) {
 		Elements::get_element(&ids().create_macro_source)
-			.dyn_ref::<HtmlTextAreaElement>().unwrap()
+			.dyn_ref::<HtmlTextAreaElement>()
+			.unwrap()
 			.set_value(source);
 	}
 	pub fn set_value_create_macro_add_shortcut(has_shortcut: bool) {
 		Elements::get_element(&ids().create_macro_add_shortcut)
-			.dyn_ref::<HtmlInputElement>().unwrap()
+			.dyn_ref::<HtmlInputElement>()
+			.unwrap()
 			.set_checked(has_shortcut);
 	}
 
 	pub fn get_value_create_macro_name() -> String {
 		Elements::get_element(&ids().create_macro_name)
-			.dyn_ref::<HtmlInputElement>().unwrap()
+			.dyn_ref::<HtmlInputElement>()
+			.unwrap()
 			.value()
 	}
 	pub fn get_value_create_macro_source() -> String {
 		Elements::get_element(&ids().create_macro_source)
-			.dyn_ref::<HtmlTextAreaElement>().unwrap()
+			.dyn_ref::<HtmlTextAreaElement>()
+			.unwrap()
 			.value()
 	}
 	pub fn get_value_create_macro_add_shortcut() -> bool {
 		Elements::get_element(&ids().create_macro_add_shortcut)
-			.dyn_ref::<HtmlInputElement>().unwrap()
+			.dyn_ref::<HtmlInputElement>()
+			.unwrap()
 			.checked()
 	}
 
@@ -186,17 +190,16 @@ impl Elements {
 		Elements::get_element(&ElementIds::macro_table_row(name))
 	}
 	pub fn macro_table_shortcut_tongle(name: &str) -> Element {
-		Elements::get_element(
-			&ElementIds::macro_table_shortcut_tongle(name))
+		Elements::get_element(&ElementIds::macro_table_shortcut_tongle(name))
 	}
 	pub fn macro_table_row_delete(name: &str) -> Element {
-		Elements::get_element(
-			&ElementIds::macro_table_row_delete(name))
+		Elements::get_element(&ElementIds::macro_table_row_delete(name))
 	}
 
 	pub fn get_value_table_row_shortcut_tongle(name: &str) -> bool {
 		Elements::macro_table_shortcut_tongle(name)
-			.dyn_ref::<HtmlInputElement>().unwrap()
+			.dyn_ref::<HtmlInputElement>()
+			.unwrap()
 			.checked()
 	}
 
@@ -211,29 +214,26 @@ pub mod cookies {
 	use crate::web::*;
 	pub fn add_macro(name: &str, data: &MacroData) {
 		let time = "Mon, 01 Jan 2024 00:00:00 GMT";
-		let _result = Elements::html_document()
-			.set_cookie(
-				&format!("macro:{}={}:{}; SameSite=Strict; expires={};",
-					name,
-					in_bar_2_string(data.in_bar),
-					data.source,
-					time
-				)
-			);
+		let _result = Elements::html_document().set_cookie(&format!(
+			"macro:{}={}:{}; SameSite=Strict; expires={};",
+			name,
+			in_bar_2_string(data.in_bar),
+			data.source,
+			time
+		));
 	}
 	pub fn remove_macro(name: &str) {
-		let _result = Elements::html_document()
-			.set_cookie(
-				&format!("macro:{}=\"\"; SameSite=Strict; expires=Thur, 01 Jan 1970 00:00:00: UTC; path=/;",
-					name
-				)
-			);
+		let _result = Elements::html_document().set_cookie(&format!(
+			"macro:{}=\"\"; SameSite=Strict; expires=Thur, 01 Jan 1970 00:00:00: UTC; path=/;",
+			name
+		));
 	}
 	pub fn in_bar_2_string(in_bar: bool) -> String {
 		match in_bar {
 			true => "InBar",
 			false => "OutOfBar",
-		}.to_owned()
+		}
+		.to_owned()
 	}
 	pub fn string_2_in_bar(text: &str) -> Option<bool> {
 		match text {
@@ -288,10 +288,7 @@ pub fn macros_from_cookies() -> Macros {
 pub fn add_macro_to_bar(name: &str) {
 	let button = Elements::create_element("button");
 	let _result = button.set_attribute("id", &ElementIds::macro_shortcut(name));
-	let _result = button.set_attribute(
-		"onclick",
-		&format!("runMacro(\"{}\");", name)
-	);
+	let _result = button.set_attribute("onclick", &format!("runMacro(\"{}\");", name));
 	button.set_inner_html(name);
 	let _result = Elements::macro_shortcuts().append_child(&button);
 }
@@ -303,7 +300,7 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	name_cell.set_inner_html(name);
 	let _result = name_cell.set_attribute(
 		"onclick",
-		&format!("wasm_bindgen.handle_macro_select(\"{}\");", name)
+		&format!("wasm_bindgen.handle_macro_select(\"{}\");", name),
 	);
 
 	let place_in_bar_cell = Elements::create_element("td");
@@ -311,7 +308,7 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	let _result = place_in_bar.set_attribute("id", &ElementIds::macro_table_shortcut_tongle(name));
 	let _result = place_in_bar.set_attribute(
 		"onchange",
-		&format!("wasm_bindgen.handle_macro_change_in_bar(\"{}\");", name)
+		&format!("wasm_bindgen.handle_macro_change_in_bar(\"{}\");", name),
 	);
 	let _result = place_in_bar.set_attribute("type", "checkbox");
 	if in_bar {
@@ -319,13 +316,12 @@ pub fn add_macro_to_table(name: &str, in_bar: bool) {
 	}
 	let _result = place_in_bar_cell.append_child(&place_in_bar);
 
-
 	let delete_cell = Elements::create_element("td");
 	delete_cell.set_inner_html("delete");
 	let _result = delete_cell.set_attribute("id", &ElementIds::macro_table_row_delete(name));
 	let _result = delete_cell.set_attribute(
 		"onclick",
-		&format!("wasm_bindgen.handle_macro_delete(\"{}\");", name)
+		&format!("wasm_bindgen.handle_macro_delete(\"{}\");", name),
 	);
 
 	let _result = row.append_child(&name_cell);
