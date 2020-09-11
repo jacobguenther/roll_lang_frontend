@@ -1,7 +1,7 @@
 #tab-content-macros {
 	padding: 5px;
 	padding-right: 10px;
-	grid-template-rows: auto auto;
+	grid-template-rows: auto auto minmax(0px, 100%);
 	width: 360px;
 	overflow-y: scroll;
 }
