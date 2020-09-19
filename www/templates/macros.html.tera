@@ -1,0 +1,45 @@
+
+
+{% macro nav(logged_in, display_name) %}
+<nav>
+	<ul id="main-nav-list">
+		<li><a href="/"><h1>Roll Lang</h1></a></li>
+		<li><a href="/help">Help</a></li>
+		<li><a href="/about">About</a></li>
+		{% if logged_in %}
+			<li>
+				<form action="/logout" method="POST" accept-charset="utf-8">
+					<input type="submit" value="Logout" />
+				</form>
+			</li>
+		{% else %}
+			<li><a href="/login">Login</a></li>
+			<li><a href="/create_account">Create Account</a></li>
+		{% endif %}
+		<li>
+			<span>{{ display_name }}</span>
+		</li>
+	</ul>
+</nav>
+{% endmacro nav %}
+
+{% macro meta(title, description, keywords, route, type) %}
+	<meta charset="UTF-8" />
+	<title>{{ title }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="{{ description }}" />
+	<meta name="application-name" content="Roll Lang" />
+	<meta name="keyword" content="{{ keywords }}" />
+	<meta name="author" content="Jacob Guenther" />
+	<meta name="referrer" content="no-referrer" />
+	<meta name="robots" content="index follow" />
+
+	<meta property="og:title" content="{{ title }}" />
+	<meta property="og:url" content="https://roll.quaternion.site/{{ route }}" />
+	<meta property="og:image" content="https://roll.quaternion.site/assets/favicon.png" />
+	<meta property="og:type" content="{{ type }}" />
+	<meta property="og:description" content="{{ description }}" />
+	<meta property="og:locale" content="en_US" />
+
+	<link rel="canonical" href="https://roll.quaternion.site/{{ route }}" />
+{% endmacro meta %}

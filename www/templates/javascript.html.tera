@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% import "macros" as macros %}
+
+	{{
+		macros::meta(
+			title="Roll Lang - Help",
+			description="License information for the javascript used on this site.",
+			keywords="License Javascipt GPLv3 Dice Roller RPG Virtual Tabletop VTT",
+			route="about/javascript",
+			type="website"
+		)
+	}}
+
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/license.css">
+
+	<link rel="icon" type="image/png" href="/assets/favicon.png" />
+</head>
+<body>
+	<nav>
+		{{ macros::nav(logged_in = logged_in, display_name = display_name) }}
+	</nav>
+	<div>
+	<table id="jslicense-labels1">
+		<tr>
+			<td><a href="/scripts/config_ids.js">config_ids.js</a></td>
+			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
+			<td><a href="/scripts/config_ids.js">config_ids.js</a></td>
+		</tr>
+		<tr>
+			<td><a href="/scripts/history.js">history.js</a></td>
+			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
+			<td><a href="/scripts/history.js">history.js</a></td>
+		</tr>
+		<tr>
+			<td><a href="/scripts/macro_table_sort.js">macro_table_sort.js</a></td>
+			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
+			<td><a href="/scripts/macro_table_sort.js">macro_table_sort.js</a></td>
+		</tr>
+		<tr>
+			<td><a href="/scripts/roll_lang_frontend.js">roll_lang_frontend.js</a></td>
+			<td><a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache-2.0</a></td>
+			<td><a href="/scripts/roll_lang_frontend.js">roll_lang_frontend.js</a></td>
+		</tr>
+		<tr>
+			<td><a href="/scripts/main.js">main.js</a></td>
+			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
+			<td><a href="/scripts/main.js">main.js</a></td>
+		</tr>
+		<tr>
+			<td><a href="/scripts/tabs.js">tabs.js</a></td>
+			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
+			<td><a href="/scripts/tabs.js">tabs.js</a></td>
+		</tr>
+		<tr>
+			<td><a href="/scripts/macro_table_sort.js">macro_table_sort.js</a></td>
+			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
+			<td><a href="/scripts/macro_table_sort.js">macro_table_sort.js</a></td>
+		</tr>
+		<tr>
+			<td><a href="/scripts/slider.js">slider.js</a></td>
+			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
+			<td><a href="/scripts/slider.js">slider.js</a></td>
+		</tr>
+	</table>
+	</div>
+</body>

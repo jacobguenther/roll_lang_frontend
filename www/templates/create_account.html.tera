@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% import "macros" as macros %}
+
+	{{
+		macros::meta(
+			title="Roll Lang - Create Account",
+			description="Create an account for Roll Lang an open source dice roller.",
+			keywords="Create Account Dice Roller RPG Virtual Tabletop VTT",
+			route="create_account",
+			type="website"
+		)
+	}}
+
+	<link rel="preload" as="style" href="/css/create_account.css" />
+	<link rel="preload" as="image" href="/assets/favicon.png" />
+
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/create_account.css" />
+	<link rel="icon" type="image/png" href="/assets/favicon.png" />
+</head>
+<body>
+	<script>0</script>
+	<header id="header-bar">
+		{{ macros::nav(logged_in = false, display_name = "") }}
+	</header>
+	<form id="create-account-form" action="/create_account" method="POST" accept-charset="utf-8">
+		<fieldset>
+			<legend>Create Account</legend>
+			<label id="player-name-label" for="player_name">Player Name</label>
+			<input type="text" id="player-name" name="player_name"  value="{{ name }}" required />
+			<label id="email-label" for="email">Email</label>
+			<input type="email" id="email" name="email" value="{{ email }}" required />
+			<label id="password-label" for="password">Password</label>
+			<input type="password" id="password" name="password" required />
+			<label id="confirm-password-label" for="confirm-password">Confirm Password</label>
+			<input type="password" id="confirm-password" name="confirm_password" required />
+			<div id="error-msgs">
+				{% if password_too_short %}
+					<p class="error-msg">Failed to create an account: Password must be atleast 8 characters.</p>
+				{% endif %}
+				{% if passwords_dont_match %}
+					<p class="error-msg">Failed to create an account: Passwords don't match.</p>
+				{% endif %}
+				{% if name_or_email_taken %}
+					<p class="error-msg">Failed to create an account: Player name or email are already being used.</p>
+				{% endif %}
+				{% if unknown_error %}
+					<p class="error-msg">Failed to create an account: Unknown error.</p>
+				{% endif %}
+			</div>
+			<input type="submit" id="create-account-submit" value="Create" />
+		</fieldset>
+	</form>
+</body>
+</html>
