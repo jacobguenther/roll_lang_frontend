@@ -1,11 +1,14 @@
 #tab-content-macros {
 	padding: 5px;
+	padding-right: 10px;
 	grid-template-rows: auto auto minmax(0px, 100%);
 	width: 360px;
+	overflow-y: scroll;
 }
-#create-macro-container {
+#create-macro-form fieldset {
 	display: grid;
-	width: 100%;
+	min-width: auto;
+	max-width: 100%;
 	justify-items: left;
 	align-items: center;
 	grid-template-columns: 110px auto;
@@ -18,8 +21,8 @@
 		"create-macro-shortcut-container create-macro-shortcut-container"
 		"create-macro-submits      create-macro-submits";
 }
-#create-macro-container h3 {
-	grid-area: create-macro-title;
+#create-macro-form legend {
+	font-weight: bold;
 }
 #create-macro-name-label {
 	grid-area: create-macro-name-label;

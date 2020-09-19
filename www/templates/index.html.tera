@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>Roll Lang</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="description" content="Roll Lang an open source dice roller for tabletop games." />
-	<meta name="application-name" content="Roll Lang" />
-	<meta name="keyword" content="Dice Roller RPG Tabletop" />
-	<meta name="author" content="Jacob Guenther" />
-	<meta name="referrer" content="no-referrer" />
-	<meta name="robots" content="index follow" />
+	{% import "macros" as macros %}
 
-	<meta property="og:title" content="Roll Lang" />
-	<meta property="og:url" content="https://jacobguenther.github.io/roll_lang_demo/" />
-	<meta property="og:image" content="https://jacobguenther.github.io/roll_lang_demo/favicon.png" />
-	<meta property="og:type" content="website" />
-	<meta property="og:description" content="An open source dice roller for tabletop games." />
-	<meta property="og:locale" content="en_US" />
+	{{
+		macros::meta(
+			title="Roll Lang",
+			description="Roll Lang an open source dice roller for tabletop games.",
+			keywords="Dice Roller RPG Virtual Tabletop VTT",
+			route="",
+			type="website"
+		)
+	}}
 
-	<link rel="canonical" href="https://jacobguenther.github.io/roll_lang_demo" />
-
+	<link rel="preload" as="script" href="scripts/settings.js" />
 	<link rel="preload" as="script" href="scripts/config_ids.js" />
 	<link rel="preload" as="script" href="scripts/tabs.js" />
 	<link rel="preload" as="script" href="scripts/history.js" />
@@ -28,10 +22,11 @@
 	<link rel="prefetch" as="script" href="scripts/slider.js" />
 	<link rel="prefetch" as="script" href="scripts/macro_table_sort.js" />
 
-	<link rel="preload" as="style"  href="css/styles.css" />
-	<link rel="preload" as="style"  href="css/play_area.css" />
-	<link rel="preload" as="style"  href="css/side_bar/tabs.css" />
-	<link rel="preload" as="style"  href="css/side_bar/history.css" />
+	<link rel="preload" as="style" href="css/styles.css" />
+	<link rel="preload" as="style" href="css/header.css">
+	<link rel="preload" as="style" href="css/play_area.css" />
+	<link rel="preload" as="style" href="css/side_bar/tabs.css" />
+	<link rel="preload" as="style" href="css/side_bar/history.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/result.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/character-sheet.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/macros.css" />
@@ -47,6 +42,7 @@
 	<link rel="preload" as="image" href="assets/favicon.png" />
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/header.css">
 	<link rel="stylesheet" type="text/css" href="css/play_area.css" />
 	<link rel="stylesheet" type="text/css" href="css/side_bar/tabs.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/history.css">
@@ -61,13 +57,7 @@
 </head>
 <body id="page-container" onload="start();">
 	<header id="header-bar">
-		<nav>
-			<ul id="main-nav-list">
-				<li><h1>Roll Lang</h1></li>
-				<li><a href="/help">Help</a></li>
-				<li><a href="/about">About</a></li>
-			</ul>
-		</nav>
+		{{ macros::nav(logged_in = base.logged_in, display_name = base.display_name) }}
 		<noscript>This webpage requires javascript and WebAssembly to run. Please enable javascript and if your browser
 			does not support WebAssembly consider using Firefox, Chrome, Edge or Safari.
 		</noscript>
@@ -186,7 +176,7 @@
 							rows="4"
 							onfocusin="inputFocusIn()",
 							onfocusout="inputFocusOut()"></textarea>
-						<input id="roll-lang-submit" type="submit" value="Run"></input>
+						<input id="roll-lang-submit" type="submit" value="Run" />
 					</div>
 				</form>
 			</section>
@@ -196,24 +186,26 @@
 			</section>
 
 			<section id="tab-content-macros" class="tab-content">
-				<div id="create-macro-container">
-					<h3>Create or Upate a Macro</h3>
-					<label id="create-macro-name-label" for="new macro name">Macro Name</label>
-					<input type=text id="create-macro-name" name="new macro name" />
-					<label id="create-macro-source-label" for="create macro source">Macro</label>
-					<textarea id="create-macro-source"
-						name="create macro source"
-						cols="32"
-						rows="4"></textarea>
-					<div id="create-macro-shortcut-container">
-						<label for="create macro add shortcut">Add to shortcuts</label>
-						<input type="checkbox" id="create-macro-add-shortcut" name="create macro add shortcut" checked />
-					</div>
-					<div id="create-macro-submits">
-						<input type="button" id="create-macro-submit" value="Create/Update" onclick="wasm_bindgen.handle_macro_update_create(); handleMacroSort();" />
-						<input type="button" id="test-macro-submit" value="Test Macro" onclick="testMacro()"/>
-					</div>
-				</div>
+				<form id="create-macro-form"  action="javascript:void(0);" onsubmit="">
+					<fieldset>
+						<legend>Create or Upate a Macro</legend>
+						<label id="create-macro-name-label" for="new macro name">Macro Name</label>
+						<input type=text id="create-macro-name" name="new macro name" required />
+						<label id="create-macro-source-label" for="create macro source">Macro</label>
+						<textarea id="create-macro-source"
+							name="create macro source"
+							cols="28"
+							rows="4"></textarea>
+						<div id="create-macro-shortcut-container">
+							<label for="create macro add shortcut">Add to shortcuts</label>
+							<input type="checkbox" id="create-macro-add-shortcut" name="create macro add shortcut" checked />
+						</div>
+						<div id="create-macro-submits">
+							<input type="submit" id="create-macro-submit" value="Create/Update" onclick="wasm_bindgen.handle_macro_update_create(); handleMacroSort();" />
+							<input type="button" id="test-macro-submit" value="Test Macro" onclick="testMacro()"/>
+						</div>
+					</fieldset>
+				</form>
 				<div id="macros-table-container">
 					<h3>Macros</h3>
 					<p>Macros are saved as cookies. Make sure your browser doesn't deletes cookies after it closes or these will not be saved.</p>
@@ -236,7 +228,16 @@
 			</section>
 
 			<section id="tab-content-settings" class="tab-content">
-				<p>Settings are Under Construction</p>
+				<form id="settings-theme-form" action="javascript:void(0);" onsubmit="">
+					<fieldset>
+						<legend>Themes</legend>
+						<input type="radio" id="light-theme" name="theme" value="light_theme" />
+						<label id="light-theme-label" for="light-theme">light</label>
+						<input type="radio" id="dark-theme" name="theme" value="dark_theme"  />
+						<label id="dark-theme-label" for="dark-theme">dark</label>
+						<input type="submit" id="theme-submit" value="Save" />
+					</fieldset>
+				</form>
 			</section>
 		</div>
 	</div>
@@ -249,6 +250,7 @@
 		<a id="jslicense" href="/about/javascript" rel="jslicense">JavaScript license information</a>
 	</footer>
 
+	<script src="scripts/settings.js"></script>
 	<script src="scripts/config_ids.js"></script>
 	<script src="scripts/tabs.js"></script>
 	<script src="scripts/history.js"></script>
@@ -257,5 +259,12 @@
 
 	<script src="scripts/slider.js" defer></script>
 	<script src="scripts/macro_table_sort.js" defer></script>
+
+	{% if login_success %}
+		<script>window.alert("Successfully logged in as {{ base.display_name }}")</script>
+	{% endif %}
+	{% if base.logout_success %}
+		<script>window.alert("Successfully logged out")</script>
+	{% endif %}
 </body>
 </html>

@@ -1,0 +1,54 @@
+body {
+	display: grid;
+
+	grid-template-rows: auto auto minmax(0px, 100%);
+	grid-template-columns: auto;
+	grid-template-areas:
+		"header-bar"
+		"create-account-form";
+}
+#header-bar {
+	grid-area: header-bar;
+}
+#login-form {
+	grid-area: create-account-form;
+}
+#login-form fieldset {
+	display: grid;
+
+	min-width: 360px;
+	max-width: 600px;
+
+	padding: 5px;
+
+	align-items: center;
+
+	row-gap: 5px;
+	grid-template-columns: 120px auto;
+	grid-template-areas:
+		"player-name-label player-name"
+		"password-label password"
+		"error-msg error-msg"
+		"login-submit login-submit";
+}
+#player-name-label {
+	grid-area: player-name-label;
+}
+#player-name {
+	grid-area: player-name;
+}
+#password-label {
+	grid-area: password-label;
+}
+#password {
+	grid-area: password;
+}
+#error-msg {
+	grid-area: error-msg;
+	color: red;
+}
+#login-submit {
+	grid-area: login-submit;
+	width: auto;
+	justify-self: center;
+}

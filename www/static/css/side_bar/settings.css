@@ -1,15 +1,53 @@
+/* File: css/settings.css */
+
 #tab-content-settings {
-	justify-items: center;
-	align-items: center;
+	grid-area: settings;
+
+	display: grid;
+	width: 360px;
+	overflow-y: scroll;
+
+	padding: 5px;
+	padding-right: 10px;
 
 	grid-template-columns: auto;
-	grid-template-rows: auto auto auto;
-
+	grid-template-rows: auto minmax(0px, 100%);
+	grid-row-gap: 5px;
 	grid-template-areas:
-		"."
-		"settings-under-construction"
-		".";
+		"theme-form"
 }
-#tab-content-settings p {
-	grid-area: settings-under-construction;
+#settings-theme-form fieldset {
+	grid-area: theme-form;
+
+	display: grid;
+
+	min-width: auto;
+	max-width: 100%;
+
+	justify-items: left;
+	align-items: center;
+
+	grid-template-columns: 40px auto;
+	grid-template-rows: auto auto auto;
+	grid-row-gap: 5px;
+	grid-template-areas:
+		"light-theme  light-theme-label"
+		"dark-theme   dark-theme-label"
+		"theme-submit theme-submit";
+}
+#settings-theme-form legend {
+	font-weight: bold;
+}
+#light-theme-label {
+	grid-area: light-theme-label;
+}
+#dark-theme {
+	grid-area: dark-theme;
+}
+#dark-theme-label {
+	grid-area: dark-theme-label;
+}
+#theme-submit {
+	grid-area: theme-submit;
+	justify-self: center;
 }

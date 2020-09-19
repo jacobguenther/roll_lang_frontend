@@ -9,14 +9,13 @@ body, h1, ul {
 	grid-area: header-bar;
 	width: 100%;
 	background-color: whitesmoke;
+	display: flex;
+	flex-direction: row;
 }
 
-#main-nav-list {
+#main-nav-list,
+#main-nav-list li,
+#main-nav-list form,
+#main-nav-list h1 {
 	display: inline;
-}
-#main-nav-list li {
-	display: inline;
-}
-#main-nav-list li h1 {
-    display: inline;
 }

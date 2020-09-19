@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>Roll Lang - Help</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="description" content="The guide for Roll Lang an open source dice roller for tabletop games." />
-	<meta name="keyword" content="Guide Tutorial Dice Roller RPG Tabletop" />
-	<meta name="author" content="Jacob Guenther" />
-	<meta name="referrer" content="no-referrer" />
-	<meta name="robots" content="index follow" />
+	{% import "macros" as macros %}
 
-	<meta property="og:title" content="Roll Lang" />
-	<meta property="og:url" content="https://jacobguenther.github.io/roll_lang_demo/guide" />
-	<meta property="og:image" content="https://jacobguenther.github.io/roll_lang_demo/favicon.png" />
-	<meta property="og:type" content="article" />
-	<meta property="og:description" content="The guide for Roll Lang an open source dice roller for tabletop games." />
-	<meta property="og:locale" content="en_US" />
+	{{
+		macros::meta(
+			title="Roll Lang - Help",
+			description="The guide for Roll Lang an open source dice roller for tabletop games.",
+			keywords="Guide Tutorial Help Dice Roller RPG Virtual Tabletop VTT",
+			route="help",
+			type="article"
+		)
+	}}
 
 	<link rel="preload" as="image" href="/assets/macros_help.png" />
 	<link rel="preload" as="image" href="/assets/macros_tab_help.png" />
@@ -31,16 +27,11 @@
 </head>
 <body>
 	<script>0</script>
-	<header id="header-bar" class="grid-item">
-		<nav>
-			<ul id="main-nav-list">
-				<li><h1><a href="/">Roll Lang</a></h1></li>
-				<li><a href="about">About</a></li>
-			</ul>
-		</nav>
+	<header id="header-bar">
+		{{ macros::nav(logged_in = logged_in, display_name = display_name) }}
 	</header>
 
-	<article class="grid-item">
+	<article>
 		<header>
 			<h2>Help</h2>
 			<nav>

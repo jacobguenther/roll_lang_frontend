@@ -43,6 +43,9 @@ impl MacrosWebT for Macros {
 	}
 	fn handle_macro_update_create(&mut self) {
 		let name = Elements::get_value_create_macro_name();
+		if name.len() == 0 {
+			return;
+		}
 		let source = Elements::get_value_create_macro_source();
 		let in_bar = Elements::get_value_create_macro_add_shortcut();
 

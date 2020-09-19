@@ -1,0 +1,70 @@
+body {
+	display: grid;
+
+	grid-template-rows: auto auto minmax(0px, 100%);
+	grid-template-columns: auto;
+	grid-template-areas:
+		"header-bar"
+		"create-account-form";
+}
+#header-bar {
+	grid-area: header-bar;
+}
+#create-account-form {
+	grid-area: create-account-form;
+}
+#create-account-form fieldset {
+	display: grid;
+
+	min-width: 360px;
+	max-width: 600px;
+
+	padding: 5px;
+
+	align-items: center;
+
+	row-gap: 5px;
+	grid-template-columns: 120px auto;
+	grid-template-areas:
+		"player-name-label player-name"
+		"email-label email"
+		"password-label password"
+		"confirm-password-lable confirm-password"
+		"error-msgs error-msgs"
+		"create-account-submit create-account-submit";
+}
+#player-name-label {
+	grid-area: player-name-label;
+}
+#player-name {
+	grid-area: player-name;
+}
+#email-label {
+	grid-area: email-label;
+}
+#email {
+	grid-area: email;
+}
+#password-label {
+	grid-area: password-label;
+}
+#password {
+	grid-area: password;
+}
+#confirm-password-lable {
+	grid-area: confirm-password-label;
+}
+#confirm-password {
+	grid-area: confirm-password;
+}
+#error-msgs {
+	grid-area: error-msgs;
+}
+.error-msg {
+	color: red;
+}
+#create-account-submit {
+	grid-area: create-account-submit;
+	width: auto;
+	justify-self: center;
+}
