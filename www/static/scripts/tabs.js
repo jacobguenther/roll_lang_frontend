@@ -25,8 +25,8 @@
  */
 
 
-const activeTabClass = 'active-tab';
-const activeTabContentsClass = 'active-tab-contents';
+const activeTabClass = 'active_tab';
+const activeTabContentsClass = 'active_tab_contents';
 
 class Tab {
 	constructor(headerItemId, contentId) {
