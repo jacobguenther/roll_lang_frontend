@@ -6,3 +6,10 @@ body article {
 	max-width: 980px;
 	margin: auto;
 }
+
+.bullet_list {
+	margin-left: 20px;
+}
+.heading {
+	font-weight: bold;
+}

@@ -34,6 +34,12 @@
 			it you can roll large numbers of dice, mix in common math operations with your rolls, and display text
 			to give your rolls context.
 		</p>
+		<p>This website will eventually be a fully featured virtual tabletop.
+			Plans for it include an extensible play area for your maps, and characters. An extensible character
+			sheet system to support many different games, and a handful of other useful utilities such as roll tables and notes.
+		</p>
+		<p>For more frequent and indepth updates on this project on Patreon</p>
+
 		<h3>Contribute</h3>
 		<p>Find the source code and report bugs for this project on
 			<a href="https://github.com/jacobguenther/roll_lang">GitHub</a>.
@@ -47,28 +53,70 @@
 		<p>A <span class="feature_completed">strike through</span> indicates a recently completed
 			feature.
 		</p>
+
 		<ul class="bullet_list">
-			<li><h4>Dice Modifiers</h4>
-				<ul class="bullet_list">
-					<li>Support multiple comparison points for exploding type modifiers</li>
-					<li>Tooltips for Compounding Dice</li>
-					<li>Success rolls</li>
-					<li>Critical Success and Fail Rolls</li>
-					<li>Drop highest and/or lowest dice</li>
-					<li>Keep highest and/or lowest dice</li>
-				</ul>
+
+			<li>
+			<span class="heading">Dice Interpreter</span>
+			<ul class="bullet_list">
+				<li>
+					<span class="heading">Finnish All Dice Modifiers</span>
+					<ul class="bullet_list">
+						<li>Support multiple comparison points for exploding type modifiers</li>
+						<li>Tooltips for Compounding Dice</li>
+						<li>Success rolls</li>
+						<li>Critical Success and Fail Rolls</li>
+						<li>Drop highest and/or lowest dice</li>
+						<li>Keep highest and/or lowest dice</li>
+					</ul>
+				</li>
+
+				<li>Fate Dice</li>
+				<li>Dice Groups</li>
+				<li>Use Javascript's crypto.getRandomValues function for dice rolls.</li>
+				<li>Add a useful "<span class="roll_example">/help</span>" keyword</li>
+				<li>Support <span class="roll_example">if else_if else</span> statements for conditional rolls.</li>
+				<li>Better Error Messages</li>
+				<li>Graphical Roll Builder</li>
+				<li>Update macros on the help page.</li>
+			</ul>
 			</li>
-			<li><span class="feature_completed">Macros</span></li>
-			<li><span class="feature_completed">Save Macros as cookies</span></li>
-			<li>Fate Dice</li>
-			<li>Dice Groups</li>
-			<li>Use Javascript's crypto.getRandomValues function for dice rolls.</li>
-			<li>Add a useful <span class="roll_example">/help</span> keyword</li>
-			<li>Support <span class="roll_example">if else_if else</span> statements for conditional rolls.</li>
-			<li>Better Error Messages</li>
-			<li>Make a Rust crate so other developers can easily use Roll Lang in their project.</li>
-			<li>Roll tables</li>
-			<li>Character Sheets</li>
+
+			<li>
+			<span class="heading">Server</span>
+			<ul class="bullet_list">
+				<li><span class="feature_completed">Setup a login system</span></li>
+				<li><span class="feature_completed">Allow users to change account information</span></li>
+				<li><span class="feature_completed">Save Macros to the server</span></li>
+				<li>Update docs for the server API</li>
+				<li>Games that can have multiple players in them</li>
+			</ul>
+			</li>
+
+			<li>
+			<span class="heading">Major Features</span>
+			<ul class="bullet_list">
+				<li>Character Sheets</li>
+				<li>
+					<span>Play Area</span>
+					<ul class="bullet_list">
+						<li>Import/Export maps</li>
+						<li>Player tokens</li>
+						<li>Line of sight</li>
+					</ul>
+				</li>
+				<li>Notes</li>
+				<li>Roll tables</li>
+			</ul>
+			</li>
+
+			<li>
+			<span class="heading">Developer Support</span>
+			<ul class="bullet_list">
+				<li class="feature_completed">Make a Rust crate so other developers can easily use Roll Lang in their project.</li>
+				<li>Add the Rust crate to crates.io</li>
+			</ul>
+			</li>
 		</ul>
 	</article>
 </body>
