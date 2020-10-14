@@ -1,6 +1,6 @@
 /* File: css/settings.css */
 
-#tab-content-settings {
+#tab_content_settings {
 	grid-area: settings;
 
 	display: grid;
@@ -14,10 +14,10 @@
 	grid-template-rows: auto minmax(0px, 100%);
 	grid-row-gap: 5px;
 	grid-template-areas:
-		"theme-form"
+		"theme_form"
 }
-#settings-theme-form fieldset {
-	grid-area: theme-form;
+#settings_theme_form fieldset {
+	grid-area: theme_form;
 
 	display: grid;
 
@@ -31,23 +31,23 @@
 	grid-template-rows: auto auto auto;
 	grid-row-gap: 5px;
 	grid-template-areas:
-		"light-theme  light-theme-label"
-		"dark-theme   dark-theme-label"
-		"theme-submit theme-submit";
+		"light_theme  light_theme_label"
+		"dark_theme   dark_theme_label"
+		"theme_submit theme_submit";
 }
-#settings-theme-form legend {
+#settings_theme_form legend {
 	font-weight: bold;
 }
-#light-theme-label {
-	grid-area: light-theme-label;
+#light_theme_label {
+	grid-area: light_theme_label;
 }
-#dark-theme {
-	grid-area: dark-theme;
+#dark_theme {
+	grid-area: dark_theme;
 }
-#dark-theme-label {
-	grid-area: dark-theme-label;
+#dark_theme_label {
+	grid-area: dark_theme_label;
 }
-#theme-submit {
-	grid-area: theme-submit;
+#theme_submit {
+	grid-area: theme_submit;
 	justify-self: center;
 }

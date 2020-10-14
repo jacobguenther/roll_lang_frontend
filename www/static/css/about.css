@@ -1,3 +1,8 @@
-.feature-completed {
+.feature_completed {
 	text-decoration: line-through;
+}
+
+body article {
+	max-width: 980px;
+	margin: auto;
 }

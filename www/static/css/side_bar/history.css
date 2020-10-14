@@ -1,4 +1,4 @@
-#tab-content-history {
+#tab_content_history {
 	position: relative;
 	overflow: hidden;
 
@@ -10,29 +10,29 @@
 	grid-template-columns: 100%;
 	grid-template-rows: auto 1fr auto auto;
 	grid-template-areas:
-		"history-controls"
-		"history-wrapper"
+		"history_controls"
+		"history_wrapper"
 		"break"
 		"input";
 }
-#history-controls {
-	grid-area: history-controls;
+#history_controls {
+	grid-area: history_controls;
 	width: 100%;
 	justify-self: left;
 }
-#macros-bar {
+#macros_bar {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 }
-#history-controls button {
+#history_controls button {
 	margin: 5px;
 }
 
 
-#history-wrapper {
-	grid-area: history-wrapper;
+#history_wrapper {
+	grid-area: history_wrapper;
 	position: relative;
 	overflow: hidden;
 
@@ -44,10 +44,10 @@
 	display: grid;
 	grid-template-columns: 100%;
 	grid-template-rows: 1fr;
-	grid-template-areas: "history-list";
+	grid-template-areas: "history_list";
 }
-#history-list {
-	grid-area: history-list;
+#history_list {
+	grid-area: history_list;
 	position: relative;
 	overflow-y: scroll;
 
@@ -60,25 +60,25 @@
 	flex-direction: column;
 	flex-wrap: nowrap;
 }
-#history-list li {
+#history_list li {
 	position: relative;
 	margin-bottom: 5px;
 }
-#history-list :nth-child(1) {
+#history_list :nth-child(1) {
 	margin-top: auto;
 }
-#history-list li:nth-child(even) {
+#history_list li:nth-child(even) {
 	background: lightgreen;
 }
 
-#history-break {
+#history_break {
 	grid-area: break;
 	width: 100%;
 }
 
 
-#roll-lang-input-container {
-	grid-area: roll-lang-input-container;
+#roll_lang_input_container {
+	grid-area: roll_lang_input_container;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -88,12 +88,12 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-#roll-lang-input {
+#roll_lang_input {
 	resize: vertical;
 }
-#roll-lang-input:focus {
+#roll_lang_input:focus {
 	border: 3px solid #555;
 }
-#input-submit {
+#input_submit {
 	padding: 5px 10px;
 }

@@ -43,25 +43,25 @@
 	font-weight: bold;
 	background-color: wheat;
 }
-.basic-roll {
+.basic_roll {
 
 }
-.roll-counted {
+.roll_counted {
 
 }
-.roll-not-counted {
+.roll_not_counted {
 	color: gray;
 }
-.success-roll {
+.success_roll {
 	color: greenyellow;
 }
-.fail-roll {
+.fail_roll {
 
 }
-.critical-success-roll {
+.critical_success_roll {
 	color: green;
 }
-.critical-fail-roll {
+.critical_fail_roll {
 	color: red;
 }
 .result {

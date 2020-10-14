@@ -1,14 +1,19 @@
-.roll-example, .roll-example-invalid {
+.roll_example, .roll_example_invalid {
 	background-color: lightblue;
 	border-radius: 4px;
 	border: 3px solid black;
 }
-.roll-example-invalid {
+.roll_example_invalid {
 	background-color: lightcoral;
 }
-.bullet-list {
+.bullet_list {
 	padding-left: 25px;
 	list-style-type: disc;
+}
+
+body article {
+	max-width: 980px;
+	margin: auto;
 }
 
 ul {
@@ -23,6 +28,6 @@ ul {
 .rules {
 
 }
-.production-rule {
+.production_rule {
 
 }

@@ -2,18 +2,18 @@ body {
 	display: grid;
 
 	grid-template-rows: auto auto minmax(0px, 100%);
-	grid-template-columns: auto;
+	grid-template-columns: auto auto auto;
 	grid-template-areas:
-		"header-bar"
-		"create-account-form";
+		"header_bar header_bar header_bar"
+		". create_account_form .";
 }
-#header-bar {
-	grid-area: header-bar;
+#header_bar {
+	grid-area: header_bar;
 }
-#login-form {
-	grid-area: create-account-form;
+#login_form {
+	grid-area: create_account_form;
 }
-#login-form fieldset {
+#login_form fieldset {
 	display: grid;
 
 	min-width: 360px;
@@ -26,29 +26,29 @@ body {
 	row-gap: 5px;
 	grid-template-columns: 120px auto;
 	grid-template-areas:
-		"player-name-label player-name"
-		"password-label password"
-		"error-msg error-msg"
-		"login-submit login-submit";
+		"player_name_label player_name"
+		"password_label password"
+		"error_msg error_msg"
+		"login_submit login_submit";
 }
-#player-name-label {
-	grid-area: player-name-label;
+#player_name_label {
+	grid-area: player_name_label;
 }
-#player-name {
-	grid-area: player-name;
+#player_name {
+	grid-area: player_name;
 }
-#password-label {
-	grid-area: password-label;
+#password_label {
+	grid-area: password_label;
 }
 #password {
 	grid-area: password;
 }
-#error-msg {
-	grid-area: error-msg;
+#error_msg {
+	grid-area: error_msg;
 	color: red;
 }
-#login-submit {
-	grid-area: login-submit;
+#login_submit {
+	grid-area: login_submit;
 	width: auto;
 	justify-self: center;
 }

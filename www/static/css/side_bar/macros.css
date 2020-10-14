@@ -1,11 +1,11 @@
-#tab-content-macros {
+#tab_content_macros {
 	padding: 5px;
 	padding-right: 10px;
 	grid-template-rows: auto auto minmax(0px, 100%);
 	width: 360px;
 	overflow-y: scroll;
 }
-#create-macro-form fieldset {
+#create_macro_form fieldset {
 	display: grid;
 	min-width: auto;
 	max-width: 100%;
@@ -15,62 +15,67 @@
 	grid-template-rows: auto auto auto auto;
 	grid-row-gap: 5px;
 	grid-template-areas:
-		"create-macro-title        create-macro-title"
-		"create-macro-name-label   create-macro-name"
-		"create-macro-source-label create-macro-source"
-		"create-macro-shortcut-container create-macro-shortcut-container"
-		"create-macro-submits      create-macro-submits";
+		"create_macro_title        create_macro_title"
+		"create_macro_name_label   create_macro_name"
+		"create_macro_source_label create_macro_source"
+		"create_macro_shortcut_container create_macro_shortcut_container"
+		"create_macro_submits      create_macro_submits"
+		"create_macro_test_output create_macro_test_output";
 }
-#create-macro-form legend {
+#create_macro_form legend {
 	font-weight: bold;
 }
-#create-macro-name-label {
-	grid-area: create-macro-name-label;
+#create_macro_name_label {
+	grid-area: create_macro_name_label;
 }
-#create-macro-name {
-	grid-area: create-macro-name;
+#create_macro_name {
+	grid-area: create_macro_name;
 	width: fit-content;
 }
-#create-macro-source-label {
-	grid-area: create-macro-source-label;
+#create_macro_source_label {
+	grid-area: create_macro_source_label;
 	align-self: baseline;
 }
-#create-macro-source {
-	grid-area: create-macro-source;
+#create_macro_source {
+	grid-area: create_macro_source;
 }
-#create-macro-shortcut-container {
-	grid-area: create-macro-shortcut-container;
+#create_macro_shortcut_container {
+	grid-area: create_macro_shortcut_container;
 	display: flex;
 	align-items: center;
 }
-#create-macro-submits {
-	grid-area: create-macro-submits;
+#create_macro_submits {
+	grid-area: create_macro_submits;
 	display: flex;
 	width: 100%;
 	flex-direction: row;
 	justify-self: center;
 	justify-content: space-evenly;
 }
+#create_macro_test_output {
+	grid-area: create_macro_test_output;
+	width: 100%;
+}
 
 
-#macros-table-container {
+#macros_table_container {
 	width: 99%;
 }
-#macros-table {
+#macros_table {
 	width: 100%;
 	border-collapse: collapse;
 	background-color: whitesmoke;
 }
-#macros-table,
-#macros-table th,
-#macros-table td
+#macros_table,
+#macros_table th,
+#macros_table td
 {
 	border: 1px solid black;
 }
-#macros-table th {
+#macros_table th {
 	padding: 0 5px 0 5px;
 }
-#macro-table tr:first {
+#macro_table tr:first {
 	display: flex;
 	width: 100%;
 	justify-items: space-evenly;
@@ -78,9 +83,9 @@
 tr:nth-child(even) {
 	background-color: lightgray;
 }
-#macros-table tr td {
+#macros_table tr td {
 	text-align: center;
 }
-#macros-table tr td:first-child {
+#macros_table tr td:first-child {
 	text-align: left !important;
 }

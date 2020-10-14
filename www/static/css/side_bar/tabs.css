@@ -1,7 +1,7 @@
 /* File: css/side_bar/tabs.css */
 
-#tabs-header {
-	grid-area: tabs-header;
+#tabs_header {
+	grid-area: tabs_header;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
@@ -9,7 +9,7 @@
 	padding: 5px 5px 0px 5px;
 	background-color: lightblue;
 }
-#tabs-header li {
+#tabs_header li {
 	display: inline;
 	background-color: lightgreen;
 	margin: 5px 5px 0 5px;
@@ -17,44 +17,44 @@
 	border: 1px black solid;
 	border-bottom-style: none;
 }
-#tabs-header li:hover {
+#tabs_header li:hover {
 	background-color: grey !important;
 }
-.active-tab {
+.active_tab {
 	background-color: lightblue !important;
 }
 
-#tab-content-wrapper {
+#tab_content_wrapper {
 	overflow: hidden;
 	position: relative;
 
-	grid-area: tab-content-wrapper;
+	grid-area: tab_content_wrapper;
 	width: 100%;
 	height: 100%;
 	background-color: lightblue;
 }
-.tab-content {
+.tab_content {
 	overflow-y: hidden;
 	overflow-wrap: normal;
 	display: none;
 	width: 100%;
 	height: 100%;
 }
-.active-tab-contents {
+.active_tab_contents {
 	display: grid;
 }
 
-#tab-header-item-settings svg:hover .gear{
+#tab_header_item_settings svg:hover .gear{
 	animation-play-state: running;
 }
 .gear {
-	animation-name: rotate-gear;
+	animation-name: rotate_gear;
 	animation-duration: 10s;
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
 	animation-play-state: paused;
 }
-@keyframes rotate-gear {
+@keyframes rotate_gear {
 	from {transform: none;}
 	to {transform: rotate(720deg);}
 }

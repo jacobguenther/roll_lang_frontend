@@ -2,18 +2,18 @@ body {
 	display: grid;
 
 	grid-template-rows: auto auto minmax(0px, 100%);
-	grid-template-columns: auto;
+	grid-template-columns: auto auto auto;
 	grid-template-areas:
-		"header-bar"
-		"create-account-form";
+		"header_bar header_bar header_bar"
+		". create_account_form .";
 }
-#header-bar {
-	grid-area: header-bar;
+#header_bar {
+	grid-area: header_bar;
 }
-#create-account-form {
-	grid-area: create-account-form;
+#create_account_form {
+	grid-area: create_account_form;
 }
-#create-account-form fieldset {
+#create_account_form fieldset {
 	display: grid;
 
 	min-width: 360px;
@@ -26,45 +26,50 @@ body {
 	row-gap: 5px;
 	grid-template-columns: 120px auto;
 	grid-template-areas:
-		"player-name-label player-name"
-		"email-label email"
-		"password-label password"
-		"confirm-password-lable confirm-password"
-		"error-msgs error-msgs"
-		"create-account-submit create-account-submit";
+		"player_name_label player_name"
+		"email_label email"
+		"password_label password"
+		"password_requirements password_requirements"
+		"confirm_password_lable confirm_password"
+		"error_msgs error_msgs"
+		"create_account_submit create_account_submit";
 }
-#player-name-label {
-	grid-area: player-name-label;
+#player_name_label {
+	grid-area: player_name_label;
 }
-#player-name {
-	grid-area: player-name;
+#player_name {
+	grid-area: player_name;
 }
-#email-label {
-	grid-area: email-label;
+#email_label {
+	grid-area: email_label;
 }
 #email {
 	grid-area: email;
 }
-#password-label {
-	grid-area: password-label;
+#password_label {
+	grid-area: password_label;
 }
 #password {
 	grid-area: password;
 }
-#confirm-password-lable {
-	grid-area: confirm-password-label;
+#password_requirements {
+	grid-area: password_requirements;
+	color: gray;
 }
-#confirm-password {
-	grid-area: confirm-password;
+#confirm_password_lable {
+	grid-area: confirm_password_label;
 }
-#error-msgs {
-	grid-area: error-msgs;
+#confirm_password {
+	grid-area: confirm_password;
 }
-.error-msg {
+#error_msgs {
+	grid-area: error_msgs;
+}
+.error_msg {
 	color: red;
 }
-#create-account-submit {
-	grid-area: create-account-submit;
+#create_account_submit {
+	grid-area: create_account_submit;
 	width: auto;
 	justify-self: center;
 }

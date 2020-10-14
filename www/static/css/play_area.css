@@ -1,7 +1,7 @@
 /* File: css/play_area.css */
 
-#play-area {
-	grid-area: play-area;
+#play_area {
+	grid-area: play_area;
 
 	display: grid;
 	width: 100%;
@@ -14,11 +14,11 @@
 	grid-template-rows: auto auto auto;
 	grid-template-areas:
 		". . ."
-		". play-area-under-construction ."
+		". play_area_under_construction ."
 		". . .";
 
 	background-color: grey;
 }
-#play-area p {
-	grid-area: play-area-under-construction;
+#play_area p {
+	grid-area: play_area_under_construction;
 }
