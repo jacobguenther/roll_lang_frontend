@@ -17,7 +17,6 @@
 
 // pub mod ids;
 
-use roll_lang::macros::MacroData;
 use roll_lang::macros::Macros;
 
 use serde::Deserialize;
@@ -81,6 +80,7 @@ pub struct ElementIds {
 	pub create_macro_submits: String,
 	pub create_macro_create_or_update: String,
 	pub create_macro_test_macro: String,
+	pub create_macro_test_output: String,
 
 	pub macro_table_container: String,
 	pub macro_table: String,
@@ -210,166 +210,3 @@ impl Elements {
 		Elements::get_element(&ElementIds::macro_shortcut(name))
 	}
 }
-pub mod cookies {
-	use crate::web::*;
-	pub fn add_macro(name: &str, data: &MacroData) {
-		let time = "Mon, 01 Jan 2024 00:00:00 GMT";
-		let _result = Elements::html_document().set_cookie(&format!(
-			"macro:{}={}:{}; SameSite=Strict; expires={};",
-			name,
-			in_bar_2_string(data.in_bar),
-			data.source,
-			time
-		));
-	}
-	pub fn remove_macro(name: &str) {
-		let _result = Elements::html_document().set_cookie(&format!(
-			"macro:{}=\"\"; SameSite=Strict; expires=Thur, 01 Jan 1970 00:00:00: UTC; path=/;",
-			name
-		));
-	}
-	pub fn in_bar_2_string(in_bar: bool) -> String {
-		match in_bar {
-			true => "InBar",
-			false => "OutOfBar",
-		}
-		.to_owned()
-	}
-	pub fn string_2_in_bar(text: &str) -> Option<bool> {
-		match text {
-			"InBar" => Some(true),
-			"OutOfBar" => Some(false),
-			_ => None,
-		}
-	}
-}
-
-pub fn macros_from_cookies() -> Macros {
-	let mut macros = Macros::new();
-
-	let raw_cookies = Elements::html_document().cookie().unwrap();
-	for cookie in raw_cookies.split(';') {
-		let mut key_value = cookie.split('=');
-		let (key, value) = match key_value.next() {
-			Some(key) => match key_value.next() {
-				Some(value) => (key, value),
-				_ => continue,
-			},
-			_ => continue,
-		};
-
-		let mut cookie_types = key.split(':');
-		let name = match cookie_types.next() {
-			Some("macro") | Some(" macro") => match cookie_types.next() {
-				Some(name) => name.to_string(),
-				_ => continue,
-			},
-			_ => continue,
-		};
-
-		let mut data = value.split(':');
-		let macro_data = match data.next() {
-			Some(bar_str) => match cookies::string_2_in_bar(bar_str) {
-				Some(bar_bool) => match data.next() {
-					Some(source) => MacroData::new(bar_bool, source),
-					None => continue,
-				},
-				None => continue,
-			},
-			None => continue,
-		};
-
-		macros.insert(name.to_string(), macro_data);
-	}
-
-	macros
-}
-
-pub fn add_macro_to_bar(name: &str) {
-	let button = Elements::create_element("button");
-	let _result = button.set_attribute("id", &ElementIds::macro_shortcut(name));
-	let _result = button.set_attribute("onclick", &format!("runMacro(\"{}\");", name));
-	button.set_inner_html(name);
-	let _result = Elements::macro_shortcuts().append_child(&button);
-}
-pub fn add_macro_to_table(name: &str, in_bar: bool) {
-	let row = Elements::create_element("tr");
-	let _result = row.set_attribute("id", &ElementIds::macro_table_row(name));
-
-	let name_cell = Elements::create_element("td");
-	name_cell.set_inner_html(name);
-	let _result = name_cell.set_attribute(
-		"onclick",
-		&format!("wasm_bindgen.handle_macro_select(\"{}\");", name),
-	);
-
-	let place_in_bar_cell = Elements::create_element("td");
-	let place_in_bar = Elements::create_element("input");
-	let _result = place_in_bar.set_attribute("id", &ElementIds::macro_table_shortcut_tongle(name));
-	let _result = place_in_bar.set_attribute(
-		"onchange",
-		&format!("wasm_bindgen.handle_macro_change_in_bar(\"{}\");", name),
-	);
-	let _result = place_in_bar.set_attribute("type", "checkbox");
-	if in_bar {
-		let _result = place_in_bar.set_attribute("checked", "");
-	}
-	let _result = place_in_bar_cell.append_child(&place_in_bar);
-
-	let delete_cell = Elements::create_element("td");
-	delete_cell.set_inner_html("delete");
-	let _result = delete_cell.set_attribute("id", &ElementIds::macro_table_row_delete(name));
-	let _result = delete_cell.set_attribute(
-		"onclick",
-		&format!("wasm_bindgen.handle_macro_delete(\"{}\");", name),
-	);
-
-	let _result = row.append_child(&name_cell);
-	let _result = row.append_child(&place_in_bar_cell);
-	let _result = row.append_child(&delete_cell);
-
-	let table = Elements::macro_table();
-	let _result = table.append_child(&row);
-}
-// fn update_macro_table_row(name: &str, in_bar: bool) {
-// 	Web::document()
-// 		.get_element_by_id(&ID::row_check_box(name)).unwrap()
-// 		.dyn_ref::<HtmlInputElement>().unwrap()
-// 		.set_checked(in_bar);
-// }
-
-// fn macro_cookie(name: &str) -> Option<MacroData> {
-// 	let raw_cookies = Web::html_document().cookie().unwrap();
-// 	for cookie in raw_cookies.split(";") {
-// 		let mut key_value = cookie.split("=");
-// 		let (key, source) = match key_value.next() {
-// 			Some(key) => match key_value.next() {
-// 				Some(value) => (key, value),
-// 				_ => continue,
-// 			},
-// 			_ => continue,
-// 		};
-
-// 		let mut cookie_types = key.split(":");
-// 		match cookie_types.next() {
-// 			Some("macro") | Some(" macro") => match cookie_types.next() {
-// 				Some("InBar") => match cookie_types.next() {
-// 					Some(c_name) => if c_name == name {
-// 						return Some(MacroData::new(true, source));
-// 					},
-// 					_ => continue,
-// 				},
-// 				Some("OutOfBar") => match cookie_types.next() {
-// 					Some(c_name) => if c_name == name {
-// 						return Some(MacroData::new(false, source));
-// 					},
-// 					_ => continue,
-// 				},
-// 				_ => continue,
-// 			},
-// 			_ => continue,
-// 		};
-// 	}
-
-// 	None
-// }

@@ -19,7 +19,10 @@ use roll_lang::{interpreter::InterpreterT, macros::*};
 
 use super::{macro_traits::*, output_traits::*, *};
 
+use serde::{Serialize, Deserialize};
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsValue;
+
 
 static INIT_MACROS: std::sync::Once = std::sync::Once::new();
 static mut MACROS: Option<Macros> = None;
@@ -52,32 +55,32 @@ pub fn run(source: &str) -> String {
 		.as_html()
 }
 
-#[wasm_bindgen]
-pub fn handle_macro_update_create() {
-	macros().handle_macro_update_create();
-}
-#[wasm_bindgen]
-pub fn handle_macro_delete(name: &str) {
-	macros().handle_macro_delete(name);
+#[derive(Serialize, Deserialize)]
+pub struct JsMacro {
+	name: String,
+	source: String,
+	has_shortcut: bool,
 }
 
 #[wasm_bindgen]
-pub fn handle_macro_select(name: &str) {
-	macros().handle_macro_select(name);
+pub fn add_macros(val: &JsValue) {
+	let elements: Vec<JsMacro> = val.into_serde().unwrap();
+	let macros = macros();
+	elements
+		.iter()
+		.for_each(|e| {
+			macros.insert(e.name.clone(), e.source.clone());
+		});
 }
 #[wasm_bindgen]
-pub fn handle_macro_change_in_bar(name: &str) {
-	macros().handle_macro_change_in_bar(name);
+pub fn add_macro(val: &JsValue) {
+	let m: JsMacro = val.into_serde().unwrap();
+	macros()
+		.insert(m.name.clone(), m.source.clone());
 }
 #[wasm_bindgen]
-pub fn run_macro(name: &str) -> String {
-	let source = macros().source(name).unwrap();
-	run(&source)
-}
-#[wasm_bindgen]
-pub fn handle_macro_test() -> String {
-	let source = web::Elements::get_value_create_macro_source();
-	run(&source)
+pub fn remove_macro(name: &str) {
+	macros().remove(name);
 }
 #[wasm_bindgen]
 pub fn macro_source(name: &str) -> Option<String> {
