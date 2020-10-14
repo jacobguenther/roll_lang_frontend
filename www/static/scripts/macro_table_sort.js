@@ -1,7 +1,7 @@
 // File: www/scripts/macro_table_sort.js
 
 /**
- * @licstart The following is the entire license notice for the 
+ * @licstart The following is the entire license notice for the
  *  JavaScript code in this page.
  *
  * Copyright (C) 2020  Jacob Guenther
@@ -19,7 +19,7 @@
  * that code without the copy of the GNU GPL normally required by
  * section 4, provided you include this license notice and a URL
  * through which recipients can access the Corresponding Source.
- * 
+ *
  * @licend The above is the entire license notice
  * for the JavaScript code in this page.
  */
@@ -77,7 +77,7 @@ function handleSortMacrosByShortcut() {
 	handleMacroSort();
 }
 
-const macroTable = document.getElementById('macros-table');
+const macroTable = document.getElementById(ElementIds.macro_table);
 function macroTableRows() {
 	return Array.from(macroTable.children).slice(1);
 }
