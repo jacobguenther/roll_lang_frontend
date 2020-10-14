@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 echo "Building roll lang frontend"
-wasm-pack build --target no-modules --out-dir temp
+wasm-pack build --target no-modules --out-dir temp > /dev/null 2>&1
 
 
 mkdir --parents dist/static/assets
