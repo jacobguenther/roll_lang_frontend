@@ -1,4 +1,4 @@
-#tab-content-character-sheets {
+#tab_content_character_sheets {
 	justify-items: center;
 	align-items: center;
 
@@ -7,9 +7,9 @@
 
 	grid-template-areas:
 		"."
-		"character-sheet-under-construction"
+		"character_sheet_under_construction"
 		".";
 }
-#tab-content-character-sheets p {
-	grid-area: character-sheet-under-construction;
+#tab_content_character_sheets p {
+	grid-area: character_sheet_under_construction;
 }
