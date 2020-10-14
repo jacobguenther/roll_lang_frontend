@@ -1,0 +1,227 @@
+
+article {
+	display: grid;
+	row-gap: 5px;
+}
+
+#side_bar {
+	grid-area: side_bar;
+}
+#account_settings {
+	grid-area: account_settings;
+	margin: 5px;
+}
+
+#update_name_form fieldset {
+	display: grid;
+	row-gap: 5px;
+	align-items: center;
+}
+#auth_password_for_name_label {
+	grid-area: auth_password_for_name_label;
+}
+#auth_password_for_name {
+	grid-area: auth_password_for_name;
+}
+#new_name_label {
+	grid-area: new_name_label;
+}
+#new_name {
+	grid-area: new_name;
+}
+#update_name_error {
+	grid-area: update_name_error;
+}
+#update_name_submit {
+	grid-area: update_name_submit;
+	width: auto;
+	justify-self: center;
+}
+
+
+#update_email_form fieldset {
+	display: grid;
+	row-gap: 5px;
+	align-items: center;
+}
+#current_email_label {
+	grid-area: current_email_label;
+}
+#current_email {
+	grid-area: current_email;
+}
+#auth_password_for_email_label {
+	grid-area: auth_password_for_email_label;
+}
+#auth_password_for_email {
+	grid-area: auth_password_for_email;
+}
+#new_password_label {
+	grid-area: new_password_label;
+}
+#new_password {
+	grid-area: new_password;
+}
+#update_email_submit {
+	grid-area: update_email_submit;
+}
+#update_email_error {
+	grid-area: update_email_error;
+}
+#update_email_submit {
+	grid-area: update_email_submit;
+	width: auto;
+	justify-self: center;
+}
+
+#update_password_form fieldset {
+	display: grid;
+	row-gap: 5px;
+	align-items: center;
+}
+#auth_password_label {
+	grid-area: auth_password_label;
+}
+#auth_password {
+	grid-area: auth_password;
+}
+#new_password_label {
+	grid-area: new_password_label;
+}
+#new_password {
+	grid-area: new_password;
+}
+#password_requirements {
+	grid-area: password_requirements;
+	color: gray;
+}
+#confirm_password_label {
+	grid-area: confirm_password_label;
+}
+#confirm_password {
+	grid-area: confirm_password;
+}
+#update_password_error {
+	grid-area: update_password_error;
+}
+#update_password_submit {
+	grid-area: update_password_submit;
+	width: auto;
+	justify-self: center;
+}
+
+#delete_account_form fieldset {
+	display: grid;
+	row-gap: 5px;
+	align-items: center;
+}
+#auth_password_for_delete_label {
+	grid-area: auth_password_for_delete_label;
+}
+#auth_password_for_delete {
+	grid-area: auth_password_for_delete;
+}
+#delete_account_error {
+	grid-area: delete_account_error;
+}
+#delete_account_submit {
+	grid-area: delete_account_submit;
+	width: auto;
+	justify-self: center;
+}
+
+/* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+@media (min-width:320px)  {
+	article {
+		grid-template-columns: auto;
+		grid-template-areas:
+			"side_bar"
+			"account_settings"
+	}
+	#update_name_form fieldset {
+		grid-template-columns: auto;
+		grid-template-areas:
+			"auth_password_for_name_label"
+			"auth_password_for_name"
+			"new_name_label"
+			"new_name"
+			"update_name_error"
+			"update_name_submit";
+	}
+	#update_email_form fieldset {
+		grid-template-columns: auto;
+		grid-template-areas:
+			"current_email_label"
+			"current_email"
+			"auth_password_for_email_label"
+			"auth_password_for_email"
+			"new_email_label"
+			"new_email"
+			"update_email_error"
+			"update_email_submit";
+	}
+	#update_password_form fieldset {
+		grid-template-columns: auto;
+		grid-template-areas:
+			"auth_password_label"
+			"auth_password"
+			"new_password_label"
+			"new_password"
+			"password_requirements"
+			"password_requirements"
+			"confirm_password_label"
+			"confirm_password"
+			"update_password_error"
+			"update_password_submit";
+	}
+	#delete_account_form fieldset {
+		grid-template-columns: auto;
+		grid-template-areas:
+			"auth_password_for_delete_label"
+			"auth_password_for_delete"
+			"delete_account_error"
+			"delete_account_submit";
+	}
+}
+
+/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+@media (min-width:600px)  {
+	article {
+		grid-template-columns: auto 140px minmax(240px, 550px) 140px auto;
+		grid-template-areas:
+			". side_bar account_settings . ."
+	}
+	#update_name_form fieldset {
+		grid-template-columns: 160px auto;
+		grid-template-areas:
+			"auth_password_for_name_label auth_password_for_name"
+			"new_name_label new_name"
+			"update_name_error update_name_error"
+			"update_name_submit update_name_submit";
+	}
+	#update_email_form fieldset {
+		grid-template-columns: 160px auto;
+		grid-template-areas:
+			"current_email_label current_email"
+			"auth_password_for_email_label auth_password_for_email"
+			"new_email_label new_email"
+			"update_email_error update_email_error"
+			"update_email_submit update_email_submit";
+	}
+	#update_password_form fieldset {
+		grid-template-columns: 160px auto;
+		grid-template-areas:
+			"auth_password_label auth_password"
+			"new_password_label new_password"
+			"password_requirements password_requirements"
+			"confirm_password_label confirm_password"
+			"update_password_error update_password_error"
+			"update_password_submit update_password_submit";
+	}
+	#delete_account_form fieldset {
+		grid-template-columns: 160px auto;
+		grid-template-areas:
+			"auth_password_for_delete_label auth_password_for_delete"
+			"delete_account_submit delete_account_submit";
+	}
+}
