@@ -214,7 +214,7 @@
 				</form>
 				<div id="macros_table_container">
 					<h3>Macros</h3>
-					<p>Macros are saved as to a server. Make sure you are <a href="/login">logged in</a> if you want to save your macros.</p>
+					<p>Macros are saved to a server. Make sure you are <a href="/login">logged in</a> if you want to save your macros.</p>
 					<p>Shortcuts can be access in the chat tab.</p>
 					<table id="macros_table">
 						<tr>
