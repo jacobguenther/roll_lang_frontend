@@ -15,7 +15,7 @@
  * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
  *
  * As additional permission under GNU GPL version 3 section 7, you
- * may distribute non-source (e.g., minimized or compacted) forms of
+ * may distribute non_source (e.g., minimized or compacted) forms of
  * that code without the copy of the GNU GPL normally required by
  * section 4, provided you include this license notice and a URL
  * through which recipients can access the Corresponding Source.
@@ -25,60 +25,77 @@
  */
 
 const ElementIds = {
-	main_header: 'header-bar',
-	main_nav_list: 'main-nav-list',
+	main_header: 'header_bar',
+	main_nav_list: 'main_nav_list',
 
-	play_area: 'play-area',
-	slider_bar: 'slider-bar',
+	play_area: 'play_area',
+	slider_bar: 'slider_bar',
 
-	footer: 'footer-bar',
+	footer: 'footer_bar',
  	javascript_license_information: 'jslicense',
 
-	side_bar: 'side-bar',
-	tabs_header: 'tabs-header',
-	header_item_history: 'tab-header-item-history',
-	header_item_character_sheets: 'tab-header-item-character-sheets',
-	header_item_macros: 'tab-header-item-macros',
-	header_item_tables: 'tab-header-item-tables',
-	header_item_notes: 'tab-header-item-notes',
-	header_item_settings: 'tab-header-item-settings',
+	side_bar: 'side_bar',
+	tabs_header: 'tabs_header',
+	header_item_history: 'tab_header_item_history',
+	header_item_character_sheets: 'tab_header_item_character_sheets',
+	header_item_macros: 'tab_header_item_macros',
+	header_item_tables: 'tab_header_item_tables',
+	header_item_notes: 'tab_header_item_notes',
+	header_item_settings: 'tab_header_item_settings',
 
-	tab_content_wrapper: 'tab-content-wrapper',
-	tab_content_history: 'tab-content-history',
-	tab_content_character_sheets: 'tab-content-character-sheets',
-	tab_content_macros: 'tab-content-macros',
-	tab_content_notes: 'tab-content-notes',
-	tab_content_tables: 'tab-content-tables',
-	tab_content_settings: 'tab-content-settings',
+	tab_content_wrapper: 'tab_content_wrapper',
+	tab_content_history: 'tab_content_history',
+	tab_content_character_sheets: 'tab_content_character_sheets',
+	tab_content_macros: 'tab_content_macros',
+	tab_content_notes: 'tab_content_notes',
+	tab_content_tables: 'tab_content_tables',
+	tab_content_settings: 'tab_content_settings',
 
 	// history tab
-	history_controls: 'history-controls',
-	clear_history: 'clear-history',
-	macro_shortcuts: 'macro-shortcuts',
-	history_wrapper: 'history-wrapper',
-	history_list: 'history-list',
-	history_break: 'history-break',
-	roll_lang_form: 'roll-lang-form',
-	roll_lang_input_container: 'roll-lang-input-container',
-	roll_lang_input_label: 'roll-lang-input-label',
-	roll_lang_input: 'roll-lang-input', // textarea
-	roll_lang_submit: 'roll-lang-submit',
+	history_controls: 'history_controls',
+	clear_history: 'clear_history',
+	macro_shortcuts: 'macro_shortcuts',
+	history_wrapper: 'history_wrapper',
+	history_list: 'history_list',
+	history_break: 'history_break',
+	roll_lang_form: 'roll_lang_form',
+	roll_lang_input_container: 'roll_lang_input_container',
+	roll_lang_input_label: 'roll_lang_input_label',
+	roll_lang_input: 'roll_lang_input', // textarea
+	roll_lang_submit: 'roll_lang_submit',
 
 	// macros tab
-	create_macro_container: 'create-macro-container',
-	create_macro_name_label: 'create-macro-name-label',
-	create_macro_name: 'create-macro-name', // input
-	create_macro_source_label: 'create-macro-source-label',
-	create_macro_source: 'create-macro-source', // textarea
-	create_macro_shortcut_container: 'create-macro-shortcut-container',
-	create_macro_add_shortcut: 'create-macro-add-shortcut',
-	create_macro_submits: 'create-macro-submits', // input
-	create_macro_create_or_update: 'create-macro-create-or-update',
-	create_macro_test_macro: 'create-macro-test-macro',
+	create_macro_container: 'create_macro_container',
+	create_macro_name_label: 'create_macro_name_label',
+	create_macro_name: 'create_macro_name', // input
+	create_macro_source_label: 'create_macro_source_label',
+	create_macro_source: 'create_macro_source', // textarea
+	create_macro_shortcut_container: 'create_macro_shortcut_container',
+	create_macro_add_shortcut: 'create_macro_add_shortcut',
+	create_macro_submits: 'create_macro_submits', // input
+	create_macro_create_or_update: 'create_macro_create_or_update',
+	create_macro_test_macro: 'create_macro_test_macro',
+	create_macro_test_output: 'create_macro_test_output',
 
-	macro_table_container: 'macros-table-container',
-	macro_table: 'macros-table',
-	macro_table_header_name: 'macros-table-name',
-	macro_table_header_shortcut: 'macros-table-shortcut',
-	macro_table_header_delete: 'macros-table-delete',
+	macro_table_container: 'macros_table_container',
+	macro_table: 'macros_table',
+	macro_table_header_name: 'macros_table_name',
+	macro_table_header_shortcut: 'macros_table_shortcut',
+	macro_table_header_delete: 'macros_table_delete',
+
+	macro(macroName) {
+		return macroName.replace(/\s+/g, '-');
+	},
+	macroTableRow(macroName) {
+		return `macro_table_row_${this.macro(macroName)}`;
+	},
+	macroTableShortcutTongle(macroName) {
+		return `place_macro_in_shortcuts_${this.macro(macroName)}`;
+	},
+	macroTableRowDelete(macroName) {
+		return `delete_macro_${this.macro(macroName)}`;
+	},
+	macroShortcut(macroName) {
+		return `macro_shortcut_${this.macro(macroName)}`;
+	}
 }
