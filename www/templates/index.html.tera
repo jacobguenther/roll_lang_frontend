@@ -28,7 +28,7 @@
 	<link rel="preload" as="style" href="css/side_bar/tabs.css" />
 	<link rel="preload" as="style" href="css/side_bar/history.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/result.css" />
-	<link rel="prefetch" as="style" href="css/side_bar/character-sheet.css" />
+	<link rel="prefetch" as="style" href="css/side_bar/character_sheet.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/macros.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/notes.css" />
 	<link rel="prefetch" as="style" href="css/side_bar/tables.css" />
@@ -47,7 +47,7 @@
 	<link rel="stylesheet" type="text/css" href="css/side_bar/tabs.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/history.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/result.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/character-sheet.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/character_sheet.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/macros.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/notes.css">
 	<link rel="stylesheet" type="text/css" href="css/side_bar/tables.css">
@@ -55,35 +55,35 @@
 
 	<link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
-<body id="page-container" onload="start();">
-	<header id="header-bar">
+<body id="page_container" onload="start();">
+	<header id="header_bar">
 		{{ macros::nav(logged_in = base.logged_in, display_name = base.display_name) }}
 		<noscript>This webpage requires javascript and WebAssembly to run. Please enable javascript and if your browser
 			does not support WebAssembly consider using Firefox, Chrome, Edge or Safari.
 		</noscript>
 	</header>
 
-	<div id="play-area">
+	<div id="play_area">
 		<p>Play Area is Under Construction</p>
 	</div>
 
-	<div id="slider-bar">
+	<div id="slider_bar">
 	</div>
 
-	<div id="side-bar">
-		<ul id="tabs-header">
-			<li id="tab-header-item-history" onclick="tabs.selectHistory();">
+	<div id="side_bar">
+		<ul id="tabs_header">
+			<li id="tab_header_item_history" onclick="tabs.selectHistory();">
 				<img src="assets/svg/chat_icon.svg" title="Chat" type="image/svg+xml" width="32" />
 			</li>
-			<li id="tab-header-item-character-sheets" onclick="tabs.selectCharacterSheets();">
+			<li id="tab_header_item_character_sheets" onclick="tabs.selectCharacterSheets();">
 				<img src="assets/svg/sheets_icon.svg" title="Character Sheets" type="image/svg+xml" width="32" />
 			</li>
-			<li id="tab-header-item-macros" onclick="tabs.selectMacros();">
+			<li id="tab_header_item_macros" onclick="tabs.selectMacros();">
 				<img src="assets/svg/macros_icon.svg" title="Macros" type="image/svg+xml" width="32" />
 			</li>
-			<li id="tab-header-item-notes" onclick="tabs.selectNotes();">Notes</li>
-			<li id="tab-header-item-tables" onclick="tabs.selectTables();">Tables</li>
-			<li id="tab-header-item-settings" onclick="tabs.selectSettings();">
+			<li id="tab_header_item_notes" onclick="tabs.selectNotes();">Notes</li>
+			<li id="tab_header_item_tables" onclick="tabs.selectTables();">Tables</li>
+			<li id="tab_header_item_settings" onclick="tabs.selectSettings();">
 				<svg viewBox="0 0 64 64"
 					width="32" height="32"
 					preserveAspectRatio="none"
@@ -93,123 +93,130 @@
 					<desc>Two gears</desc>
 
 					<defs>
-						<circle id="gear-hole" r="3" cx=" 12" cy="0" />
+						<circle id="gear_hole" r="3" cx=" 12" cy="0" />
 
-						<mask id="gear-mask" transform="" >
+						<mask id="gear_mask" transform="" >
 							<rect x="-64" y="-64" width="128" height="128" fill="white" />
-							<use xlink:href="#gear-hole" />
-							<use xlink:href="#gear-hole" transform="rotate(72 0,0)" />
-							<use xlink:href="#gear-hole" transform="rotate(144 0,0)" />
-							<use xlink:href="#gear-hole" transform="rotate(216 0,0)" />
-							<use xlink:href="#gear-hole" transform="rotate(288 0,0)" />
+							<use xlink:href="#gear_hole" />
+							<use xlink:href="#gear_hole" transform="rotate(72 0,0)" />
+							<use xlink:href="#gear_hole" transform="rotate(144 0,0)" />
+							<use xlink:href="#gear_hole" transform="rotate(216 0,0)" />
+							<use xlink:href="#gear_hole" transform="rotate(288 0,0)" />
 							<circle r="4" />
 						</mask>
 
-						<polygon id="large-spoke" points="-1,-3 4,-2 4,2 -1,3" transform="translate(18 0)" />
-						<g id="large-gear-spokes">
-							<use xlink:href="#large-spoke" />
-							<use xlink:href="#large-spoke" transform="rotate(180 0 0)" />
+						<polygon id="large_spoke" points="-1,-3 4,-2 4,2 -1,3" transform="translate(18 0)" />
+						<g id="large_gear_spokes">
+							<use xlink:href="#large_spoke" />
+							<use xlink:href="#large_spoke" transform="rotate(180 0 0)" />
 						</g>
 
-						<polygon id="small-spoke" points="-1,-3.5 6.5,-3 6.5,3 -1,3.5" transform="translate(18 0)" />
-						<g id="small-gear-spokes">
-							<use xlink:href="#small-spoke" />
-							<use xlink:href="#small-spoke" transform="rotate(180 0 0)" />
+						<polygon id="small_spoke" points="-1,-3.5 6.5,-3 6.5,3 -1,3.5" transform="translate(18 0)" />
+						<g id="small_gear_spokes">
+							<use xlink:href="#small_spoke" />
+							<use xlink:href="#small_spoke" transform="rotate(180 0 0)" />
 						</g>
 
-						<g id="large-gear" mask="url(#gear-mask)">
+						<g id="large_gear" mask="url(#gear_mask)">
 							<circle r="18" />
-							<use xlink:href="#large-gear-spokes" />
-							<use xlink:href="#large-gear-spokes" transform="rotate(72)" />
-							<use xlink:href="#large-gear-spokes" transform="rotate(144)" />
-							<use xlink:href="#large-gear-spokes" transform="rotate(216)" />
-							<use xlink:href="#large-gear-spokes" transform="rotate(288)" />
+							<use xlink:href="#large_gear_spokes" />
+							<use xlink:href="#large_gear_spokes" transform="rotate(72)" />
+							<use xlink:href="#large_gear_spokes" transform="rotate(144)" />
+							<use xlink:href="#large_gear_spokes" transform="rotate(216)" />
+							<use xlink:href="#large_gear_spokes" transform="rotate(288)" />
 						</g>
-						<g id="small-gear" mask="url(#gear-mask)">
+						<g id="small_gear" mask="url(#gear_mask)">
 							<circle r="18" />
-							<use xlink:href="#small-gear-spokes" />
-							<use xlink:href="#small-gear-spokes" transform="rotate(72)" />
-							<use xlink:href="#small-gear-spokes" transform="rotate(144)" />
-							<use xlink:href="#small-gear-spokes" transform="rotate(216)" />
-							<use xlink:href="#small-gear-spokes" transform="rotate(288)" />
+							<use xlink:href="#small_gear_spokes" />
+							<use xlink:href="#small_gear_spokes" transform="rotate(72)" />
+							<use xlink:href="#small_gear_spokes" transform="rotate(144)" />
+							<use xlink:href="#small_gear_spokes" transform="rotate(216)" />
+							<use xlink:href="#small_gear_spokes" transform="rotate(288)" />
 						</g>
 					</defs>
 
 
 					<g transform="translate(24 40) rotate(-9)"><g>
-						<use xlink:href="#large-gear" class="gear" />
+						<use xlink:href="#large_gear" class="gear" />
 					</g></g>
 
 					<g transform="translate(48 16) rotate(9) scale(0.65 0.65)"><g>
-						<use xlink:href="#small-gear" class="gear" />
+						<use xlink:href="#small_gear" class="gear" />
 					</g></g>
 				</svg>
 				<div style="display: none;">Settings</div>
 			</li>
 		</ul>
 
-		<div id="tab-content-wrapper">
-			<section id="tab-content-history" class="tab-content">
+		<div id="tab_content_wrapper">
+			<section id="tab_content_history" class="tab_content">
 
-				<div id="history-controls">
-					<button id="clear-history" onclick="clearHistory();">Clear History</button>
+				<div id="history_controls">
+					<button id="clear_history" onclick="clearHistory();">Clear History</button>
 					<hr />
-					<div id="macro-shortcuts">
+					<div id="macro_shortcuts">
 					</div>
 					<hr />
 				</div>
 
-				<div id="history-wrapper">
-					<ul id="history-list">
+				<div id="history_wrapper">
+					<ul id="history_list">
 					</ul>
 				</div>
 
-				<hr id="history-break"/>
+				<hr id="history_break"/>
 
-				<form id="roll-lang-form" action="javascript:void(0);" onsubmit="run();">
-					<div id="roll-lang-input-container">
-						<label id="roll-lang-input-label" for="roll lang input">Input</label>
-						<textarea id="roll-lang-input"
+				<form id="roll_lang_form" action="javascript:void(0);" onsubmit="run();">
+					<div id="roll_lang_input_container">
+						<label id="roll_lang_input_label" for="roll lang input">Input</label>
+						<textarea id="roll_lang_input"
 							name="roll lang input"
 							placeholder="Attack roll is /roll 1d20 + [BAB]3 + [STR]3 \."
 							cols="40"
 							rows="4"
 							onfocusin="inputFocusIn()",
 							onfocusout="inputFocusOut()"></textarea>
-						<input id="roll-lang-submit" type="submit" value="Run" />
+						<input id="roll_lang_submit" type="submit" value="Run" />
 					</div>
 				</form>
 			</section>
 
-			<section id="tab-content-character-sheets" class="tab-content">
+			<section id="tab_content_character_sheets" class="tab_content">
 				<p>Character Sheets are Under Construction</p>
 			</section>
 
-			<section id="tab-content-macros" class="tab-content">
-				<form id="create-macro-form"  action="javascript:void(0);" onsubmit="">
+			<section id="tab_content_macros" class="tab_content">
+				<form id="create_macro_form"  action="javascript:void(0);" onsubmit="">
 					<fieldset>
-						<legend>Create or Upate a Macro</legend>
-						<label id="create-macro-name-label" for="new macro name">Macro Name</label>
-						<input type=text id="create-macro-name" name="new macro name" required />
-						<label id="create-macro-source-label" for="create macro source">Macro</label>
-						<textarea id="create-macro-source"
+						<legend>Create or Update a Macro</legend>
+						<label id="create_macro_name_label" for="new macro name">Macro Name</label>
+						<input type=text
+							id="create_macro_name"
+							name="new macro name"
+							size="25"
+							required />
+						<label id="create_macro_source_label" for="create macro source">Macro</label>
+						<textarea id="create_macro_source"
 							name="create macro source"
 							cols="28"
 							rows="4"></textarea>
-						<div id="create-macro-shortcut-container">
+						<div id="create_macro_shortcut_container">
 							<label for="create macro add shortcut">Add to shortcuts</label>
-							<input type="checkbox" id="create-macro-add-shortcut" name="create macro add shortcut" checked />
+							<input type="checkbox" id="create_macro_add_shortcut" name="create macro add shortcut" checked />
 						</div>
-						<div id="create-macro-submits">
-							<input type="submit" id="create-macro-submit" value="Create/Update" onclick="wasm_bindgen.handle_macro_update_create(); handleMacroSort();" />
-							<input type="button" id="test-macro-submit" value="Test Macro" onclick="testMacro()"/>
+						<div id="create_macro_submits">
+							<input type="submit" id="create_macro_submit" value="Create/Update" onclick="createUpdateMacro();" />
+							<input type="button" id="test_macro_submit" value="Test Macro" onclick="testMacro();"/>
+						</div>
+						<div id="create_macro_test_output">
 						</div>
 					</fieldset>
 				</form>
-				<div id="macros-table-container">
+				<div id="macros_table_container">
 					<h3>Macros</h3>
-					<p>Macros are saved as cookies. Make sure your browser doesn't deletes cookies after it closes or these will not be saved.</p>
-					<table id="macros-table">
+					<p>Macros are saved as to a server. Make sure you are <a href="/login">logged in</a> if you want to save your macros.</p>
+					<p>Shortcuts can be access in the chat tab.</p>
+					<table id="macros_table">
 						<tr>
 							<th><span onclick="handleSortMacrosByName();">Name</span></th>
 							<th><span onclick="handleSortMacrosByShortcut();">Shortcut</span></th>
@@ -219,35 +226,38 @@
 				</div>
 			</section>
 
-			<section id="tab-content-notes" class="tab-content">
+			<section id="tab_content_notes" class="tab_content">
+				<img src="assets/svg/plus.svg" title="Create new note" type="image/svg+xml" width="32" />
 				<p>Notes are Under Construction</p>
 			</section>
 
-			<section id="tab-content-tables" class="tab-content">
+			<section id="tab_content_tables" class="tab_content">
 				<p>Tables are Under Construction</p>
 			</section>
 
-			<section id="tab-content-settings" class="tab-content">
-				<form id="settings-theme-form" action="javascript:void(0);" onsubmit="">
+			<section id="tab_content_settings" class="tab_content">
+				<form id="settings_theme_form" action="javascript:void(0);" onsubmit="">
 					<fieldset>
 						<legend>Themes</legend>
-						<input type="radio" id="light-theme" name="theme" value="light_theme" />
-						<label id="light-theme-label" for="light-theme">light</label>
-						<input type="radio" id="dark-theme" name="theme" value="dark_theme"  />
-						<label id="dark-theme-label" for="dark-theme">dark</label>
-						<input type="submit" id="theme-submit" value="Save" />
+						<input type="radio" id="light_theme" name="theme" value="light_theme" />
+						<label id="light_theme_label" for="light_theme">light</label>
+						<input type="radio" id="dark_theme" name="theme" value="dark_theme"  />
+						<label id="dark_theme_label" for="dark_theme">dark</label>
+						<input type="submit" id="theme_submit" value="Save" />
 					</fieldset>
 				</form>
+				<p>Settings are Under Construction</p>
 			</section>
 		</div>
 	</div>
 
-	<footer id="footer-bar" class="grid-item">
+	<footer id="footer_bar" class="grid_item">
 		<!--
 			<span>Footer</span>
-			<span id="mouse-position"></span>
+			<span id="mouse_position"></span>
 		-->
 		<a id="jslicense" href="/about/javascript" rel="jslicense">JavaScript license information</a>
+		<span id="footer_patreon_link">Support this project on <a href="https://patreon.com/roll_lang">Patreon</a></span>
 	</footer>
 
 	<script src="scripts/settings.js"></script>
@@ -262,9 +272,10 @@
 
 	{% if login_success %}
 		<script>window.alert("Successfully logged in as {{ base.display_name }}")</script>
-	{% endif %}
-	{% if base.logout_success %}
+	{% elif base.logout_success %}
 		<script>window.alert("Successfully logged out")</script>
+	{% elif base.deleted_account %}
+		<script>window.alert("Successfully deleted your account")</script>
 	{% endif %}
 </body>
 </html>
