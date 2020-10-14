@@ -22,35 +22,50 @@
 </head>
 <body>
 	<script>0</script>
-	<header id="header-bar">
+	<header id="header_bar">
 		{{ macros::nav(logged_in = false, display_name = "") }}
 	</header>
-	<form id="create-account-form" action="/create_account" method="POST" accept-charset="utf-8">
+	<form id="create_account_form" action="/api/player/create" method="POST" accept_charset="utf_8">
 		<fieldset>
 			<legend>Create Account</legend>
-			<label id="player-name-label" for="player_name">Player Name</label>
-			<input type="text" id="player-name" name="player_name"  value="{{ name }}" required />
-			<label id="email-label" for="email">Email</label>
+			<label id="player_name_label" for="player_name">Player Name</label>
+			<input type="text" id="player_name" name="player_name"  value="{{ name }}" required />
+			<label id="email_label" for="email">Email</label>
 			<input type="email" id="email" name="email" value="{{ email }}" required />
-			<label id="password-label" for="password">Password</label>
-			<input type="password" id="password" name="password" required />
-			<label id="confirm-password-label" for="confirm-password">Confirm Password</label>
-			<input type="password" id="confirm-password" name="confirm_password" required />
-			<div id="error-msgs">
+			<label id="password_label" for="password">Password</label>
+			<input type="password"
+				id="password"
+				name="password"
+				size="32"
+				minlength="8"
+				maxlength="32"
+				pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+				title="Must contain at least, one number and one uppercase and one lowercase leter, and at least 8 characters."
+				autocomplete="new_password"
+				required />
+			<span id="password_requirements">(Min. 8, Max. 32 characters, 1 number, 1 lowercase, 1 uppercase)</span>
+			<label id="confirm_password_label" for="confirm_password">Confirm Password</label>
+			<input type="password"
+				id="confirm_password"
+				name="confirm_password"
+				size="32"
+				autocomplete="new_password"
+				required />
+			<div id="error_msgs">
 				{% if password_too_short %}
-					<p class="error-msg">Failed to create an account: Password must be atleast 8 characters.</p>
+					<p class="error_msg">Failed to create an account: Password must be atleast 8 characters.</p>
 				{% endif %}
 				{% if passwords_dont_match %}
-					<p class="error-msg">Failed to create an account: Passwords don't match.</p>
+					<p class="error_msg">Failed to create an account: Passwords don't match.</p>
 				{% endif %}
 				{% if name_or_email_taken %}
-					<p class="error-msg">Failed to create an account: Player name or email are already being used.</p>
+					<p class="error_msg">Failed to create an account: Player name or email are already being used.</p>
 				{% endif %}
 				{% if unknown_error %}
-					<p class="error-msg">Failed to create an account: Unknown error.</p>
+					<p class="error_msg">Failed to create an account: Unknown error.</p>
 				{% endif %}
 			</div>
-			<input type="submit" id="create-account-submit" value="Create" />
+			<input type="submit" id="create_account_submit" value="Create" />
 		</fieldset>
 	</form>
 </body>

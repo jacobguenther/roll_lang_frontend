@@ -2,28 +2,31 @@
 
 {% macro nav(logged_in, display_name) %}
 <nav>
-	<ul id="main-nav-list">
+	<ul id="main_nav_list">
 		<li><a href="/"><h1>Roll Lang</h1></a></li>
 		<li><a href="/help">Help</a></li>
 		<li><a href="/about">About</a></li>
-		{% if logged_in %}
-			<li>
-				<form action="/logout" method="POST" accept-charset="utf-8">
-					<input type="submit" value="Logout" />
-				</form>
-			</li>
-		{% else %}
-			<li><a href="/login">Login</a></li>
-			<li><a href="/create_account">Create Account</a></li>
-		{% endif %}
-		<li>
-			<span>{{ display_name }}</span>
-		</li>
+		<div id="position_at_end">
+			{%- if logged_in %}
+				<li class="dropdown">
+					<span>{{ display_name }}</span>
+					<div class="dropdown_content">
+						<a href="/account">Account Settings</a>
+						<form action="/api/player/logout" method="POST" accept-charset="utf-8">
+							<input type="submit" value="Logout" />
+						</form>
+					</div>
+				</li>
+			{%- else %}
+				<li><a href="/create_account">Create Account</a></li>
+				<li><a href="/login">Login</a></li>
+			{%- endif %}
+		</div>
 	</ul>
 </nav>
 {% endmacro nav %}
 
-{% macro meta(title, description, keywords, route, type) %}
+{%- macro meta(title, description, keywords, route, type) %}
 	<meta charset="UTF-8" />
 	<title>{{ title }}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,3 +46,25 @@
 
 	<link rel="canonical" href="https://roll.quaternion.site/{{ route }}" />
 {% endmacro meta %}
+
+{%- macro ebnf_production(name, rules) %}
+				<li class="production">&lt;{{ name }}&gt; ::=
+					<ul class="rules">
+						{%- for rule in rules %}
+							<li class="production_rule">
+								{%- if loop.index == 1 -%}
+									&nbsp;&nbsp;{{ rule }}
+								{%- else -%}
+									| {{ rule }}
+								{%- endif %}</li>{%- endfor %}
+					</ul>
+				</li>
+{%- endmacro ebnf_production -%}
+
+{%- macro api_item(authorization, route, method, description) %}
+				<li class="api_item">
+					{% if authorization %}<p>Authorization Required</p>{% endif -%}
+					<span>{{ route }}</span><span>&nbsp;{{ method }}</span>
+					<p>{{ description }}</p>
+				</li>
+{%- endmacro ebnf_production -%}

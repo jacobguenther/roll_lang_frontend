@@ -22,7 +22,7 @@
 </head>
 <body>
 	<script>0</script>
-	<header id="header-bar">
+	<header id="header_bar">
 		{{ macros::nav(logged_in = logged_in, display_name = display_name) }}
 	</header>
 
@@ -44,12 +44,12 @@
 		<p>You can make feature requests on github under
 			<a href="https://github.com/jacobguenther/roll_lang/issues">issues</a>
 		</p>
-		<p>A <span class="feature-completed">strike through</span> indicates a recently completed
+		<p>A <span class="feature_completed">strike through</span> indicates a recently completed
 			feature.
 		</p>
-		<ul class="bullet-list">
+		<ul class="bullet_list">
 			<li><h4>Dice Modifiers</h4>
-				<ul class="bullet-list">
+				<ul class="bullet_list">
 					<li>Support multiple comparison points for exploding type modifiers</li>
 					<li>Tooltips for Compounding Dice</li>
 					<li>Success rolls</li>
@@ -58,13 +58,13 @@
 					<li>Keep highest and/or lowest dice</li>
 				</ul>
 			</li>
-			<li><span class="feature-completed">Macros</span></li>
-			<li><span class="feature-completed">Save Macros as cookies</span></li>
+			<li><span class="feature_completed">Macros</span></li>
+			<li><span class="feature_completed">Save Macros as cookies</span></li>
 			<li>Fate Dice</li>
 			<li>Dice Groups</li>
 			<li>Use Javascript's crypto.getRandomValues function for dice rolls.</li>
-			<li>Add a useful <span class="roll-example">/help</span> keyword</li>
-			<li>Support <span class="roll-example">if else-if else</span> statements for conditional rolls.</li>
+			<li>Add a useful <span class="roll_example">/help</span> keyword</li>
+			<li>Support <span class="roll_example">if else_if else</span> statements for conditional rolls.</li>
 			<li>Better Error Messages</li>
 			<li>Make a Rust crate so other developers can easily use Roll Lang in their project.</li>
 			<li>Roll tables</li>

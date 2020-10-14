@@ -22,23 +22,23 @@
 </head>
 <body>
 	<script>0</script>
-	<header id="header-bar">
+	<header id="header_bar">
 		{{ macros::nav(logged_in = base.logged_in, display_name = base.display_name) }}
 	</header>
 	{% if logged_in %}
 		<p>You are already logged in.</p>
 	{% else %}
-		<form id="login-form" action="/login" method="POST" novalidate>
+		<form id="login_form" action="/api/player/login" method="POST" accept-charset="utf-8" novalidate>
 			<fieldset>
 				<legend>Login</legend>
-				<label id="player-name-label" for="player_name">Player Name</label>
+				<label id="player_name_label" for="player_name">Player Name</label>
 				<input type="text" id="player_name" name="name" value="{{ name }}" required />
-				<label id="password-label" for="password">Password</label>
+				<label id="password_label" for="password">Password</label>
 				<input type="password" id="password" name="password" required />
 				{% if login_fail %}
-					<p id="error-msg">Failed to login: The username and possword do not match.</p>
+					<p id="error_msg">Failed to login: The username and possword do not match.</p>
 				{% endif %}
-				<input type="submit" id="login-submit" value="Login" />
+				<input type="submit" id="login_submit" value="Login" />
 			</fieldset>
 		</form>
 	{% endif %}

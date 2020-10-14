@@ -5,7 +5,7 @@
 
 	{{
 		macros::meta(
-			title="Roll Lang - Help",
+			title="Roll Lang _ Help",
 			description="License information for the javascript used on this site.",
 			keywords="License Javascipt GPLv3 Dice Roller RPG Virtual Tabletop VTT",
 			route="about/javascript",
@@ -23,7 +23,7 @@
 		{{ macros::nav(logged_in = logged_in, display_name = display_name) }}
 	</nav>
 	<div>
-	<table id="jslicense-labels1">
+	<table id="jslicense_labels1">
 		<tr>
 			<td><a href="/scripts/config_ids.js">config_ids.js</a></td>
 			<td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0-or-later</a></td>
