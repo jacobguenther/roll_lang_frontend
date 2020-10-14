@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% import "macros" as macros %}
+
+	{{
+		macros::meta(
+			title="Roll Lang - Account Settings",
+			description="Settings for a Roll Lang account.",
+			keywords="About Dice Roller RPG Virtual Tabletop VTT Account Settings",
+			route="settings",
+			type="website"
+		)
+	}}
+
+	<link rel="preload" as="style" href="/css/about.css" />
+	<link rel="preload" as="image" href="/assets/favicon.png" />
+
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/account.css" />
+	<link rel="icon" type="image/png" href="/assets/favicon.png" />
+</head>
+<body>
+	<script>0</script>
+	<header id="header_bar">
+		{{ macros::nav(logged_in = base.logged_in, display_name = base.display_name) }}
+	</header>
+
+	<article>
+		<section id="side_bar">
+			<nav>
+				<ul>
+					<li><a href="#account_settings">Account Settings</a></li>
+				</ul>
+			</nav>
+		</section>
+
+		<section id="account_settings">
+			<header>
+				<h2>Account Settings for {{ name }}</h2>
+			</header>
+
+			<form id="update_name_form" action="/api/player/settings/name/update" method="POST" accept-charset="utf-8">
+			<fieldset>
+				<legend>Update Name</legend>
+				<label for="auth_password_for_name">Password</label>
+				<input type="password"
+					id="auth_password_for_name"
+					name="auth_password_for_name"
+					size="32"
+					autocomplete="current_password"
+					required />
+				<label for="new_name">New Name</label>
+				<input type="text"
+					id="new_name"
+					name="new_name"
+					size="32"
+					required />
+				<div id="update_name_error">
+					{% if update_name_wrong_password %}
+						<span class="error_msg">The password you entered was incorrect.<span>
+					{% elif update_name_taken %}
+						<span class="error_msg">The username provided is already in use.<span>
+					{% endif %}
+				</div>
+				<input type="submit" id="update_name_submit" value="Submit" />
+			</fieldset>
+			</form>
+
+			<form id="update_email_form" action="/api/player/settings/email/update" method="POST" accept-charset="utf-8">
+			<fieldset>
+				<legend>Update Email Address</legend>
+				<span id="current_email_label">Current Email</span>
+				<span id="current_email">{{ email }}</span>
+				<label for="auth_password_for_email">Password</label>
+				<input type="password"
+					id="auth_password_for_email"
+					name="auth_password_for_email"
+					size="32"
+					autocomplete="current_password"
+					required />
+				<label for="new_email">New Address</label>
+				<input type="email"
+					id="new_email"
+					name="new_email"
+					required />
+				<div id="update_email_error">
+					{% if update_email_wrong_password %}
+						<span class="error_msg">The password you entered was incorrect.<span>
+					{% elif update_email_taken %}
+						<span class="error_msg">The email provided is already in use.<span>
+					{% endif %}
+				</div>
+				<input type="submit" id="update_email_submit" value="Submit" />
+			</fieldset>
+			</form>
+
+			<form id="update_password_form" action="/api/player/settings/password/update" method="POST" accept-charset="utf-8">
+			<fieldset>
+				<legend>Update Password</legend>
+				<label for="auth_password">Current Password</label>
+				<input type="password"
+					id="auth_password"
+					name="auth_password"
+					size="32"
+					autocomplete="current_password"
+					required />
+				<label for="new_password">New Password</label>
+				<input type="password"
+					id="new_password"
+					name="new_password"
+					size="32"
+					minlength="8"
+					maxlength="32"
+					pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+					title="Must contain at least, one number and one uppercase and one lowercase leter, and at least 8 characters."
+					autocomplete="new_password"
+					required />
+				<span id="password_requirements">(Min. 8, Max. 32 characters, 1 number, 1 lowercase, 1 uppercase)</span>
+				<label for="confirm_password">Confirm Password</label>
+				<input type="password"
+					id="confirm_password"
+					name="confirm_password"
+					size="32"
+					autocomplete="new_password"
+					required />
+				<div id="update_password_error">
+					{% if update_password_wrong_password %}
+						<span class="error_msg">The password you entered was incorrect.<span>
+					{% elif update_password_dont_match %}
+						<span class="error_msg">The passwords you entered don't match.<span>
+					{% elif update_password_too_short %}
+						<span class="error_msg">Your new password must be atleast 8 characters.<span>
+					{% elif update_password_too_long %}
+						<span class="error_msg">Your new password must be no more than 32 characters.<span>
+					{% elif update_password_missing_characters %}
+						<span class="error_msg">Your new password must contain at least one of each of the following, lowercase letter, uppercase letter, and a number.<span>
+					{% endif %}
+				</div>
+				<input type="submit" id="update_password_submit" value="Submit" />
+			</fieldset>
+			</form>
+
+			<form id="delete_account_form" action="/api/player/delete" method="POST" accept-charset="utf-8">
+			<fieldset>
+				<legend>Delete Account</legend>
+				<label for="auth_password_for_delete_label">Password</label>
+				<input type="password"
+					id="auth_password_for_delete"
+					name="auth_password_for_delete"
+					size="32"
+					autocomplete="current_password"
+					required />
+				<div id="delete_account_error">
+					{% if delete_account_wrong_password %}
+						<span class="error_msg">The password you entered was incorrect.<span>
+					{% endif %}
+				</div>
+				<input type="submit" id="delete_account_submit" value="Delete Account" />
+			</fieldset>
+			</form>
+		</section>
+
+		<section>
+		</section>
+
+		<footer>
+		</footer>
+	</article>
+
+	<footer>
+	</footer>
+
+	{% if unknown_error %}
+		<script>window.alert("unkown error")</script>
+	{% elif changed_name %}
+		<script>window.alert("Successfully changed your username")</script>
+	{% elif changed_name %}
+		<script>window.alert("Successfully changed your email address")</script>
+	{% elif changed_name %}
+		<script>window.alert("Successfully changed your password")</script>
+	{% endif %}
+</body>
+</html>
