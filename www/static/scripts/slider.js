@@ -1,7 +1,7 @@
 // File: www/scripts/slider.js
 
 /**
- * @licstart The following is the entire license notice for the 
+ * @licstart The following is the entire license notice for the
  *  JavaScript code in this page.
  *
  * Copyright (C) 2020  Jacob Guenther
@@ -19,23 +19,32 @@
  * that code without the copy of the GNU GPL normally required by
  * section 4, provided you include this license notice and a URL
  * through which recipients can access the Corresponding Source.
- * 
+ *
  * @licend The above is the entire license notice
  * for the JavaScript code in this page.
  */
 
-const sliderBarID = 'slider-bar';
-const sliderBar = document.getElementById(sliderBarID);
-const gridContainer = document.getElementById('page-container');
+const sliderBar = document.getElementById(ElementIds.slider_bar);
+const gridContainer = document.getElementById('page_container');
 let handlingDragging = false;
+let slider_position = 360+3;
 
+function reset_slider_position() {
+	set_slider_postition(slider_position)
+}
+function set_slider_postition(pos) {
+	if (sliderBar.offsetParent !== null) {
+		gridContainer.style.gridTemplateColumns = `1fr 6px ${pos}px`;
+	}
+}
 function StartDrag(event) {
 	handlingDragging = true;
 	gridContainer.style.cursor = 'ew-resize';
 }
 function onDrag(event) {
 	if (handlingDragging) {
-		gridContainer.style.gridTemplateColumns = `1fr 6px ${window.innerWidth-event.clientX-3}px`;
+		let slider_position = window.innerWidth-event.clientX-3;
+		set_slider_postition(slider_position);
 	}
 }
 function endDrag(event) {
@@ -46,3 +55,5 @@ function endDrag(event) {
 sliderBar.addEventListener('mousedown', StartDrag);
 gridContainer.addEventListener('mousemove', onDrag);
 gridContainer.addEventListener('mouseup', endDrag);
+
+set_slider_postition(slider_position);
