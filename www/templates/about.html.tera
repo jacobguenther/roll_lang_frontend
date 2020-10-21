@@ -38,17 +38,17 @@
 			Plans for it include an extensible play area for your maps, and characters. An extensible character
 			sheet system to support many different games, and a handful of other useful utilities such as roll tables and notes.
 		</p>
-		<p>For more frequent and indepth updates on this project on Patreon</p>
+		<p>For more frequent and indepth updates on this project check the Patreon <a href="https://www.patreon.com/roll_lang">page<a></p>
 
 		<h3>Contribute</h3>
 		<p>Find the source code and report bugs for this project on
-			<a href="https://github.com/jacobguenther/roll_lang">GitHub</a>.
+			<a href="https://github.com/jacobguenther/roll_lang_server">GitHub</a>.
 		</p>
 		<p>Donate to this project on <a href="https://www.patreon.com/roll_lang">Patreaon</a></p>
 
 		<h3>Planned Features</h3>
 		<p>You can make feature requests on github under
-			<a href="https://github.com/jacobguenther/roll_lang/issues">issues</a>
+			<a href="https://github.com/jacobguenther/roll_lang_server/issues">issues</a>
 		</p>
 		<p>A <span class="feature_completed">strike through</span> indicates a recently completed
 			feature.
