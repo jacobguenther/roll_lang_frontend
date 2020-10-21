@@ -12,6 +12,9 @@
 			type="website"
 		)
 	}}
+	<link rel="preload" as="image" href="/assets/favicon.png" />
+	<link rel="preload" as="style" href="/css/header.css" />
+	<link rel="preload" as="style" href="/css/license.css" />
 
 	<link rel="stylesheet" type="text/css" href="/css/header.css">
 	<link rel="stylesheet" type="text/css" href="/css/license.css">
