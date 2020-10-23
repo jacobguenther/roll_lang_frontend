@@ -34,6 +34,8 @@ function reset_slider_position() {
 }
 function set_slider_postition(pos) {
 	if (sliderBar.offsetParent !== null) {
+		const max = Math.max(120, window.innerWidth); // in case innerWidth is less than 120px
+		pos = clamp(pos, 120, max);
 		gridContainer.style.gridTemplateColumns = `1fr 6px ${pos}px`;
 		slider_position = pos;
 	}
