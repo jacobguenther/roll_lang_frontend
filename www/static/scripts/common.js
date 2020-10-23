@@ -99,3 +99,34 @@ const ElementIds = {
 		return `macro_shortcut_${this.macro(macroName)}`;
 	}
 }
+
+function checkFetchError(response) {
+	console.log(response);
+	if (response.status >= 200 && response.status < 300) {
+		if (response.bodyUsed) {
+			return response.json();
+		} else {
+			return Promise.resolve('empty response');
+		}
+	} else {
+		throw Error(response.statusText);
+	}
+}
+
+async function myFetch(url, method, body, handleData) {
+	await fetch(url, {
+		method: method,
+		mode: 'cors',
+		cache: 'no-cache',
+		credentials: 'same-origin',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		redirect: 'follow',
+		referrerPloicy: 'no-referrer',
+		body: body,
+	})
+	.then(checkFetchError)
+	.then(handleData)
+	.catch(console.error);
+}
