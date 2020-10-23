@@ -13,14 +13,15 @@
 		)
 	}}
 
-	<link rel="preload" as="script" href="scripts/settings.js" />
-	<link rel="preload" as="script" href="scripts/config_ids.js" />
+	<link rel="preload" as="script" href="scripts/common.js" />
+	<link rel="preload" as="script" href="scripts/slider.js" />
 	<link rel="preload" as="script" href="scripts/tabs.js" />
-	<link rel="preload" as="script" href="scripts/history.js" />
-	<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
+		<link rel="preload" as="script" href="scripts/history.js" />
+		<link rel="preload" as="script" href="scripts/macro_table_sort.js" />
+		<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
+		<link rel="preload" as="script" href="scripts/init_wasm.js" />
+		<link rel="preload" as="script" href="scripts/settings.js" />
 	<link rel="preload" as="script" href="scripts/main.js" />
-	<link rel="prefetch" as="script" href="scripts/slider.js" />
-	<link rel="prefetch" as="script" href="scripts/macro_table_sort.js" />
 
 	<link rel="preload" as="style" href="css/styles.css" />
 	<link rel="preload" as="style" href="css/header.css">
@@ -260,15 +261,15 @@
 		<span id="footer_patreon_link">Support this project on <a href="https://patreon.com/roll_lang">Patreon</a></span>
 	</footer>
 
+	<script src="scripts/common.js"></script>
 	<script src="scripts/settings.js"></script>
-	<script src="scripts/config_ids.js"></script>
 	<script src="scripts/tabs.js"></script>
 	<script src="scripts/history.js"></script>
 	<script src="scripts/roll_lang_frontend.js"></script>
+	<script src="scripts/macros.js"></script>
+	<script src="scripts/init_wasm.js"></script>
+	<script src="scripts/slider.js"></script>
 	<script src="scripts/main.js"></script>
-
-	<script src="scripts/slider.js" defer></script>
-	<script src="scripts/macro_table_sort.js" defer></script>
 
 	{% if login_success %}
 		<script>window.alert("Successfully logged in as {{ base.display_name }}")</script>
