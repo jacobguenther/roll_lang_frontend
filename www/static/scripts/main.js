@@ -25,8 +25,12 @@
  */
 
 
+let renderer;
+
 async function start() {
 	initSliderBar();
+
+	renderer = new Renderer();
 
 	window.addEventListener('resize', (event) => {
 		updateSliderOnWindowResize();
