@@ -39,7 +39,6 @@ class Settings {
 		} else {
 			this.theme = savedTheme;
 		}
-		console.log(this.theme);
 	}
 	getThemeFromCookie() {
 		let cookies = document.cookie.split(';');
