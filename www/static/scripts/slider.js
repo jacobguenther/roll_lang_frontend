@@ -46,8 +46,8 @@ function StartDrag(event) {
 }
 function onDrag(event) {
 	if (handlingDragging) {
-		let slider_position = window.innerWidth-event.clientX-3;
-		set_slider_postition(slider_position);
+		let pos = window.innerWidth-event.clientX-3;
+		set_slider_postition(pos);
 	}
 }
 function endDrag(event) {
