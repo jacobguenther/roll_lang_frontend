@@ -35,6 +35,7 @@ function reset_slider_position() {
 function set_slider_postition(pos) {
 	if (sliderBar.offsetParent !== null) {
 		gridContainer.style.gridTemplateColumns = `1fr 6px ${pos}px`;
+		slider_position = pos;
 	}
 }
 function StartDrag(event) {
