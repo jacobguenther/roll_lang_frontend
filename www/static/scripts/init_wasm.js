@@ -56,27 +56,7 @@ async function getIsLoggedIn() {
 }
 async function initPlayerMacros() {
 	const url = '/api/player/macros/all';
-	await fetch(url, {
-		method: 'GET',
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		redirect: 'follow',
-		referrerPloicy: 'no-referrer',
-	})
-	.then(function (response) {
-		console.log(response);
-		if (response.ok) {
-			return response.json();
-		} else {
-			throw new Error(`${url} ${response.statusText}`);
-		}
-	})
-	.then(function(data) {
-		console.log('Success:', data);
+	await myFetch(url, 'GET', null, function(data) {
 		data.sort((a, b) => {
 			if (a.name > b.name) { return 1; }
 			else if (a.name < b.name) { return -1; }
@@ -92,8 +72,5 @@ async function initPlayerMacros() {
 		}
 		wasm_bindgen.add_macros(macros);
 		handleMacroSort();
-	})
-	.catch((error) => {
-		console.error(error);
 	});
 }
