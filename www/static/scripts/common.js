@@ -130,3 +130,7 @@ async function myFetch(url, method, body, handleData) {
 	.then(handleData)
 	.catch(console.error);
 }
+
+function clamp(x, min, max) {
+	return Math.min(Math.max(x, min), max);
+}

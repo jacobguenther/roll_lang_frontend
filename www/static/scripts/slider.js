@@ -34,7 +34,10 @@ function reset_slider_position() {
 }
 function set_slider_postition(pos) {
 	if (sliderBar.offsetParent !== null) {
+		const max = Math.max(120, window.innerWidth); // in case innerWidth is less than 120px
+		pos = clamp(pos, 120, max);
 		gridContainer.style.gridTemplateColumns = `1fr 6px ${pos}px`;
+		slider_position = pos;
 	}
 }
 function StartDrag(event) {
@@ -43,8 +46,8 @@ function StartDrag(event) {
 }
 function onDrag(event) {
 	if (handlingDragging) {
-		let slider_position = window.innerWidth-event.clientX-3;
-		set_slider_postition(slider_position);
+		let pos = window.innerWidth-event.clientX-3;
+		set_slider_postition(pos);
 	}
 }
 function endDrag(event) {
@@ -52,8 +55,18 @@ function endDrag(event) {
 	gridContainer.style.cursor = 'auto';
 }
 
-sliderBar.addEventListener('mousedown', StartDrag);
-gridContainer.addEventListener('mousemove', onDrag);
-gridContainer.addEventListener('mouseup', endDrag);
+function initSliderBar() {
+	sliderBar.addEventListener('mousedown', StartDrag);
+	gridContainer.addEventListener('mousemove', onDrag);
+	gridContainer.addEventListener('mouseup', endDrag);
 
-set_slider_postition(slider_position);
+	set_slider_postition(slider_position);
+}
+
+function updateSliderOnWindowResize() {
+	if (window.innerWidth < 600) {
+		gridContainer.style.gridTemplateColumns = '100%';
+	} else {
+		set_slider_postition(slider_position);
+	}
+}

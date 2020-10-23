@@ -26,6 +26,12 @@
 
 
 async function start() {
+	initSliderBar();
+
+	window.addEventListener('resize', (event) => {
+		updateSliderOnWindowResize();
+	});
+
 	await initWasm();
 }
 
