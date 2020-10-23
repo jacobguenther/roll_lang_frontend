@@ -63,12 +63,10 @@ function initSliderBar() {
 	set_slider_postition(slider_position);
 }
 
-initSliderBar();
-
-window.addEventListener('resize', (event) => {
+function updateSliderOnWindowResize() {
 	if (window.innerWidth < 600) {
 		gridContainer.style.gridTemplateColumns = '100%';
 	} else {
 		set_slider_postition(slider_position);
 	}
-})
+}
