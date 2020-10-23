@@ -55,8 +55,20 @@ function endDrag(event) {
 	gridContainer.style.cursor = 'auto';
 }
 
-sliderBar.addEventListener('mousedown', StartDrag);
-gridContainer.addEventListener('mousemove', onDrag);
-gridContainer.addEventListener('mouseup', endDrag);
+function initSliderBar() {
+	sliderBar.addEventListener('mousedown', StartDrag);
+	gridContainer.addEventListener('mousemove', onDrag);
+	gridContainer.addEventListener('mouseup', endDrag);
 
-set_slider_postition(slider_position);
+	set_slider_postition(slider_position);
+}
+
+initSliderBar();
+
+window.addEventListener('resize', (event) => {
+	if (window.innerWidth < 600) {
+		gridContainer.style.gridTemplateColumns = '100%';
+	} else {
+		set_slider_postition(slider_position);
+	}
+})
