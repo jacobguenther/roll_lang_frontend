@@ -21,7 +21,6 @@
 	<link rel="icon" type="image/png" href="/assets/favicon.png" />
 </head>
 <body>
-	<script>0</script>
 	<header id="header_bar">
 		{{ macros::nav(logged_in = logged_in, display_name = display_name) }}
 	</header>
@@ -30,29 +29,29 @@
 		<header>
 			<h2>About</h2>
 		</header>
+
 		<p>Roll Lang is meant to facilitate in calculating the value of tabletop rollplaying game dice rolls. With
 			it you can roll large numbers of dice, mix in common math operations with your rolls, and display text
 			to give your rolls context.
 		</p>
+
 		<p>This website will eventually be a fully featured virtual tabletop.
 			Plans for it include an extensible play area for your maps, and characters. An extensible character
 			sheet system to support many different games, and a handful of other useful utilities such as roll tables and notes.
 		</p>
-		<p>For more frequent and indepth updates on this project check the Patreon <a href="https://www.patreon.com/roll_lang">page<a></p>
+
+		<p>To stay up to date with the development of this project check out the GitHub <a href="https://github.com/users/jacobguenther/projects/1">project</p>
+			or follow the project on <a href="https://www.patreon.com/roll_lang">page<a>.
+		</p>
 
 		<h3>Contribute</h3>
-		<p>Find the source code and report bugs for this project on
+		<p>Find the source code, report bugs, and make feature request for this project on
 			<a href="https://github.com/jacobguenther/roll_lang_server">GitHub</a>.
 		</p>
-		<p>Donate to this project on <a href="https://www.patreon.com/roll_lang">Patreaon</a></p>
 
 		<h3>Planned Features</h3>
-		<p>You can make feature requests on Github under
-			<a href="https://github.com/jacobguenther/roll_lang_server/issues">issues</a>
-		</p>
-		<p>A <span class="feature_completed">strike through</span> indicates a recently completed
-			feature.
-		</p>
+		<p>This is a non exaustive list of features of planned features.</p>
+		<p>A <span class="feature_completed">strike through</span> indicates a recently completed feature.</p>
 
 		<ul class="bullet_list">
 
@@ -101,6 +100,7 @@
 					<span>Play Area</span>
 					<ul class="bullet_list">
 						<li>Import/Export maps</li>
+						<li>Layers</li>
 						<li>Player tokens</li>
 						<li>Line of sight</li>
 					</ul>
