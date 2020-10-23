@@ -1,7 +1,11 @@
 /* File: css/play_area.css */
 
 #play_area {
-	grid-area: play_area;
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+	/* grid-area: play_area;
 
 	display: grid;
 	width: 100%;
@@ -17,8 +21,11 @@
 		". play_area_under_construction ."
 		". . .";
 
-	background-color: grey;
+	background-color: grey; */
 }
 #play_area p {
-	grid-area: play_area_under_construction;
+	display: none;
+}
+#play_area_canvas {
+	position: absolute;
 }
