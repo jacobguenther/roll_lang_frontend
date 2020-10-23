@@ -25,7 +25,7 @@
  */
 
 const sliderBar = document.getElementById(ElementIds.slider_bar);
-const gridContainer = document.getElementById('page_container');
+const gridContainer = document.getElementById('app_content');
 let handlingDragging = false;
 let slider_position = 360+3;
 
@@ -34,7 +34,7 @@ function reset_slider_position() {
 }
 function set_slider_postition(pos) {
 	if (sliderBar.offsetParent !== null) {
-		const max = Math.max(120, window.innerWidth); // in case innerWidth is less than 120px
+		const max = Math.max(120, window.innerWidth-20); // in case innerWidth is less than 120px
 		pos = clamp(pos, 120, max);
 		gridContainer.style.gridTemplateColumns = `1fr 6px ${pos}px`;
 		slider_position = pos;
