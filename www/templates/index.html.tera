@@ -16,8 +16,9 @@
 	<link rel="preload" as="script" href="scripts/common.js" />
 	<link rel="preload" as="script" href="scripts/slider.js" />
 	<link rel="preload" as="script" href="scripts/tabs.js" />
+		<link rel="preload" as="script" href="scripts/play_area.js" />
 		<link rel="preload" as="script" href="scripts/history.js" />
-		<link rel="preload" as="script" href="scripts/macro_table_sort.js" />
+		<link rel="preload" as="script" href="scripts/macros.js" />
 		<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
 		<link rel="preload" as="script" href="scripts/init_wasm.js" />
 		<link rel="preload" as="script" href="scripts/settings.js" />
@@ -38,9 +39,6 @@
 	<link rel="preload" as="image" href="assets/svg/chat_icon.svg" />
 	<link rel="preload" as="image" href="assets/svg/sheets_icon.svg" />
 	<link rel="preload" as="image" href="assets/svg/macros_icon.svg" />
-	<link rel="preload" as="image" href="assets/svg/gears_icon.svg" />
-
-	<link rel="preload" as="image" href="assets/favicon.png" />
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link rel="stylesheet" type="text/css" href="css/header.css">
@@ -64,8 +62,11 @@
 		</noscript>
 	</header>
 
+	<div id="app_content">
+
 	<div id="play_area">
 		<p>Play Area is Under Construction</p>
+		<canvas id="play_area_canvas"></canvas>
 	</div>
 
 	<div id="slider_bar">
@@ -252,6 +253,8 @@
 		</div>
 	</div>
 
+	</div> <!-- app_conent -->
+
 	<footer id="footer_bar" class="grid_item">
 		<!--
 			<span>Footer</span>
@@ -264,6 +267,7 @@
 	<script src="scripts/common.js"></script>
 	<script src="scripts/settings.js"></script>
 	<script src="scripts/tabs.js"></script>
+	<script src="scripts/play_area.js"></script>
 	<script src="scripts/history.js"></script>
 	<script src="scripts/roll_lang_frontend.js"></script>
 	<script src="scripts/macros.js"></script>
