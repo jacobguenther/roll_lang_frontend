@@ -43,6 +43,9 @@ const ElementIds = {
 	header_item_notes: 'tab_header_item_notes',
 	header_item_settings: 'tab_header_item_settings',
 
+	// play area
+	play_area_canvas: 'play_area_canvas',
+
 	tab_content_wrapper: 'tab_content_wrapper',
 	tab_content_history: 'tab_content_history',
 	tab_content_character_sheets: 'tab_content_character_sheets',
@@ -101,9 +104,8 @@ const ElementIds = {
 }
 
 function checkFetchError(response) {
-	console.log(response);
 	if (response.status >= 200 && response.status < 300) {
-		if (response.bodyUsed) {
+		if (response.body) {
 			return response.json();
 		} else {
 			return Promise.resolve('empty response');
