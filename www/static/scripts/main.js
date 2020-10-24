@@ -30,8 +30,13 @@ let renderer;
 async function start() {
 	initSliderBar();
 
-	renderer = new Renderer();
+	renderer = new Renderer;
+	await renderer.loadDefaults()
+		.then(() => {
+			renderer.setupBuffer();
+		});
 
+	console.log(renderer);
 	window.addEventListener('resize', (event) => {
 		updateSliderOnWindowResize();
 	});

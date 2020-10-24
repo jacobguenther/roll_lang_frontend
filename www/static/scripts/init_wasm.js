@@ -48,7 +48,7 @@ async function getIsLoggedIn() {
 	const self = this;
 	loggedIn = false;
 
-	await myFetch('/api/player/logged_in', 'GET', null, function(data) {
+	await fetchJson('/api/player/logged_in', 'GET', null, function(data) {
 		self.loggedIn = data;
 	});
 
@@ -56,7 +56,8 @@ async function getIsLoggedIn() {
 }
 async function initPlayerMacros() {
 	const url = '/api/player/macros/all';
-	await myFetch(url, 'GET', null, function(data) {
+	await fetchJson(url, 'GET', null, function(data) {
+		console.log(data);
 		data.sort((a, b) => {
 			if (a.name > b.name) { return 1; }
 			else if (a.name < b.name) { return -1; }

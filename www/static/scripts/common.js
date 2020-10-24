@@ -103,19 +103,25 @@ const ElementIds = {
 	}
 }
 
+function isGoodResponseStatus(status) {
+	return status > 199 && status < 300;
+}
+function checkFetchText(response) {
+	if (isGoodResponseStatus(response.status)) {
+		return response.text();
+	} else {
+		throw Error(response.statusText);
+	}
+}
 function checkFetchError(response) {
-	if (response.status >= 200 && response.status < 300) {
-		if (response.body) {
-			return response.json();
-		} else {
-			return Promise.resolve('empty response');
-		}
+	if (isGoodResponseStatus(response.status)) {
+		return response.json();
 	} else {
 		throw Error(response.statusText);
 	}
 }
 
-async function myFetch(url, method, body, handleData) {
+async function fetchJson(url, method, body, handlerFunc) {
 	await fetch(url, {
 		method: method,
 		mode: 'cors',
@@ -129,8 +135,30 @@ async function myFetch(url, method, body, handleData) {
 		body: body,
 	})
 	.then(checkFetchError)
-	.then(handleData)
+	.then(handlerFunc)
 	.catch(console.error);
+}
+async function fetchShader(name) {
+	const source = '';
+	const self = this;
+	await fetch(`/assets/shaders/${name}`, {
+		method: 'GET',
+		mode: 'cors',
+		cache: 'no-cache',
+		credentials: 'omit',
+		headers: {
+			'content-type': 'application/json'
+		},
+		redirect: 'follow',
+		referrerPolicy: 'no-referrer',
+		body: null,
+	})
+	.then(checkFetchText)
+	.then((data) => {
+		self.source = data;
+	})
+	.catch(console.error)
+	return source;
 }
 
 function clamp(x, min, max) {
