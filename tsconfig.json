@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+	  "target": "es5",
+	  "noImplicitAny": true,
+	  "removeComments": true,
+	  "preserveConstEnums": true,
+	  "sourceMap": true,
+	},
+	"files": [
+	  "www/static/scripts/play_area.ts",
+	]
+}
