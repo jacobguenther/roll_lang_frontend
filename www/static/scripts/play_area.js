@@ -24,6 +24,11 @@
  * for the JavaScript code in this page.
  */
 
+class ResizeObserverCallback {
+	constructor(renderer) {
+		this.renderer = renderer;
+	}
+}
 
 class Renderer {
 	constructor() {
@@ -35,27 +40,8 @@ class Renderer {
 		}
 		this.clear();
 
-		let self = this;
-		this.resizeObserver = new ResizeObserver(entries => {
-			let entry;
-			if (entries.length > 0) {
-				entry = entries[0];
-			} else {
-				return;
-			}
-
-			let width = 0;
-			let height = 0;
-			if (entry.contentBoxSize) {
-				width = entry.contentBoxSize.inlineSize;
-				height = entry.contentBoxSize.blockSize;
-			} else {
-				width = entry.contentRect.width;
-				height = entry.contentRect.height;
-			}
-			height += 4;
-			self.resize(width, height);
-		});
+		const callback = this.resizeCallback.bind(this);
+		this.resizeObserver = new ResizeObserver(callback);
 		this.resizeObserver.observe(this.playAreaDiv);
 	}
 	get width() {
@@ -88,5 +74,25 @@ class Renderer {
 		gl.canvas.height = height;
 		gl.viewport(0, 0, width, height);
 		this.clear();
+	}
+	resizeCallback(entries) {
+		let entry;
+		if (entries.length > 0) {
+			entry = entries[0];
+		} else {
+			return;
+		}
+
+		let width = 0;
+		let height = 0;
+		if (entry.contentBoxSize) {
+			width = entry.contentBoxSize.inlineSize;
+			height = entry.contentBoxSize.blockSize;
+		} else {
+			width = entry.contentRect.width;
+			height = entry.contentRect.height;
+		}
+		height += 4;
+		this.resize(width, height);
 	}
 }
