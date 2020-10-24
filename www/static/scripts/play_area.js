@@ -24,13 +24,13 @@
  * for the JavaScript code in this page.
  */
 
-class ResizeObserverCallback {
-	constructor(renderer) {
-		this.renderer = renderer;
-	}
-}
 
 class Renderer {
+	playAreaDiv;
+	canvas;
+	gl;
+	layers = [];
+
 	constructor() {
 		this.playAreaDiv = document.getElementById(ElementIds.play_area);
 		this.canvas = document.getElementById(ElementIds.play_area_canvas);
@@ -44,6 +44,18 @@ class Renderer {
 		this.resizeObserver = new ResizeObserver(callback);
 		this.resizeObserver.observe(this.playAreaDiv);
 	}
+	get canvasWidth() {
+		return this.canvas.clientWidth;
+	}
+	get canvasHeight() {
+		return this.canvas.clientHeight;
+	}
+	set canvasWidth(w) {
+		this.canvas.width = Math.floor(w);
+	}
+	set canvasHeight(h) {
+		this.canvas.height = Math.floor(h);
+	}
 	get width() {
 		return this.gl.canvas.width;
 	}
@@ -52,13 +64,15 @@ class Renderer {
 	}
 	set width(w) {
 		const gl = this.gl;
-		gl.canvas.width = w;
-		gl.viewport(0, 0, w, this.height);
+		const width = Math.floor(w);
+		gl.canvas.width = width;
+		gl.viewport(0, 0, width, this.height);
 	}
 	set height(h) {
 		const gl = this.gl;
-		gl.canvas.height = h;
-		gl.viewport(0, 0, this.width, h);
+		const height = Math.floor(h);
+		gl.canvas.height = height;
+		gl.viewport(0, 0, this.width, height);
 	}
 
 	clear() {
