@@ -60,6 +60,19 @@
 	<div id="play_area">
 		<p>Play Area is Under Construction</p>
 		<canvas id="play_area_canvas"></canvas>
+		<form id="layer_config">
+			<fieldset>
+				<legend>Layers</legend>
+				{% for level in map_levels %}
+					{% if level.type == "grid" %}
+
+					{% elif level.type == "image" %}
+
+					{% endif %}
+					<input type="range" min="10" max="200" value="100" id="" />
+				{% endfor %}
+			<fieldset>
+		</form>
 	</div>
 
 	<div id="slider_bar">
