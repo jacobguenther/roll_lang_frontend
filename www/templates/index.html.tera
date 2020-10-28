@@ -13,17 +13,9 @@
 		)
 	}}
 
-	<link rel="preload" as="script" href="scripts/common.js" />
 	<link rel="preload" as="script" href="scripts/gl-matrix.js" />
-	<link rel="preload" as="script" href="scripts/slider.js" />
-	<link rel="preload" as="script" href="scripts/tabs.js" />
-		<link rel="preload" as="script" href="scripts/play_area.js" />
-		<link rel="preload" as="script" href="scripts/history.js" />
-		<link rel="preload" as="script" href="scripts/macros.js" />
-		<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
-		<link rel="preload" as="script" href="scripts/init_wasm.js" />
-		<link rel="preload" as="script" href="scripts/settings.js" />
-	<link rel="preload" as="script" href="scripts/main.js" />
+	<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
+	<link rel="preload" as="script" href="scripts/bundle.js" />
 
 	<link rel="preload" as="style" href="css/styles.css" />
 	<link rel="preload" as="style" href="css/header.css">
@@ -41,17 +33,17 @@
 	<link rel="preload" as="image" href="assets/svg/sheets_icon.svg" />
 	<link rel="preload" as="image" href="assets/svg/macros_icon.svg" />
 
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link rel="stylesheet" type="text/css" href="css/header.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/header.css" />
 	<link rel="stylesheet" type="text/css" href="css/play_area.css" />
-	<link rel="stylesheet" type="text/css" href="css/side_bar/tabs.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/history.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/result.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/character_sheet.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/macros.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/notes.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/tables.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/settings.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/tabs.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/history.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/result.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/character_sheet.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/macros.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/notes.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/tables.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/settings.css" />
 
 	<link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
@@ -155,7 +147,7 @@
 			<section id="tab_content_history" class="tab_content">
 
 				<div id="history_controls">
-					<button id="clear_history" onclick="clearHistory();">Clear History</button>
+					<button id="clear_history">Clear History</button>
 					<hr />
 					<div id="macro_shortcuts">
 					</div>
@@ -169,16 +161,14 @@
 
 				<hr id="history_break"/>
 
-				<form id="roll_lang_form" action="javascript:void(0);" onsubmit="run();">
+				<form id="roll_lang_form" action="javascript:void(0);" >
 					<div id="roll_lang_input_container">
 						<label id="roll_lang_input_label" for="roll lang input">Input</label>
 						<textarea id="roll_lang_input"
 							name="roll lang input"
 							placeholder="Attack roll is /roll 1d20 + [BAB]3 + [STR]3 \."
 							cols="40"
-							rows="4"
-							onfocusin="inputFocusIn()",
-							onfocusout="inputFocusOut()"></textarea>
+							rows="4"></textarea>
 						<input id="roll_lang_submit" type="submit" value="Run" />
 					</div>
 				</form>
@@ -265,17 +255,9 @@
 		<span id="footer_patreon_link">Support this project on <a href="https://patreon.com/roll_lang">Patreon</a></span>
 	</footer>
 
-	<script src="scripts/common.js"></script>
 	<script src="scripts/gl-matrix.js"></script>
-	<script src="scripts/settings.js"></script>
-	<script src="scripts/tabs.js"></script>
-	<script src="scripts/play_area.js"></script>
-	<script src="scripts/history.js"></script>
 	<script src="scripts/roll_lang_frontend.js"></script>
-	<script src="scripts/macros.js"></script>
-	<script src="scripts/init_wasm.js"></script>
-	<script src="scripts/slider.js"></script>
-	<script src="scripts/main.js"></script>
+	<script src="scripts/bundle.js"></script>
 
 	{% if login_success %}
 		<script>window.alert("Successfully logged in as {{ base.display_name }}")</script>
