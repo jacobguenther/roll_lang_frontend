@@ -39,7 +39,7 @@ use crate::web;
 #[wasm_bindgen]
 pub fn init_wasm(ids: &JsValue) {
 	console_error_panic_hook::set_once();
-	crate::web::init_ids(ids);
+	// crate::web::init_ids(ids);
 	let _dummy = macros();
 }
 
