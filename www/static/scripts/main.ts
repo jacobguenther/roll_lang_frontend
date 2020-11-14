@@ -29,12 +29,14 @@
 /// <reference path="./tabs.ts" />
 /// <reference path="./chat.ts" />
 /// <reference path="./init_wasm.ts" />
-/// <reference path="renderer/renderer.ts" />
+/// <reference path="./map_editor.ts" />
+/// <reference path="./renderer/renderer.ts" />
 
 let sliderBar: SliderBar;
 let tabs: Tabs;
 let chat: Chat;
 let renderer: Renderer;
+let mapEditor: MapEditor;
 
 async function start() {
 	sliderBar = new SliderBar();
@@ -46,6 +48,8 @@ async function start() {
 			renderer.setupBuffer();
 		})
 		.catch(console.error);
+
+	mapEditor = new MapEditor();
 
 	await initWasm()
 		.then(() => {

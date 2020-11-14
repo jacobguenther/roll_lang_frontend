@@ -111,75 +111,42 @@ function checkFetchError(response: Response) {
 	if (isGoodResponseStatus(response.status)) {
 		return Promise.resolve(response);
 	} else {
-		throw Error(response.statusText);
+		throw Promise.reject(response.statusText);
 	}
 }
-function responseToText(response: Response) {
-	return response.text();
-}
-function responseToJson(response: Response) {
-	return response.json();
-}
 
-async function fetchJson(url: string, method: string, body: any, handlerFunc: any): Promise<any> {
+async function myFetch(url: string, method: string, credentials: RequestCredentials, body: any): Promise<any> {
 	return await fetch(url, {
 		method: method,
 		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
+		credentials: credentials,
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		redirect: 'follow',
 		referrerPolicy: 'no-referrer',
 		body: body,
-	})
-	.then(checkFetchError)
-	.then(responseToJson)
-	.then(handlerFunc)
-	.catch(console.error);
+	});
+}
+async function fetchJson(url: string, method: string, body: any): Promise<any> {
+	return await myFetch(url, method, 'same-origin', body)
+		.then(checkFetchError)
+		.then((response) => { return response.json(); })
 }
 async function fetchImage(name: string) {
-	return await fetch(`/assets/${name}`, {
-		method: 'GET',
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'omit',
-		headers: {
-			'content-type': 'application/json'
-		},
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-		body: null,
-	})
-	.then(checkFetchError)
-	.then((response) => {
-		return response.blob();
-	})
-	.then((image) => {
-		return Promise.resolve(URL.createObjectURL(image));
-	})
-	.catch(console.error);
+	return await myFetch(`/assets/${name}`, 'GET', 'omit', null)
+		.then(checkFetchError)
+		.then((response) => {
+			return response.blob();
+		})
+		.then((image) => {
+			return Promise.resolve(URL.createObjectURL(image));
+		})
 }
 async function fetchShader(name: string) {
-	return await fetch(`/assets/shaders/${name}`, {
-		method: 'GET',
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'omit',
-		headers: {
-			'content-type': 'application/json'
-		},
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-		body: null,
-	})
-	.then(checkFetchError)
-	.then(responseToText)
-	.then((data) => {
-		return data;
-	})
-	.catch(console.error);
+	return await myFetch(`/assets/shaders/${name}`, 'GET', 'omit', null)
+		.then(checkFetchError)
+		.then((response) => { return response.text(); })
 }
 
 function clamp(x: number, min: number, max: number) {

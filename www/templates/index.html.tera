@@ -47,7 +47,7 @@
 
 	<link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
-<body id="page_container" onload="start();">
+<body id="page_container" onload="start()">
 	<header id="header_bar">
 		{{ macros::nav(logged_in = base.logged_in, display_name = base.display_name) }}
 		<noscript>This webpage requires javascript and WebAssembly to run. Please enable javascript and if your browser
@@ -58,21 +58,38 @@
 	<div id="app_content">
 
 	<div id="play_area">
-		<p>Play Area is Under Construction</p>
+		<p id="play_area_under_construction">Play Area is Currently Under Construction</p>
 		<canvas id="play_area_canvas"></canvas>
-		<form id="layer_config">
-			<fieldset>
-				<legend>Layers</legend>
-				{% for level in map_levels %}
-					{% if level.type == "grid" %}
 
-					{% elif level.type == "image" %}
-
-					{% endif %}
-					<input type="range" min="10" max="200" value="100" id="" />
-				{% endfor %}
-			<fieldset>
-		</form>
+		<div id="map_editor_container">
+			<div id="map_editor_header">
+				<h3>Map Editor</h3>
+			</div>
+			<ul id="map_editor">
+				<li id="map_editor_settings">
+					<h4>Map Settings</h4>
+					<ul>
+						<li>
+							<input type="checkbox" />
+							<label>Enable Fog of War</label>
+						</li>
+						<li>
+							<input type="checkbox" />
+							<label>Enable Static Lighting</label>
+						</li>
+						<li>
+							<input type="checkbox" />
+							<label>Enable Dynamic Lighting</label>
+						</li>
+					</ul>
+				</li>
+				<li id="map_levels">
+					<h4>Levels<h4>
+					<ul id="map_level_list">
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</div>
 
 	<div id="slider_bar">

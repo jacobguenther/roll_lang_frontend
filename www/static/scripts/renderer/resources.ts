@@ -164,9 +164,10 @@ class Resources {
 		gl.shaderSource(shader, source.source);
 		gl.compileShader(shader);
 
+		// validate compile status
 		const message = gl.getShaderInfoLog(shader);
 		if (message.length > 0) {
-			console.error(message);
+			Promise.reject(message);
 		}
 
 		const res = new ShaderResource(name, type, shader);
@@ -198,35 +199,31 @@ class Resources {
 			return res;
 		}
 
-		const imageURL: string | void = await fetchImage(path);
-		if (!imageURL) {
-			return Promise.reject("failed to load image");
-		}
+		let self = this;
+		return await fetchImage(path)
+			.then((imageURL: string) => {
+				return new Promise(function(resolve: any, reject: any) {
+					const image = new Image();
+					image.onload = () => { resolve({blobURL: imageURL, element: image}) };
+					image.onerror = () => { reject() };
+					image.src = imageURL;
+				});
+			})
+			.then((image: {blobURL: string, element: HTMLImageElement}) => {
+				URL.revokeObjectURL(image.blobURL);
 
+				const texture = gl.createTexture();
+				gl.bindTexture(gl.TEXTURE_2D, texture);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+				gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image.element);
 
-		const self = this;
-		return new Promise(function(resolve: any, reject: any) {
-			const self2 = this;
-			const image = new Image();
-			image.onload = () => { resolve(image) };
-			image.onerror = () => { reject() };
-			image.src = imageURL;
-		})
-		.then((img: HTMLImageElement) => {
-			URL.revokeObjectURL(imageURL);
-
-			const texture = gl.createTexture();
-			gl.bindTexture(gl.TEXTURE_2D, texture);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-
-			const res = new ImageResource(path, img, texture);
-			self.images.add(name, res);
-			return Promise.resolve(res);
-		});
+				const res = new ImageResource(path, image.element, texture);
+				self.images.add(name, res);
+				return Promise.resolve(res);
+			});
 	}
 
 
