@@ -3,51 +3,17 @@
 #tab_content_settings {
 	grid-area: settings;
 
-	display: grid;
-	width: 360px;
-	overflow-y: scroll;
-
-	padding: 5px;
-	padding-right: 10px;
-
-	grid-template-columns: auto;
-	grid-template-rows: auto minmax(0px, 100%);
-	grid-row-gap: 5px;
-	grid-template-areas:
-		"theme_form"
-}
-#settings_theme_form fieldset {
-	grid-area: theme_form;
-
-	display: grid;
-
-	min-width: auto;
-	max-width: 100%;
-
-	justify-items: left;
+	justify-items: center;
 	align-items: center;
 
-	grid-template-columns: 40px auto;
+	grid-template-columns: auto;
 	grid-template-rows: auto auto auto;
-	grid-row-gap: 5px;
+
 	grid-template-areas:
-		"light_theme  light_theme_label"
-		"dark_theme   dark_theme_label"
-		"theme_submit theme_submit";
+		"."
+		"settings_under_construction"
+		".";
 }
-#settings_theme_form legend {
-	font-weight: bold;
-}
-#light_theme_label {
-	grid-area: light_theme_label;
-}
-#dark_theme {
-	grid-area: dark_theme;
-}
-#dark_theme_label {
-	grid-area: dark_theme_label;
-}
-#theme_submit {
-	grid-area: theme_submit;
-	justify-self: center;
+#tab_content_settings p {
+	grid-area: settings_under_construction;
 }

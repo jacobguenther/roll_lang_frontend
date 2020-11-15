@@ -18,6 +18,7 @@
 	<link rel="preload" as="image" href="assets/svg/chat_icon.svg" />
 	<link rel="preload" as="image" href="assets/svg/sheets_icon.svg" />
 	<link rel="preload" as="image" href="assets/svg/macros_icon.svg" />
+	<link rel="preload" as="image" href="assets/svg/plus.svg" />
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	<link rel="stylesheet" type="text/css" href="css/header.css" />
@@ -88,18 +89,18 @@
 
 	<div id="side_bar">
 		<ul id="tabs_header">
-			<li id="tab_header_item_history" onclick="tabs.selectHistory();">
+			<li id="tab_header_item_history">
 				<img src="assets/svg/chat_icon.svg" title="Chat" type="image/svg+xml" width="32" />
 			</li>
-			<li id="tab_header_item_character_sheets" onclick="tabs.selectCharacterSheets();">
+			<li id="tab_header_item_character_sheets">
 				<img src="assets/svg/sheets_icon.svg" title="Character Sheets" type="image/svg+xml" width="32" />
 			</li>
-			<li id="tab_header_item_macros" onclick="tabs.selectMacros();">
+			<li id="tab_header_item_macros">
 				<img src="assets/svg/macros_icon.svg" title="Macros" type="image/svg+xml" width="32" />
 			</li>
-			<li id="tab_header_item_notes" onclick="tabs.selectNotes();">Notes</li>
-			<li id="tab_header_item_tables" onclick="tabs.selectTables();">Tables</li>
-			<li id="tab_header_item_settings" onclick="tabs.selectSettings();">
+			<li id="tab_header_item_notes">Notes</li>
+			<li id="tab_header_item_tables">Tables</li>
+			<li id="tab_header_item_settings">
 				<svg viewBox="0 0 65 65"
 					width="32" height="32"
 					preserveAspectRatio="none"
@@ -241,7 +242,6 @@
 			</section>
 
 			<section id="tab_content_notes" class="tab_content">
-				<img src="assets/svg/plus.svg" title="Create new note" type="image/svg+xml" width="32" />
 				<p>Notes are Under Construction</p>
 			</section>
 
