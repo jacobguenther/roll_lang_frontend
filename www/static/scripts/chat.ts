@@ -24,9 +24,10 @@
  * for the JavaScript code in this page.
  */
 
-/// <reference path="config.ts" />
+import { ElementIds } from "./config.js";
+import { run as wasm_interpret } from "./roll_interpreter.js"
 
-class Chat {
+export class Chat {
 	public static CLEAR_HISTORY_ELEMENT: HTMLButtonElement = <HTMLButtonElement>document.getElementById(ElementIds.clear_history);
 	public static HISTORY_ELEMENT: HTMLUListElement = <HTMLUListElement>document.getElementById(ElementIds.history_list);
 	public static INPUT_ELEMENT: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById(ElementIds.roll_lang_input);
@@ -131,7 +132,7 @@ class Chat {
 	run() {
 		const source = Chat.INPUT_ELEMENT.value;
 		if (source.length > 0) {
-			const result = wasm_bindgen.run(source);
+			const result = wasm_interpret(source);
 			this.appendHistory(source, result);
 		}
 		return false;
