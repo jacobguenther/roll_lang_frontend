@@ -24,12 +24,17 @@
  * for the JavaScript code in this page.
  */
 
+/// <reference path="config.ts" />
 
 const activeTabClass = 'active_tab';
 const activeTabContentsClass = 'active_tab_contents';
 
 class Tab {
-	constructor(headerItemId, contentId) {
+	name: string;
+	tabId: string;
+	contentId: string;
+
+	constructor(headerItemId: string, contentId: string) {
 		this.name = name;
 		this.tabId = headerItemId;
 		this.contentId = contentId;
@@ -51,6 +56,14 @@ class Tab {
 }
 
 class Tabs {
+	history: Tab;
+	characterSheet: Tab;
+	macros:  Tab;
+	notes: Tab;
+	tables: Tab;
+	settings: Tab;
+	currentSelected: Tab;
+
 	constructor() {
 		this.history = new Tab(
 			ElementIds.header_item_history,
@@ -79,7 +92,7 @@ class Tabs {
 		this.currentSelected = this.history;
 		this.history.setActive();
 	}
-	selectTab(tab) {
+	selectTab(tab: Tab) {
 		this.currentSelected.setInactive();
 		this.currentSelected = tab;
 		tab.setActive();
@@ -103,5 +116,3 @@ class Tabs {
 		this.selectTab(this.settings);
 	}
 }
-
-const tabs = new Tabs();

@@ -17,8 +17,6 @@
 
 use roll_lang::macros::*;
 
-use crate::web::*;
-
 pub trait MacrosWebT {
 	fn init() -> Macros;
 

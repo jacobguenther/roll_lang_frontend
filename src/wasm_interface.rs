@@ -35,11 +35,9 @@ pub fn macros() -> &'static mut Macros {
 	}
 }
 
-use crate::web;
 #[wasm_bindgen]
-pub fn init_wasm(ids: &JsValue) {
+pub fn init_wasm() {
 	console_error_panic_hook::set_once();
-	crate::web::init_ids(ids);
 	let _dummy = macros();
 }
 

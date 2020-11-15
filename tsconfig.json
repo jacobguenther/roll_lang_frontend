@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"lib": ["es6", "DOM"],
+		"target": "es6",
+		"module": "None",
+		"noImplicitAny": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"allowJs": true,
+		"out": "ts_build/bundle.js",
+	},
+	"files": [
+		"www/static/scripts/config.ts",
+		"www/static/scripts/chat.ts",
+		"www/static/scripts/init_wasm.ts",
+		// "www/static/scripts/macros.ts",
+		"www/static/scripts/main.ts",
+		// "www/static/scripts/play_area.ts",
+		// "www/static/scripts/settings.ts",
+		"www/static/scripts/slider.ts",
+		"www/static/scripts/tabs.ts",
+	]
+}

@@ -1,12 +1,13 @@
 /* File: css/play_area.css */
 
-body, nav,
+body, nav, div
 article, header, footer, section,
 p, span,
 form, input, label, textarea,
 ul, li,
 br, hr,
-h1, h2, h3, h4, h5, h6
+h1, h2, h3, h4, h5, h6,
+canvas
 {
 	padding: 0 0 0 0;
 	margin: 0 0 0 0;
@@ -30,6 +31,13 @@ ul {
 	justify-content: center;
 	justify-items: center;
 	align-items: stretch;
+
+	grid-template-columns: 100%;
+	grid-template-rows: auto 1fr auto;
+	grid-template-areas:
+		"header_bar"
+		"app_content"
+		"footer_bar";
 }
 
 #header_bar {
@@ -46,6 +54,18 @@ ul {
 }
 #main_nav_list li h1 {
     display: inline;
+}
+
+#app_content {
+	grid-area: app_content;
+	display: grid;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+
+	justify-content: left;
+	justify-items: left;
+	align-items: stretch;
 }
 
 #slider_bar {
@@ -75,57 +95,46 @@ ul {
 		"tab_content_wrapper";
 }
 
-#footer_bar {
-	grid-area: footer_bar;
-	background-color: whitesmoke;
-	width: 100%;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-#footer_bar * {
-	margin: 0 5px 0 5px;
-}
-
 /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
 @media (min-width:0px)  {
-	#page_container {
+	#app_content {
 		grid-template-columns: 100%;
-		grid-template-rows:  auto 1fr;
+		grid-template-rows: 100%;
 		grid-template-areas:
-			"header_bar"
 			"side_bar";
 	}
-	#slider_bar {
-		display: none !important;
-	}
 	#play_area {
-		display: none !important;
+		display: none;
+	}
+	#slider_bar {
+		display: none;
 	}
 	#footer_bar {
 		display: none;
 	}
 }
 
-/* smartphones, Android phones, landscape iPhone */
-/* @media (min-width:480px)  {} */
-
-/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
 @media (min-width:600px)  {
-	#page_container {
-		grid-template-columns: 1fr 6px auto;
-		grid-template-rows: auto 1fr auto;
+	#app_content {
+		grid-template-columns: auto 6px 320px;
+		grid-template-rows: 100%;
 		grid-template-areas:
-			"header_bar header_bar header_bar"
-			"play_area slider_bar side_bar"
-			"footer_bar footer_bar footer_bar";
+			"play_area slider_bar side_bar";
+	}
+	#play_area {
+		display: inline !important;
 	}
 	#slider_bar {
 		display: block !important;
 	}
-	#play_area {
-		display: grid !important;
-	}
 	#footer_bar {
+		background-color: whitesmoke;
+		grid-area: footer_bar;
+
+		width: 100%;
+		margin-left: 5px;
+		margin-right: 5px;
+
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		grid-template-rows: auto;
@@ -137,11 +146,3 @@ ul {
 		margin-left: auto;
 	}
 }
-/* tablet, landscape iPad, lo-res laptops ands desktops */
-/* @media screen and (min-width:801px)  {} */
-
-/* big landscape tablets, laptops, and desktops */
-/* @media (min-width:1025px) {} */
-
-/* hi-res laptops and desktops */
-/* @media (min-width:1281px) {} */

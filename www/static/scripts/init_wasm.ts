@@ -24,60 +24,33 @@
  * for the JavaScript code in this page.
  */
 
-class Macro {
-	constructor(name, source, hasShortcut) {
-		this.name = name;
-		this.source = source;
-		this.has_shortcut = hasShortcut;
-	}
-}
+/// <reference path="config.ts" />
+/// <reference path="macros.ts" />
 
-const macros = [];
+const macros: Array<Macro> = [];
 
 async function initWasm() {
 	await wasm_bindgen('./scripts/roll_lang_frontend_bg.wasm');
-	wasm_bindgen.init_wasm(ElementIds);
+	wasm_bindgen.init_wasm();
 
-	const loggedIn = await getIsLoggedIn();
-	if (loggedIn) {
-		await initPlayerMacros();
-	}
+	await getIsLoggedIn();
+
+	return Promise.resolve();
 }
 
 async function getIsLoggedIn() {
-	const self = this;
-	loggedIn = false;
+	let callback = async function(loggedIn: boolean) {
+		if (loggedIn) {
+			await initPlayerMacros();
+		}
+	};
 
-	await myFetch('/api/player/logged_in', 'GET', null, function(data) {
-		self.loggedIn = data;
-	});
-
-	return loggedIn;
+	return await fetchJson('/api/player/logged_in', 'GET', null, callback);
 }
 async function initPlayerMacros() {
 	const url = '/api/player/macros/all';
-	await fetch(url, {
-		method: 'GET',
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		redirect: 'follow',
-		referrerPloicy: 'no-referrer',
-	})
-	.then(function (response) {
-		console.log(response);
-		if (response.ok) {
-			return response.json();
-		} else {
-			throw new Error(`${url} ${response.statusText}`);
-		}
-	})
-	.then(function(data) {
-		console.log('Success:', data);
-		data.sort((a, b) => {
+	return await fetchJson(url, 'GET', null, function(data: Array<Macro>) {
+		data.sort((a: Macro, b: Macro) => {
 			if (a.name > b.name) { return 1; }
 			else if (a.name < b.name) { return -1; }
 			else { return 0; }
@@ -92,8 +65,5 @@ async function initPlayerMacros() {
 		}
 		wasm_bindgen.add_macros(macros);
 		handleMacroSort();
-	})
-	.catch((error) => {
-		console.error(error);
 	});
 }

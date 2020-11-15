@@ -24,37 +24,51 @@
  * for the JavaScript code in this page.
  */
 
+/// <reference path="./config.ts" />
+/// <reference path="./slider.ts" />
+/// <reference path="./tabs.ts" />
+/// <reference path="./chat.ts" />
+/// <reference path="./init_wasm.ts" />
+/// <reference path="./map_editor.ts" />
+/// <reference path="./renderer/renderer.ts" />
+
+let sliderBar: SliderBar;
+let tabs: Tabs;
+let chat: Chat;
+let renderer: Renderer;
+let mapEditor: MapEditor;
 
 async function start() {
-	initSliderBar();
+	sliderBar = new SliderBar();
+	tabs = new Tabs();
 
-	window.addEventListener('resize', (event) => {
-		updateSliderOnWindowResize();
-	});
+	renderer = new Renderer;
+	await renderer.loadDefaults()
+		.then(() => {
+			renderer.setupBuffer();
+		})
+		.catch(console.error);
 
-	await initWasm();
+	mapEditor = new MapEditor();
+
+	await initWasm()
+		.then(() => {
+			chat = new Chat();
+		});
 }
 
-function run() {
-	const source = sourceInputField.value;
-	if (source.length > 0) {
-		const result = wasm_bindgen.run(source);
-		appendHistory(source, result);
-	}
-	return false;
-}
-function runMacro(name) {
+function runMacro(name: string) {
 	const source = `#{${name}}`;
 	const result = wasm_bindgen.run(source);
-	appendHistory(source, result);
+	chat.appendHistory(source, result);
 }
+
 function testMacro() {
-	const name = document.getElementById(ElementIds.create_macro_name).value;
+	const name = (<HTMLInputElement>document.getElementById(ElementIds.create_macro_name)).value;
 
 	// validate macro name here
 
-	const macroSourceElement = document.getElementById(ElementIds.create_macro_source);
-	const source = macroSourceElement.value;
+	const source = (<HTMLTextAreaElement>document.getElementById(ElementIds.create_macro_source)).value;
 	if (source.length > 0) {
 		const result = wasm_bindgen.run(source);
 		const test_output_el = document.getElementById(ElementIds.create_macro_test_output);

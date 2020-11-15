@@ -1,24 +1,79 @@
 /* File: css/play_area.css */
 
 #play_area {
-	grid-area: play_area;
-
-	display: grid;
 	width: 100%;
-
-	justify-content: center;
-	justify-items: center;
-	align-items: center;
-
-	grid-template-columns: auto auto auto;
-	grid-template-rows: auto auto auto;
-	grid-template-areas:
-		". . ."
-		". play_area_under_construction ."
-		". . .";
-
-	background-color: grey;
+	height: 100%;
+	position: relative;
 }
-#play_area p {
-	grid-area: play_area_under_construction;
+#play_area_canvas {
+	position: absolute;
+}
+#play_area_under_construction {
+	position: absolute;
+	z-index: 2;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-weight: bold;
+	font-size: 200%;
+	color: red;
+}
+
+#map_editor_container {
+	z-index: 3;
+	position: absolute;
+	background-color: whitesmoke;
+	min-width: 320px;
+	max-width: 600px;
+	max-height: 600px;
+	resize: both;
+}
+#map_editor_header {
+	cursor: move;
+	background-color: thistle;
+	width: 100%;
+	height: 30px;
+}
+#map_editor {
+	position: relative;
+	overflow: auto;
+	resize: both;
+	min-width: 315px;
+	max-width: 590px;
+	min-height: 50px;
+	max-height: 560px;
+	margin: 5px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+#map_editor li:last-child {
+	margin-bottom: max(0, 100%);
+}
+
+.level_wrapper {
+	width: 100%;
+	background-color: lemonchiffon;
+}
+.level_wrapper:nth-child(even) {
+	background-color: lavender;
+}
+.level_header {
+	display: block;
+	width: 100%;
+}
+.level_content {
+	display: grid;
+	grid-template-columns: auto;
+}
+.new_layer_wrapper {
+	background-color: lightblue;
+	display: grid;
+	grid-template-columns: auto;
+}
+
+.map_config_layer {
+	display: grid;
+	grid-template-columns: auto;
 }

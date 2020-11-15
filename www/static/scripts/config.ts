@@ -28,11 +28,12 @@ const ElementIds = {
 	main_header: 'header_bar',
 	main_nav_list: 'main_nav_list',
 
+	footer: 'footer_bar',
+	javascript_license_information: 'jslicense',
+
+	app_content: 'app_content',
 	play_area: 'play_area',
 	slider_bar: 'slider_bar',
-
-	footer: 'footer_bar',
- 	javascript_license_information: 'jslicense',
 
 	side_bar: 'side_bar',
 	tabs_header: 'tabs_header',
@@ -42,6 +43,9 @@ const ElementIds = {
 	header_item_tables: 'tab_header_item_tables',
 	header_item_notes: 'tab_header_item_notes',
 	header_item_settings: 'tab_header_item_settings',
+
+	// play area
+	play_area_canvas: 'play_area_canvas',
 
 	tab_content_wrapper: 'tab_content_wrapper',
 	tab_content_history: 'tab_content_history',
@@ -83,54 +87,68 @@ const ElementIds = {
 	macro_table_header_shortcut: 'macros_table_shortcut',
 	macro_table_header_delete: 'macros_table_delete',
 
-	macro(macroName) {
+	macro(macroName: string) {
 		return macroName.replace(/\s+/g, '-');
 	},
-	macroTableRow(macroName) {
-		return `macro_table_row_${this.macro(macroName)}`;
+	macroTableRow(macroName: string) {
+		return `macro_table_row_${ElementIds.macro(macroName)}`;
 	},
-	macroTableShortcutTongle(macroName) {
-		return `place_macro_in_shortcuts_${this.macro(macroName)}`;
+	macroTableShortcutTongle(macroName: string) {
+		return `place_macro_in_shortcuts_${ElementIds.macro(macroName)}`;
 	},
-	macroTableRowDelete(macroName) {
-		return `delete_macro_${this.macro(macroName)}`;
+	macroTableRowDelete(macroName: string) {
+		return `delete_macro_${ElementIds.macro(macroName)}`;
 	},
-	macroShortcut(macroName) {
-		return `macro_shortcut_${this.macro(macroName)}`;
-	}
+	macroShortcut(macroName: string) {
+		return `macro_shortcut_${ElementIds.macro(macroName)}`;
+	},
 }
 
-function checkFetchError(response) {
-	console.log(response);
-	if (response.status >= 200 && response.status < 300) {
-		if (response.bodyUsed) {
-			return response.json();
-		} else {
-			return Promise.resolve('empty response');
-		}
+function isGoodResponseStatus(status: number) {
+	return status > 199 && status < 300;
+}
+function checkFetchError(response: Response) {
+	if (isGoodResponseStatus(response.status)) {
+		return Promise.resolve(response);
 	} else {
-		throw Error(response.statusText);
+		throw Promise.reject(response.statusText);
 	}
 }
 
-async function myFetch(url, method, body, handleData) {
-	await fetch(url, {
+async function myFetch(url: string, method: string, credentials: RequestCredentials, body: any): Promise<any> {
+	return await fetch(url, {
 		method: method,
 		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
+		credentials: credentials,
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		redirect: 'follow',
-		referrerPloicy: 'no-referrer',
+		referrerPolicy: 'no-referrer',
 		body: body,
-	})
-	.then(checkFetchError)
-	.then(handleData)
-	.catch(console.error);
+	});
+}
+async function fetchJson(url: string, method: string, body: any): Promise<any> {
+	return await myFetch(url, method, 'same-origin', body)
+		.then(checkFetchError)
+		.then((response) => { return response.json(); })
+}
+async function fetchImage(name: string) {
+	return await myFetch(`/assets/${name}`, 'GET', 'omit', null)
+		.then(checkFetchError)
+		.then((response) => {
+			return response.blob();
+		})
+		.then((image) => {
+			return Promise.resolve(URL.createObjectURL(image));
+		})
+}
+async function fetchShader(name: string) {
+	return await myFetch(`/assets/shaders/${name}`, 'GET', 'omit', null)
+		.then(checkFetchError)
+		.then((response) => { return response.text(); })
 }
 
-function clamp(x, min, max) {
+function clamp(x: number, min: number, max: number) {
 	return Math.min(Math.max(x, min), max);
 }

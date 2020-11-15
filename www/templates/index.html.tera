@@ -13,15 +13,9 @@
 		)
 	}}
 
-	<link rel="preload" as="script" href="scripts/common.js" />
-	<link rel="preload" as="script" href="scripts/slider.js" />
-	<link rel="preload" as="script" href="scripts/tabs.js" />
-		<link rel="preload" as="script" href="scripts/history.js" />
-		<link rel="preload" as="script" href="scripts/macro_table_sort.js" />
-		<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
-		<link rel="preload" as="script" href="scripts/init_wasm.js" />
-		<link rel="preload" as="script" href="scripts/settings.js" />
-	<link rel="preload" as="script" href="scripts/main.js" />
+	<link rel="preload" as="script" href="scripts/gl-matrix.js" />
+	<link rel="preload" as="script" href="scripts/roll_lang_frontend.js" />
+	<link rel="preload" as="script" href="scripts/bundle.js" />
 
 	<link rel="preload" as="style" href="css/styles.css" />
 	<link rel="preload" as="style" href="css/header.css">
@@ -38,25 +32,22 @@
 	<link rel="preload" as="image" href="assets/svg/chat_icon.svg" />
 	<link rel="preload" as="image" href="assets/svg/sheets_icon.svg" />
 	<link rel="preload" as="image" href="assets/svg/macros_icon.svg" />
-	<link rel="preload" as="image" href="assets/svg/gears_icon.svg" />
 
-	<link rel="preload" as="image" href="assets/favicon.png" />
-
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link rel="stylesheet" type="text/css" href="css/header.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/header.css" />
 	<link rel="stylesheet" type="text/css" href="css/play_area.css" />
-	<link rel="stylesheet" type="text/css" href="css/side_bar/tabs.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/history.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/result.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/character_sheet.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/macros.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/notes.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/tables.css">
-	<link rel="stylesheet" type="text/css" href="css/side_bar/settings.css">
+	<link rel="stylesheet" type="text/css" href="css/side_bar/tabs.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/history.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/result.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/character_sheet.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/macros.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/notes.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/tables.css" />
+	<link rel="stylesheet" type="text/css" href="css/side_bar/settings.css" />
 
 	<link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
-<body id="page_container" onload="start();">
+<body id="page_container" onload="start()">
 	<header id="header_bar">
 		{{ macros::nav(logged_in = base.logged_in, display_name = base.display_name) }}
 		<noscript>This webpage requires javascript and WebAssembly to run. Please enable javascript and if your browser
@@ -64,8 +55,46 @@
 		</noscript>
 	</header>
 
+	<div id="app_content">
+
 	<div id="play_area">
-		<p>Play Area is Under Construction</p>
+		<p id="play_area_under_construction">Play Area is Currently Under Construction</p>
+		<canvas id="play_area_canvas"></canvas>
+
+		<div id="map_editor_container">
+			<div id="map_editor_header">
+				<h2>Map Editor(Under Construction)</h2>
+			</div>
+			<ul id="map_editor">
+				<li id="map_editor_settings">
+					<h3>Map Settings</h3>
+					<ul>
+						<li>
+							<input type="checkbox" id="map_settings_fow" />
+							<label>Enable Fog of War</label>
+						</li>
+						<li>
+							<input type="checkbox" id="map_settings_static_lighting" />
+							<label>Enable Static Lighting</label>
+						</li>
+						<li>
+							<input type="checkbox" id="map_settings_dynamic_lighting" />
+							<label>Enable Dynamic Lighting</label>
+						</li>
+						<li>
+							<input type="checkbox" id="map_settings_2_5D_levels" />
+							<label>Enable 2.5D Levels</label>
+						</li>
+					</ul>
+				</li>
+				<li id="map_levels">
+					<h3>Levels</h3>
+					<ul id="map_level_list">
+					</ul>
+					<input type="button" id="create_new_level" value="Create New Level" />
+				</li>
+			</ul>
+		</div>
 	</div>
 
 	<div id="slider_bar">
@@ -85,7 +114,7 @@
 			<li id="tab_header_item_notes" onclick="tabs.selectNotes();">Notes</li>
 			<li id="tab_header_item_tables" onclick="tabs.selectTables();">Tables</li>
 			<li id="tab_header_item_settings" onclick="tabs.selectSettings();">
-				<svg viewBox="0 0 64 64"
+				<svg viewBox="0 0 65 65"
 					width="32" height="32"
 					preserveAspectRatio="none"
 					xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -138,11 +167,11 @@
 
 
 					<g transform="translate(24 40) rotate(-9)"><g>
-						<use xlink:href="#large_gear" class="gear" />
+						<use xlink:href="#large_gear" class="gear forward_gear" />
 					</g></g>
 
-					<g transform="translate(48 16) rotate(9) scale(0.65 0.65)"><g>
-						<use xlink:href="#small_gear" class="gear" />
+					<g transform="translate(49 15) rotate(9) scale(0.65 0.65)"><g>
+						<use xlink:href="#small_gear" class="gear reverse_gear" />
 					</g></g>
 				</svg>
 				<div style="display: none;">Settings</div>
@@ -153,7 +182,7 @@
 			<section id="tab_content_history" class="tab_content">
 
 				<div id="history_controls">
-					<button id="clear_history" onclick="clearHistory();">Clear History</button>
+					<button id="clear_history">Clear History</button>
 					<hr />
 					<div id="macro_shortcuts">
 					</div>
@@ -167,16 +196,14 @@
 
 				<hr id="history_break"/>
 
-				<form id="roll_lang_form" action="javascript:void(0);" onsubmit="run();">
+				<form id="roll_lang_form" action="javascript:void(0);" >
 					<div id="roll_lang_input_container">
 						<label id="roll_lang_input_label" for="roll lang input">Input</label>
 						<textarea id="roll_lang_input"
 							name="roll lang input"
 							placeholder="Attack roll is /roll 1d20 + [BAB]3 + [STR]3 \."
 							cols="40"
-							rows="4"
-							onfocusin="inputFocusIn()",
-							onfocusout="inputFocusOut()"></textarea>
+							rows="4"></textarea>
 						<input id="roll_lang_submit" type="submit" value="Run" />
 					</div>
 				</form>
@@ -252,6 +279,8 @@
 		</div>
 	</div>
 
+	</div> <!-- app_conent -->
+
 	<footer id="footer_bar" class="grid_item">
 		<!--
 			<span>Footer</span>
@@ -261,15 +290,9 @@
 		<span id="footer_patreon_link">Support this project on <a href="https://patreon.com/roll_lang">Patreon</a></span>
 	</footer>
 
-	<script src="scripts/common.js"></script>
-	<script src="scripts/settings.js"></script>
-	<script src="scripts/tabs.js"></script>
-	<script src="scripts/history.js"></script>
+	<script src="scripts/gl-matrix.js"></script>
 	<script src="scripts/roll_lang_frontend.js"></script>
-	<script src="scripts/macros.js"></script>
-	<script src="scripts/init_wasm.js"></script>
-	<script src="scripts/slider.js"></script>
-	<script src="scripts/main.js"></script>
+	<script src="scripts/bundle.js"></script>
 
 	{% if login_success %}
 		<script>window.alert("Successfully logged in as {{ base.display_name }}")</script>
