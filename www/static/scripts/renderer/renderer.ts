@@ -214,7 +214,9 @@ class Renderer implements ICanvasObservable {
 
 
 			const programInfo = this.resources.getProgram('test');
-
+			if (!programInfo) {
+				return;
+			}
 			const positionBuffer = this.createBuffer(quad, gl.ARRAY_BUFFER);
 			{
 				const numComponents = 4;
@@ -394,7 +396,7 @@ class Renderer implements ICanvasObservable {
 			.catch(console.error);
 		const gridProgram = await this.resources.loadProgram(this.gl, 'grid', 'grid.vert', 'grid.frag')
 			.catch(console.error);
-		const image = await this.resources.loadImage(this.gl, 'testImage', '/sample_map.png')
+		const image = await this.resources.loadImage(this.gl, 'testImage', 'testmap.png')
 			.catch(console.error);
 	}
 }
