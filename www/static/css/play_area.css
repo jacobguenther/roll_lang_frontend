@@ -52,6 +52,17 @@
 	margin-bottom: max(0, 100%);
 }
 
+.level_wrapper {
+	width: 100%;
+}
+.level_header {
+	display: block;
+	width: 100%;
+}
+.level_content {
+
+}
+
 .map_config_layer {
 	display: grid;
 	grid-template-columns: auto;
