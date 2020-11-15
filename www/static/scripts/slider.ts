@@ -24,9 +24,9 @@
  * for the JavaScript code in this page.
  */
 
-/// <reference path="config.ts" />
+import { ElementIds, clamp } from "./config.js";
 
-class SliderBar {
+export class SliderBar {
 	element: HTMLDivElement;
 	container: HTMLDivElement;
 	handlingDragging: boolean;

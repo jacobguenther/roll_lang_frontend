@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 echo "Building roll lang frontend"
-wasm-pack build --target no-modules --out-dir temp > /dev/null 2>&1
+wasm-pack build --target web --mode no-install --out-dir wasm --out-name roll_interpreter > /dev/null 2>&1
 
 tsc
 
@@ -27,8 +27,10 @@ mkdir --parents dist/static/css
 mkdir --parents dist/static/scripts
 mkdir --parents dist/templates
 
-cp temp/roll_lang_frontend* dist/static/scripts/
+cp wasm/roll_interpreter* dist/static/scripts/
 
 cp -r ts_build/*      dist/static/scripts/
 cp -r www/static/*    dist/static/
 cp -r www/templates/* dist/templates/
+
+cp wasm/roll_interpreter* www/static/scripts/

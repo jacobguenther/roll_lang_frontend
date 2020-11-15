@@ -1,4 +1,4 @@
-// File: www/scripts/play_area.js
+// File: www/scripts/renderer/renderer.ts
 
 /**
  * @licstart The following is the entire license notice for the
@@ -24,24 +24,16 @@
  * for the JavaScript code in this page.
  */
 
-/// <reference path="../config.ts" />
-/// <reference path="camera.ts" />
-/// <reference path="canvas_observer.ts" />
-/// <reference path="resources.ts" />
-/// <reference path="level.ts" />
-/// <reference path="layer.ts" />
-
+import { ElementIds } from "./../config.js";
+import { Camera2D } from "./camera.js";
+import { ICanvasObservable, ICanvasObserver } from "./canvas_observer.js";
+import { Resources } from "./resources.js";
+import { MapLayer, GridLayer } from "./layer.js"
+import * as mat4 from "./../gl_matrix/src/mat4.js";
 
 const indices = [
 	0, 1, 2,
 	1, 3, 2,
-];
-
-const quad2 = [
-	 1.0,  1.0, 0.0, 1.0,
-	-1.0,  1.0, 0.0, 1.0,
-	 1.0, -1.0, 0.0, 1.0,
-	-1.0, -1.0, 0.0, 1.0
 ];
 const quad = [
 	// position                uv          color           normal           tangent
@@ -49,6 +41,12 @@ const quad = [
 	 0.5,  0.5,  0.0,  1.0, // 1.0, 0.0,
 	-0.5, -0.5,  0.0,  1.0, // 0.0, 1.0,
 	 0.5, -0.5,  0.0,  1.0, // 1.0, 1.0,
+];
+const quad2 = [
+	1.0,  1.0, 0.0, 1.0,
+   -1.0,  1.0, 0.0, 1.0,
+	1.0, -1.0, 0.0, 1.0,
+   -1.0, -1.0, 0.0, 1.0
 ];
 const uv = [
 	0.0, 0.0,
@@ -63,7 +61,7 @@ const colors = [
 	0.0,  0.0,  1.0,  1.0,    // blue
 ];
 
-class Renderer implements ICanvasObservable {
+export class Renderer implements ICanvasObservable {
 	private playAreaDiv: HTMLDivElement;
 	private canvas: HTMLCanvasElement;
 	private gl: WebGLRenderingContext;
@@ -249,9 +247,9 @@ class Renderer implements ICanvasObservable {
 
 			const projectionMatrix = this.camera.projection();
 			const viewMatrix = this.camera.view();
-			const modelMatrix = glMatrix.mat4.create();
+			const modelMatrix = mat4.create();
 			{
-				glMatrix.mat4.scale(
+				mat4.scale(
 					modelMatrix,
 					modelMatrix,
 					[textureInfo.sizeX, textureInfo.sizeY, 0]
@@ -301,7 +299,7 @@ class Renderer implements ICanvasObservable {
 			gl.useProgram(gridProgram.program);
 			gl.uniformMatrix4fv(gridProgram.uniformLocations.projectionMatrix, false, projectionMatrix);
 			gl.uniformMatrix4fv(gridProgram.uniformLocations.viewMatrix, false, viewMatrix);
-			gl.uniformMatrix4fv(gridProgram.uniformLocations.modelMatrix, false, glMatrix.mat4.create());
+			gl.uniformMatrix4fv(gridProgram.uniformLocations.modelMatrix, false, mat4.create());
 
 			gl.uniform4fv(gridProgram.uniformLocations.gridColor, new Float32Array([0.0, 0.0, 0.0, 1.0]));
 			gl.drawArrays(gl.LINES, 0, gridCount*4+4);

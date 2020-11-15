@@ -24,12 +24,12 @@
  * for the JavaScript code in this page.
  */
 
-/// <reference path="config.ts" />
+import { ElementIds } from "./config.js"
 
 const activeTabClass = 'active_tab';
 const activeTabContentsClass = 'active_tab_contents';
 
-class Tab {
+export class Tab {
 	name: string;
 	tabId: string;
 	contentId: string;
@@ -55,7 +55,7 @@ class Tab {
 	}
 }
 
-class Tabs {
+export class Tabs {
 	history: Tab;
 	characterSheet: Tab;
 	macros:  Tab;

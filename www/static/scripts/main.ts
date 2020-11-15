@@ -24,13 +24,13 @@
  * for the JavaScript code in this page.
  */
 
-/// <reference path="./config.ts" />
-/// <reference path="./slider.ts" />
-/// <reference path="./tabs.ts" />
-/// <reference path="./chat.ts" />
-/// <reference path="./init_wasm.ts" />
-/// <reference path="./map_editor.ts" />
-/// <reference path="./renderer/renderer.ts" />
+import { ElementIds } from "./config.js"
+import { SliderBar } from "./slider.js"
+import { Tabs } from "./tabs.js"
+import { Renderer } from "./renderer/renderer.js"
+import { MapEditor } from "./map_editor.js"
+import init, {run as wasm_interpret_roll} from "./roll_interpreter.js"
+import { Chat } from "./chat.js"
 
 let sliderBar: SliderBar;
 let tabs: Tabs;
@@ -38,12 +38,12 @@ let chat: Chat;
 let renderer: Renderer;
 let mapEditor: MapEditor;
 
-async function start() {
+async function main() {
 	sliderBar = new SliderBar();
 	tabs = new Tabs();
 
 	renderer = new Renderer;
-	await renderer.loadDefaults()
+	renderer.loadDefaults()
 		.then(() => {
 			renderer.setupBuffer();
 		})
@@ -51,15 +51,17 @@ async function start() {
 
 	mapEditor = new MapEditor();
 
-	await initWasm()
+	init()
 		.then(() => {
 			chat = new Chat();
 		});
 }
 
+main();
+
 function runMacro(name: string) {
 	const source = `#{${name}}`;
-	const result = wasm_bindgen.run(source);
+	const result = wasm_interpret_roll(source);
 	chat.appendHistory(source, result);
 }
 
@@ -70,7 +72,7 @@ function testMacro() {
 
 	const source = (<HTMLTextAreaElement>document.getElementById(ElementIds.create_macro_source)).value;
 	if (source.length > 0) {
-		const result = wasm_bindgen.run(source);
+		const result = wasm_interpret_roll(source);
 		const test_output_el = document.getElementById(ElementIds.create_macro_test_output);
 		test_output_el.innerHTML = `<p class="source">#{${name}}</p>${result}`;
 	}

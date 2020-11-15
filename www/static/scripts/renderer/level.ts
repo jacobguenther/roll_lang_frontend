@@ -1,6 +1,6 @@
-/// <reference path="layer.ts" />
+import { MapLayer } from "./layer.js"
 
-class MapLevel {
+export class MapLevel {
 	name: string;
 	height: number | null;
 	layers: Array<MapLayer>;

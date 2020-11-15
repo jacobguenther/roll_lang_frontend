@@ -9,3 +9,5 @@
 
 Cargo.lock
 package-lock.json
+
+/www/static/scripts/roll_interpreter*
