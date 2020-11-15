@@ -24,7 +24,6 @@
 pub mod macro_traits;
 pub mod output_traits;
 pub mod wasm_interface;
-pub mod web;
 
 use wasm_bindgen::prelude::*;
 
