@@ -70,21 +70,25 @@
 					<h3>Map Settings</h3>
 					<ul>
 						<li>
-							<input type="checkbox" />
+							<input type="checkbox" id="map_settings_fow" />
 							<label>Enable Fog of War</label>
 						</li>
 						<li>
-							<input type="checkbox" />
+							<input type="checkbox" id="map_settings_static_lighting" />
 							<label>Enable Static Lighting</label>
 						</li>
 						<li>
-							<input type="checkbox" />
+							<input type="checkbox" id="map_settings_dynamic_lighting" />
 							<label>Enable Dynamic Lighting</label>
+						</li>
+						<li>
+							<input type="checkbox" id="map_settings_2_5D_levels" />
+							<label>Enable 2.5D Levels</label>
 						</li>
 					</ul>
 				</li>
 				<li id="map_levels">
-					<h3>Levels<h3>
+					<h3>Levels</h3>
 					<ul id="map_level_list">
 					</ul>
 					<input type="button" id="create_new_level" value="Create New Level" />
