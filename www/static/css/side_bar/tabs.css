@@ -47,14 +47,24 @@
 #tab_header_item_settings svg:hover .gear{
 	animation-play-state: running;
 }
+
 .gear {
-	animation-name: rotate_gear;
 	animation-duration: 10s;
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
 	animation-play-state: paused;
 }
-@keyframes rotate_gear {
+.forward_gear {
+	animation-name: rotate_gear_forward;
+}
+.reverse_gear {
+	animation-name: rotate_gear_reverse;
+}
+@keyframes rotate_gear_forward {
+	from {transform: none;}
+	to {transform: rotate(-720deg);}
+}
+@keyframes rotate_gear_reverse {
 	from {transform: none;}
 	to {transform: rotate(720deg);}
 }

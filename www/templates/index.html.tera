@@ -63,11 +63,11 @@
 
 		<div id="map_editor_container">
 			<div id="map_editor_header">
-				<h3>Map Editor</h3>
+				<h2>Map Editor(Under Construction)</h2>
 			</div>
 			<ul id="map_editor">
 				<li id="map_editor_settings">
-					<h4>Map Settings</h4>
+					<h3>Map Settings</h3>
 					<ul>
 						<li>
 							<input type="checkbox" />
@@ -84,9 +84,10 @@
 					</ul>
 				</li>
 				<li id="map_levels">
-					<h4>Levels<h4>
+					<h3>Levels<h3>
 					<ul id="map_level_list">
 					</ul>
+					<input type="button" id="create_new_level" value="Create New Level" />
 				</li>
 			</ul>
 		</div>
@@ -109,7 +110,7 @@
 			<li id="tab_header_item_notes" onclick="tabs.selectNotes();">Notes</li>
 			<li id="tab_header_item_tables" onclick="tabs.selectTables();">Tables</li>
 			<li id="tab_header_item_settings" onclick="tabs.selectSettings();">
-				<svg viewBox="0 0 64 64"
+				<svg viewBox="0 0 65 65"
 					width="32" height="32"
 					preserveAspectRatio="none"
 					xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -162,11 +163,11 @@
 
 
 					<g transform="translate(24 40) rotate(-9)"><g>
-						<use xlink:href="#large_gear" class="gear" />
+						<use xlink:href="#large_gear" class="gear forward_gear" />
 					</g></g>
 
-					<g transform="translate(48 16) rotate(9) scale(0.65 0.65)"><g>
-						<use xlink:href="#small_gear" class="gear" />
+					<g transform="translate(49 15) rotate(9) scale(0.65 0.65)"><g>
+						<use xlink:href="#small_gear" class="gear reverse_gear" />
 					</g></g>
 				</svg>
 				<div style="display: none;">Settings</div>
