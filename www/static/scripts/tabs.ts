@@ -65,32 +65,45 @@ export class Tabs {
 	currentSelected: Tab;
 
 	constructor() {
-		this.history = new Tab(
+		this.history = this.initTab(
 			ElementIds.header_item_history,
-			ElementIds.tab_content_history
+			ElementIds.tab_content_history,
+			this.selectHistory
 		);
-		this.characterSheet = new Tab(
+		this.characterSheet = this.initTab(
 			ElementIds.header_item_character_sheets,
-			ElementIds.tab_content_character_sheets
+			ElementIds.tab_content_character_sheets,
+			this.selectCharacterSheets
 		);
-		this.macros = new Tab(
+		this.macros = this.initTab(
 			ElementIds.header_item_macros,
-			ElementIds.tab_content_macros
+			ElementIds.tab_content_macros,
+			this.selectMacros
 		);
-		this.notes = new Tab(
+		this.notes = this.initTab(
 			ElementIds.header_item_notes,
-			ElementIds.tab_content_notes
-		)
-		this.tables = new Tab(
+			ElementIds.tab_content_notes,
+			this.selectNotes
+		);
+		this.tables = this.initTab(
 			ElementIds.header_item_tables,
-			ElementIds.tab_content_tables
+			ElementIds.tab_content_tables,
+			this.selectTables
 		);
-		this.settings = new Tab(
+		this.settings = this.initTab(
 			ElementIds.header_item_settings,
-			ElementIds.tab_content_settings
+			ElementIds.tab_content_settings,
+			this.selectSettings
 		);
+
 		this.currentSelected = this.history;
 		this.history.setActive();
+	}
+	initTab(headerId: string, contentId: string, selectCallback): Tab {
+		const tab = new Tab(headerId, contentId);
+		const callback = selectCallback.bind(this);
+		tab.tab.addEventListener('click', callback);
+		return tab;
 	}
 	selectTab(tab: Tab) {
 		this.currentSelected.setInactive();
