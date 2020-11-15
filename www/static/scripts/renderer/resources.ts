@@ -24,49 +24,7 @@
  * for the JavaScript code in this page.
  */
 
-function isGoodResponseStatus(status: number) {
-	return status > 199 && status < 300;
-}
-function checkFetchError(response: Response) {
-	if (isGoodResponseStatus(response.status)) {
-		return Promise.resolve(response);
-	} else {
-		throw Promise.reject(response.statusText);
-	}
-}
-async function myFetch(url: string, method: string, credentials: RequestCredentials, body: any): Promise<any> {
-	return await fetch(url, {
-		method: method,
-		mode: 'cors',
-		credentials: credentials,
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-		body: body,
-	});
-}
-async function fetchJson(url: string, method: string, body: any): Promise<any> {
-	return await myFetch(url, method, 'same-origin', body)
-		.then(checkFetchError)
-		.then((response) => { return response.json(); })
-}
-async function fetchImage(name: string) {
-	return await myFetch(`/assets/${name}`, 'GET', 'omit', null)
-		.then(checkFetchError)
-		.then((response) => {
-			return response.blob();
-		})
-		.then((image) => {
-			return Promise.resolve(URL.createObjectURL(image));
-		})
-}
-async function fetchShader(name: string) {
-	return await myFetch(`/assets/shaders/${name}`, 'GET', 'omit', null)
-		.then(checkFetchError)
-		.then((response) => { return response.text(); })
-}
+import { fetchShader, fetchImage } from "./../fetch.js";
 
 interface IKeyedCollection<T> {
     add(key: string, value: T): void;
