@@ -54,13 +54,23 @@
 
 .level_wrapper {
 	width: 100%;
+	background-color: lemonchiffon;
+}
+.level_wrapper:nth-child(even) {
+	background-color: lavender;
 }
 .level_header {
 	display: block;
 	width: 100%;
 }
 .level_content {
-
+	display: grid;
+	grid-template-columns: auto;
+}
+.new_layer_wrapper {
+	background-color: lightblue;
+	display: grid;
+	grid-template-columns: auto;
 }
 
 .map_config_layer {
