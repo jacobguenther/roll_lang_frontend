@@ -28,6 +28,8 @@
 /// <reference path="camera.ts" />
 /// <reference path="canvas_observer.ts" />
 /// <reference path="resources.ts" />
+/// <reference path="level.ts" />
+/// <reference path="layer.ts" />
 
 
 const indices = [
@@ -60,42 +62,6 @@ const colors = [
 	0.0,  1.0,  0.0,  1.0,    // green
 	0.0,  0.0,  1.0,  1.0,    // blue
 ];
-
-class Grid {
-	gridCount: number;
-	gridSize: number;
-
-	gridPoints: number[] = [];
-
-	useAxis: boolean = false;
-	xAxis: number[] = [];
-	yAxis: number[] = [];
-	zAxis: number[] = [];
-	constructor(gridCount: number, gridSize: number, useAxis: boolean) {
-		this.gridCount = Math.floor(gridCount);
-		this.gridSize = Math.floor(gridSize);
-		this.useAxis = useAxis;
-		this.gridPoints = this.createGridPoints();
-		console.log(this.gridPoints);
-	}
-	createGridPoints(): number[] {
-		const points: number[] = [];
-
-		const min = -this.gridCount * this.gridSize/2;
-		const max = this.gridCount * this.gridSize/2;
-		for (let pos = -this.gridCount/2; pos < this.gridCount/2; ++pos) {
-			const offset = pos * this.gridSize;
-			points.push(
-				offset, min, offset, max, // y dir
-				min, offset, max, offset  // x dir
-			);
-		}
-		points.push(min, max, max, max);
-		points.push(max, min, max, max);
-
-		return points;
-	}
-}
 
 class Renderer implements ICanvasObservable {
 	private playAreaDiv: HTMLDivElement;
@@ -314,7 +280,7 @@ class Renderer implements ICanvasObservable {
 			const gridSize = 64;
 
 			const gridProgram = this.resources.getProgram('grid');
-			const grid = new Grid(gridCount, gridSize, false);
+			const grid = new GridLayer(gridCount, gridSize, false);
 			const gridBuffer = this.createBuffer(grid.gridPoints, gl.ARRAY_BUFFER);
 			{
 				const numComponents = 2;
