@@ -48,7 +48,7 @@ async function initPlayerMacrosIfLoggedIn() {
 async function initPlayerMacros() {
 	const url = '/api/player/macros/all';
 	const macrosJson = await fetchJson(url, 'GET', null);
-	macrosJson.json().then(data => {
+	macrosJson.json().then((data: Array<any>) => {
 		console.log(data);
 		data.sort((a: Macro, b: Macro) => {
 			if (a.name > b.name) { return 1; }
