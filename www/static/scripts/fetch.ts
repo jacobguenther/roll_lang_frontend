@@ -50,7 +50,7 @@ async function myFetch(url: string, method: string, credentials: RequestCredenti
 export async function fetchJson(url: string, method: string, body: any): Promise<any> {
 	return await myFetch(url, method, 'same-origin', body)
 		.then(checkFetchError)
-		.then((response) => { return response.json(); })
+		.then((response) => { return response; })
 }
 export async function fetchImage(name: string) {
 	return await myFetch(`/assets/${name}`, 'GET', 'omit', null)
