@@ -24,32 +24,32 @@
  * for the JavaScript code in this page.
  */
 
-/// <reference path="config.ts" />
-/// <reference path="macros.ts" />
+import { ElementIds } from "./config.js"
+import { fetchJson } from "./fetch.js"
+import { Macro, testMacro, addMacroToTable, addMacroShortcutDOM, handleMacroSort, createUpdateMacro, handleSortMacrosByName, handleSortMacrosByShortcut } from "./macros.js"
+import init, {init_wasm as init_interpreter, add_macros as add_macros_to_interpreter} from "./roll_interpreter.js"
 
 const macros: Array<Macro> = [];
 
-async function initWasm() {
-	await wasm_bindgen('./scripts/roll_lang_frontend_bg.wasm');
-	wasm_bindgen.init_wasm();
+export async function initWasm() {
+	await init();
+	init_interpreter();
 
-	await getIsLoggedIn();
+	await initPlayerMacrosIfLoggedIn();
 
-	return Promise.resolve();
+	initMacroCreateTabCallbacks();
 }
-
-async function getIsLoggedIn() {
-	let callback = async function(loggedIn: boolean) {
-		if (loggedIn) {
-			await initPlayerMacros();
-		}
-	};
-
-	return await fetchJson('/api/player/logged_in', 'GET', null, callback);
+async function initPlayerMacrosIfLoggedIn() {
+	let res = await fetchJson('/api/player/logged_in', 'GET', null);
+	if (res) {
+		await initPlayerMacros();
+	}
 }
 async function initPlayerMacros() {
 	const url = '/api/player/macros/all';
-	return await fetchJson(url, 'GET', null, function(data: Array<Macro>) {
+	const macrosJson = await fetchJson(url, 'GET', null);
+	macrosJson.json().then(data => {
+		console.log(data);
 		data.sort((a: Macro, b: Macro) => {
 			if (a.name > b.name) { return 1; }
 			else if (a.name < b.name) { return -1; }
@@ -63,7 +63,18 @@ async function initPlayerMacros() {
 				addMacroShortcutDOM(element.name);
 			}
 		}
-		wasm_bindgen.add_macros(macros);
+		add_macros_to_interpreter(macros);
 		handleMacroSort();
 	});
+}
+function initMacroCreateTabCallbacks() {
+	document.getElementById(ElementIds.create_macro_submit)
+		.addEventListener('click', createUpdateMacro);
+	document.getElementById(ElementIds.create_macro_test_submit)
+		.addEventListener('click', testMacro);
+
+	document.getElementById(ElementIds.macros_table_name_header)
+		.addEventListener('click', handleSortMacrosByName);
+	document.getElementById(ElementIds.macros_table_shortcut_header)
+		.addEventListener('click', handleSortMacrosByShortcut);
 }
