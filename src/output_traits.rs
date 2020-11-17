@@ -98,7 +98,7 @@ impl AsHtml for FormulaFragment {
 
 				match tooltip {
 					Some(comment) => html.push_str(&format!(
-						")<div class=\"tooltiptext\">{}</div></div></div>",
+						")<div class=\"tooltip_text\">{}</div></div></div>",
 						comment
 					)),
 					None => html.push_str(")</div>"),
@@ -115,7 +115,7 @@ impl AsHtml for FormulaFragment {
 
 				match tooltip {
 					Some(comment) => html.push_str(&format!(
-						")<div class=\"tooltiptext\">{}</div></div></div>",
+						")<div class=\"tooltip_text\">{}</div></div></div>",
 						comment
 					)),
 					None => html.push_str(")</div>"),
