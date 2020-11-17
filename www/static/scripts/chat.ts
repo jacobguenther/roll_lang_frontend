@@ -62,7 +62,12 @@ export class Chat {
 		resultElement.innerHTML = result;
 		deleteEntry.type = 'button';
 		deleteEntry.innerHTML = 'Delete Entry';
-		deleteEntry.setAttribute('onclick', `Chat.deleteChatEntry(${this.entryIDCounter})`);
+
+		const temp = this.entryIDCounter;
+		deleteEntry.addEventListener('click', () => {
+			Chat.deleteChatEntry(temp.toString());
+		});
+
 		this.entryIDCounter += 1;
 
 		latestEntry.appendChild(sourceElement);
