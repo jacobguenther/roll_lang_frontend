@@ -210,13 +210,13 @@ export async function deleteMacro(macroName: string) {
 }
 
 export async function changeMacroShortcut(macroName: string) {
-	const hasShortcut = (<HTMLInputElement>document.getElementById(ElementIds.macroTableShortcutTongle(macroName))).checked;
+	const isChecked = (<HTMLInputElement>document.getElementById(ElementIds.macroTableShortcutTongle(macroName))).checked;
 	const inShrortcuts = document.getElementById(ElementIds.macroShortcut(macroName)) !== null;
 
-	if (hasShortcut && !inShrortcuts) {
-		await addMacroShortcutServer(macroName);
-	} else if (!hasShortcut && inShrortcuts) {
-		await removeMacroShortcutServer(macroName);
+	if (isChecked && !inShrortcuts) {
+		addMacroShortcutServer(macroName);
+	} else if (!isChecked && inShrortcuts) {
+		removeMacroShortcutServer(macroName);
 	}
 }
 export function addMacroShortcutDOM(macroName: string) {
@@ -250,7 +250,7 @@ export async function removeMacroShortcutServer(macroName: string) {
 	const body = JSON.stringify({
 		name: macroName,
 		source: "",
-		has_shortcut: true,
+		has_shortcut: false,
 	});
 	await fetchJson(url, 'POST', body);
 }
