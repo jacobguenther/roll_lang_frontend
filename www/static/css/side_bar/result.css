@@ -4,7 +4,7 @@
 	display: block;
 	border-bottom: 1px dotted black;
 }
-.tooltiptext {
+.tooltip_text {
 	visibility: collapse;
 	display: none;
 	width: auto;
@@ -22,17 +22,17 @@
 
 	z-index: 10;
 }
-.tooltipped:hover .tooltiptext {
+.tooltipped:hover .tooltip_text {
 	visibility: visible;
 
 	display: inline-block;
 }
 
 
-.tooltiptext .formula {
+.tooltip_text .formula {
 	background-color: black;
 }
-.tooltiptext .result {
+.tooltip_text .result {
 	background-color: black;
 }
 

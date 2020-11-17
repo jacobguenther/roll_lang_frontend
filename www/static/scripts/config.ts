@@ -76,13 +76,16 @@ export const ElementIds = {
 	create_macro_source: 'create_macro_source', // textarea
 	create_macro_shortcut_container: 'create_macro_shortcut_container',
 	create_macro_add_shortcut: 'create_macro_add_shortcut',
-	create_macro_submits: 'create_macro_submits', // input
+	create_macro_submits: 'create_macro_submits', // div wrapper
 	create_macro_create_or_update: 'create_macro_create_or_update',
-	create_macro_test_macro: 'create_macro_test_macro',
+	create_macro_submit: 'create_macro_submit',
+	create_macro_test_submit: 'test_macro_submit',
 	create_macro_test_output: 'create_macro_test_output',
 
 	macro_table_container: 'macros_table_container',
 	macro_table: 'macros_table',
+	macros_table_name_header: 'macros_table_name_header',
+	macros_table_shortcut_header: 'macros_table_shortcut_header',
 	macro_table_header_name: 'macros_table_name',
 	macro_table_header_shortcut: 'macros_table_shortcut',
 	macro_table_header_delete: 'macros_table_delete',

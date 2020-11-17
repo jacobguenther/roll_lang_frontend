@@ -29,12 +29,13 @@ import { SliderBar } from "./slider.js"
 import { Tabs } from "./tabs.js"
 import { Renderer } from "./renderer/renderer.js"
 import { MapEditor } from "./map_editor.js"
-import init, {run as wasm_interpret_roll} from "./roll_interpreter.js"
+import { initWasm } from "./init_wasm.js"
 import { Chat } from "./chat.js"
+import { Macro } from "./macros.js"
 
 let sliderBar: SliderBar;
 let tabs: Tabs;
-let chat: Chat;
+export let chat: Chat;
 let renderer: Renderer;
 let mapEditor: MapEditor;
 
@@ -51,29 +52,10 @@ async function main() {
 
 	mapEditor = new MapEditor();
 
-	init()
+	initWasm()
 		.then(() => {
 			chat = new Chat();
 		});
 }
 
 main();
-
-function runMacro(name: string) {
-	const source = `#{${name}}`;
-	const result = wasm_interpret_roll(source);
-	chat.appendHistory(source, result);
-}
-
-function testMacro() {
-	const name = (<HTMLInputElement>document.getElementById(ElementIds.create_macro_name)).value;
-
-	// validate macro name here
-
-	const source = (<HTMLTextAreaElement>document.getElementById(ElementIds.create_macro_source)).value;
-	if (source.length > 0) {
-		const result = wasm_interpret_roll(source);
-		const test_output_el = document.getElementById(ElementIds.create_macro_test_output);
-		test_output_el.innerHTML = `<p class="source">#{${name}}</p>${result}`;
-	}
-}

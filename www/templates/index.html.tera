@@ -48,7 +48,7 @@
 		<p id="play_area_under_construction">Play Area is Currently Under Construction</p>
 		<canvas id="play_area_canvas"></canvas>
 
-		<div id="map_editor_container">
+		<div id="map_editor_container" style="display: none">
 			<div id="map_editor_header">
 				<h2>Map Editor(Under Construction)</h2>
 			</div>
@@ -220,8 +220,8 @@
 							<input type="checkbox" id="create_macro_add_shortcut" name="create macro add shortcut" checked />
 						</div>
 						<div id="create_macro_submits">
-							<input type="submit" id="create_macro_submit" value="Create/Update" onclick="createUpdateMacro();" />
-							<input type="button" id="test_macro_submit" value="Test Macro" onclick="testMacro();"/>
+							<input type="submit" id="create_macro_submit" value="Create/Update" />
+							<input type="button" id="test_macro_submit" value="Test Macro" />
 						</div>
 						<div id="create_macro_test_output">
 						</div>
@@ -233,8 +233,8 @@
 					<p>Shortcuts can be access in the chat tab.</p>
 					<table id="macros_table">
 						<tr>
-							<th><span onclick="handleSortMacrosByName();">Name</span></th>
-							<th><span onclick="handleSortMacrosByShortcut();">Shortcut</span></th>
+							<th><span id="macros_table_name_header">Name</span></th>
+							<th><span id="macros_table_shortcut_header">Shortcut</span></th>
 							<th>Delete</th>
 						</tr>
 					</table>

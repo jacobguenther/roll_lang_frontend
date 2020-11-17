@@ -53,9 +53,9 @@ impl AsHtml for RollType {
 				expression_output.as_html()
 			),
 			RollType::InlineRoll(expression_output) => format!(
-				"<div class=\"inline-roll\">\
+				"<div class=\"inline_roll\">\
 						<div class=\"result\">{}</div>\
-						<div class=\"tooltip-text\">{}</div>\
+						<div class=\"tooltip_text\">{}</div>\
 					</div>",
 				expression_output.result,
 				expression_output.as_html()
@@ -98,7 +98,7 @@ impl AsHtml for FormulaFragment {
 
 				match tooltip {
 					Some(comment) => html.push_str(&format!(
-						")<div class=\"tooltiptext\">{}</div></div></div>",
+						")<div class=\"tooltip_text\">{}</div></div></div>",
 						comment
 					)),
 					None => html.push_str(")</div>"),
@@ -115,7 +115,7 @@ impl AsHtml for FormulaFragment {
 
 				match tooltip {
 					Some(comment) => html.push_str(&format!(
-						")<div class=\"tooltiptext\">{}</div></div></div>",
+						")<div class=\"tooltip_text\">{}</div></div></div>",
 						comment
 					)),
 					None => html.push_str(")</div>"),
@@ -139,10 +139,10 @@ impl AsHtml for NumberRoll {
 	fn as_html(&self) -> String {
 		match self {
 			NumberRoll::Counted(int) => {
-				format!("<div class=\"roll-counted\">{}</div>", int.value())
+				format!("<div class=\"roll_counted\">{}</div>", int.value())
 			}
 			NumberRoll::NotCounted(int) => {
-				format!("<div class=\"roll-not-counted\">{}</div>", int.value())
+				format!("<div class=\"roll_not_counted\">{}</div>", int.value())
 			}
 		}
 	}
@@ -161,10 +161,10 @@ impl AsHtml for SuccessFailRolls {
 impl AsHtml for SuccessFail {
 	fn as_html(&self) -> String {
 		let (class, value) = match self {
-			SuccessFail::Success(roll) => ("success-roll", roll.value()),
-			SuccessFail::Fail(roll) => ("fail-roll", roll.value()),
-			SuccessFail::CriticalSuccess(roll) => ("critical-success-roll", roll.value()),
-			SuccessFail::CriticalFail(roll) => ("critical-fail-roll", roll.value()),
+			SuccessFail::Success(roll) => ("success_roll", roll.value()),
+			SuccessFail::Fail(roll) => ("fail_roll", roll.value()),
+			SuccessFail::CriticalSuccess(roll) => ("critical_success_roll", roll.value()),
+			SuccessFail::CriticalFail(roll) => ("critical_fail_roll", roll.value()),
 		};
 		format!("<div class=\"{}\">{}</div>", class, value)
 	}

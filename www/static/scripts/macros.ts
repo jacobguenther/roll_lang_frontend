@@ -24,7 +24,13 @@
  * for the JavaScript code in this page.
  */
 
-class Macro {
+import { ElementIds } from "./config.js"
+import * as wasm_bindgen from "./roll_interpreter.js"
+import {run as wasm_interpret_roll} from "./roll_interpreter.js"
+import { fetchJson } from "./fetch.js"
+import { chat } from "./main.js"
+
+export class Macro {
 	name: string;
 	source: string;
 	has_shortcut: boolean;
@@ -36,7 +42,26 @@ class Macro {
 	}
 }
 
-const enum MacrosSort {
+export function runMacro(name: string) {
+	const source = `#{${name}}`;
+	const result = wasm_interpret_roll(source);
+	chat.appendHistory(source, result);
+}
+
+export function testMacro() {
+	const name = (<HTMLInputElement>document.getElementById(ElementIds.create_macro_name)).value;
+
+	// validate macro name here
+
+	const source = (<HTMLTextAreaElement>document.getElementById(ElementIds.create_macro_source)).value;
+	if (source.length > 0) {
+		const result = wasm_interpret_roll(source);
+		const test_output_el = document.getElementById(ElementIds.create_macro_test_output);
+		test_output_el.innerHTML = `<p class="source">#{${name}}</p>${result}`;
+	}
+}
+
+export const enum MacrosSort {
 	NAME,
 	REVERSE_NAME,
 	SHORTCUT,
@@ -46,7 +71,7 @@ const enum MacrosSort {
 let macros_sort = MacrosSort.NAME;
 const macroTable: HTMLTableElement = <HTMLTableElement>document.getElementById(ElementIds.macro_table);
 
-function handleMacroSort() {
+export function handleMacroSort() {
 	let rows = macroTableRows();
 	sortMacrosByName(rows);
 	switch(macros_sort) {
@@ -64,7 +89,7 @@ function handleMacroSort() {
 	}
 	appendRows(rows);
 }
-function handleSortMacrosByName() {
+export function handleSortMacrosByName() {
 	switch(macros_sort) {
 		case MacrosSort.NAME:
 			macros_sort = MacrosSort.REVERSE_NAME;
@@ -77,7 +102,7 @@ function handleSortMacrosByName() {
 	}
 	handleMacroSort();
 }
-function handleSortMacrosByShortcut() {
+export function handleSortMacrosByShortcut() {
 	switch(macros_sort) {
 		case MacrosSort.SHORTCUT:
 			macros_sort = MacrosSort.REVERSE_SHORTCUT;
@@ -130,7 +155,7 @@ function reverseMacros(rows: Array<HTMLTableRowElement>) {
 
 
 
-async function createUpdateMacro() {
+export async function createUpdateMacro() {
 	const nameInputElement = <HTMLInputElement>document.getElementById(ElementIds.create_macro_name);
 	const name: string = nameInputElement.value;
 	if (name.length === 0) {
@@ -146,11 +171,11 @@ async function createUpdateMacro() {
 
 	console.log(inTable);
 
-	// if (hasShortcut && !inShrortcuts) {
-	// 	await addMacroShortcutServer(name);
-	// } else if (!hasShortcut && inShrortcuts) {
-	// 	await removeMacroShortcutServer(name);
-	// }
+	if (hasShortcut && !inShrortcuts) {
+		await addMacroShortcutServer(name);
+	} else if (!hasShortcut && inShrortcuts) {
+		await removeMacroShortcutServer(name);
+	}
 
 	if (!inTable) {
 		addMacroToTable(name, hasShortcut);
@@ -163,10 +188,9 @@ async function createUpdateMacro() {
 
 	console.log('test');
 	const body = JSON.stringify(macro);
-	console.log(body);
-	await fetchJson(url, 'POST', body, () => {});
+	await fetchJson(url, 'POST', body);
 }
-async function deleteMacro(macroName: string) {
+export async function deleteMacro(macroName: string) {
 	const shortcut = document.getElementById(ElementIds.macroShortcut(macroName));
 	if (shortcut) {
 		shortcut.remove();
@@ -182,28 +206,30 @@ async function deleteMacro(macroName: string) {
 	const body = JSON.stringify({
 		name: macroName,
 	});
-	await fetchJson(url, 'DELETE', body, null);
+	await fetchJson(url, 'DELETE', body);
 }
 
-async function changeMacroShortcut(macroName: string) {
-	const hasShortcut = (<HTMLInputElement>document.getElementById(ElementIds.macroTableShortcutTongle(macroName))).checked;
+export async function changeMacroShortcut(macroName: string) {
+	const isChecked = (<HTMLInputElement>document.getElementById(ElementIds.macroTableShortcutTongle(macroName))).checked;
 	const inShrortcuts = document.getElementById(ElementIds.macroShortcut(macroName)) !== null;
 
-	if (hasShortcut && !inShrortcuts) {
-		await addMacroShortcutServer(macroName);
-	} else if (!hasShortcut && inShrortcuts) {
-		await removeMacroShortcutServer(macroName);
+	if (isChecked && !inShrortcuts) {
+		addMacroShortcutServer(macroName);
+	} else if (!isChecked && inShrortcuts) {
+		removeMacroShortcutServer(macroName);
 	}
 }
-function addMacroShortcutDOM(macroName: string) {
+export function addMacroShortcutDOM(macroName: string) {
 	const shortcuts = document.getElementById(ElementIds.macro_shortcuts);
 	let newShortcut = document.createElement('button');
 	newShortcut.id = ElementIds.macroShortcut(macroName);
 	newShortcut.innerHTML = macroName;
-	newShortcut.setAttribute('onclick', `runMacro('${macroName}');`);
+	newShortcut.addEventListener('click', () => {
+		runMacro(macroName);
+	});
 	shortcuts.appendChild(newShortcut);
 }
-async function addMacroShortcutServer(macroName: string) {
+export async function addMacroShortcutServer(macroName: string) {
 	addMacroShortcutDOM(macroName);
 
 	const url = '/api/player/macros/update_shortcut';
@@ -212,25 +238,25 @@ async function addMacroShortcutServer(macroName: string) {
 		source: "",
 		has_shortcut: true,
 	});
-	await fetchJson(url, 'POST', body, null);
+	await fetchJson(url, 'POST', body);
 }
-function removeMacroShortcutDOM(macroName: string) {
+export function removeMacroShortcutDOM(macroName: string) {
 	document.getElementById(ElementIds.macroShortcut(macroName)).remove();
 }
-async function removeMacroShortcutServer(macroName: string) {
+export async function removeMacroShortcutServer(macroName: string) {
 	removeMacroShortcutDOM(macroName);
 
 	const url = '/api/player/macros/update_shortcut';
 	const body = JSON.stringify({
 		name: macroName,
 		source: "",
-		has_shortcut: true,
+		has_shortcut: false,
 	});
-	await fetchJson(url, 'POST', body, null);
+	await fetchJson(url, 'POST', body);
 }
 
 
-function addMacroToTable(macroName: string, hasShortcut: boolean) {
+export function addMacroToTable(macroName: string, hasShortcut: boolean) {
 	const macroTable = document.getElementById(ElementIds.macro_table);
 
 	let newRow = document.createElement('tr');
@@ -238,7 +264,9 @@ function addMacroToTable(macroName: string, hasShortcut: boolean) {
 
 	const nameCell = document.createElement('td');
 	nameCell.innerHTML = macroName;
-	nameCell.setAttribute('onclick', `selectMacro('${macroName}');`);
+	nameCell.addEventListener('click', () => {
+		selectMacro(macroName);
+	});
 
 	const shortcutCell = document.createElement('td');
 	const shortcutTongle = document.createElement('input');
@@ -247,20 +275,24 @@ function addMacroToTable(macroName: string, hasShortcut: boolean) {
 		shortcutTongle.checked = true;
 	}
 	shortcutTongle.id = ElementIds.macroTableShortcutTongle(macroName);
-	shortcutTongle.setAttribute('onclick', `changeMacroShortcut('${macroName}');`);
+	shortcutTongle.addEventListener('click', () => {
+		changeMacroShortcut(macroName);
+	});
 	shortcutCell.appendChild(shortcutTongle);
 
 	const deleteCell = document.createElement('td');
 	deleteCell.id = ElementIds.macroTableRowDelete(macroName);
 	deleteCell.innerHTML = 'delete';
-	deleteCell.setAttribute('onclick', `deleteMacro('${macroName}');`);
+	deleteCell.addEventListener('click', () => {
+		deleteMacro(macroName);
+	});
 
 	newRow.appendChild(nameCell);
 	newRow.appendChild(shortcutCell);
 	newRow.appendChild(deleteCell);
 	macroTable.appendChild(newRow);
 }
-function selectMacro(macroName: string) {
+export function selectMacro(macroName: string) {
 	(<HTMLInputElement>document.getElementById(ElementIds.create_macro_name)).value = macroName;
 	(<HTMLInputElement>document.getElementById(ElementIds.create_macro_source)).value = wasm_bindgen.macro_source(macroName);
 }
